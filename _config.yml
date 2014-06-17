@@ -1,0 +1,18 @@
+# Site settings
+name: "sean.sh"
+title: Hello, World
+email: "&#109;&#097;&#105;&#108;&#064;&#115;&#101;&#097;&#110;&#046;&#115;&#104;"
+description: "Personal blog of Sean Henderson from San Francisco, CA"
+baseurl: ""
+url: "http://sean.sh"
+username: thetateal
+
+# Build settings
+markdown: kramdown
+permalink:  /blog/:title
+
+sass:
+    sass_dir: _sass
+    style: :compressed
+
+paginate: 5
