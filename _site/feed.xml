@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hello, World</title>
+    <description>Personal blog of Sean Henderson from San Francisco, CA</description>
+    <link>http://sean.sh/</link>
+    <atom:link href="http://sean.sh/feed.xml" rel="self" type="application/rss+xml" />
+    
+      <item>
+        <title>HTTP gzip compression on a MediaTemple (dv)</title>
+        <description>&lt;p&gt;I’ve had this (mt) DV box for quite some time, mostly use it for staging, small WordPress gigs and running a qmail server that forwards mail elsewhere. It’s reliable, has lots of client-friendly features like Plesk, and can host a zillion websites. But it was always kinda slow, especially from the eastern hemisphere, and executing otherwise simple server admin stuff (like adding ssh keys) was always a bit perverted by the finicky complexities that come with Plesk. So, it wasn’t really my go-to for builds with serious production needs.&lt;/p&gt;
+
+&lt;p&gt;Recently I’ve embarked on a mission: give out 100 free websites, to raise awareness about the benefits of quality web development in Nepal. The allure of having them all live in one central community, flexible enough to provide features like email and separate client hosting logins when needed, along with he infamous &lt;a href=&quot;http://download1.parallels.com/Plesk/PP11/11.0/Doc/en-US/online/plesk-unix-cli/&quot;&gt;Plesk Command Line Utilities&lt;/a&gt; provided sufficient temptation to get toolin’. First stop: HTTP compression.&lt;/p&gt;
+
+&lt;p&gt;Well, two hours later, blatantly violating my 20 minute commit rule, there is fruit at the end of the tunnel. At first it seemed as simple as finding some good Apache &lt;code&gt;mod_deflate&lt;/code&gt; rules, appending to &lt;code&gt;httpd.conf&lt;/code&gt; and watching the PageSpeed rank soar. I followed &lt;a href=&quot;http://kb.mediatemple.net/questions/1567/Compressing+web+pages+with+mod_deflate#dv&quot;&gt;(mt)’s knowledge base article on compressing web pages with mod_deflate&lt;/a&gt; to the letter, no luck - &lt;code&gt;Content-Encoding:gzip&lt;/code&gt; was no where to be found in my response headers.&lt;/p&gt;
+
+&lt;p&gt;Here’s the QA session that ensued:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Is &lt;code&gt;.htaccess&lt;/code&gt; negating whatever I just did?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;No, even after removing the boilerplate compression rules, still nothing.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;What about removing (mt)’s content type rules and sticking with the &lt;code&gt;.htaccess&lt;/code&gt;?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Nada.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;I remembered to restart apache, right?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Once more for good measure… nope.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Are there separate apache configs for the Plesk vhosts overwriting &lt;code&gt;httpd.conf&lt;/code&gt;?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Negative.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Google: “mediatemple dv mod_deflate not working”&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Aha, &lt;a href=&quot;https://forum.mediatemple.net/topic/6979-mod-deflate-only-working-on-files-1kb-anyone-help-locate-the-issue/#entry37335&quot;&gt;someone in the (mt) community forums&lt;/a&gt; mentioned “I’m willing to bet you’re running Nginx as a reverse proxy on your (dv) box.”&lt;/p&gt;
+
+&lt;p&gt;A quick peek into &lt;code&gt;/etc/nginx/nginx.conf&lt;/code&gt; shows that not only are there ready-made gzip switches in place, they’ve been commented out.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#gzip on;
+#gzip_disable &quot;MSIE [1-6]\.(?!.*SV1)&quot;;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;After uncommenting and &lt;code&gt;service nginx restart&lt;/code&gt;ing, gzip compression was working… for &lt;em&gt;only for&lt;/em&gt; &lt;code&gt;index.html&lt;/code&gt;! js, css, etc were still missing the elusive &lt;code&gt;Content-Encoding:gzip&lt;/code&gt; header. Time to crack a second litre of whiskey.&lt;/p&gt;
+
+&lt;p&gt;My &lt;code&gt;mod_deflate&lt;/code&gt; rules included all the correct content types. I even added redundant declarations in both &lt;code&gt;httpd.conf&lt;/code&gt; and the indigenous &lt;code&gt;.htaccess&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;AddOutputFilterByType DEFLATE application/atom+xml \
+                              application/javascript \
+                              application/json \
+                              application/ld+json \
+                              application/rss+xml \
+                              application/vnd.ms-fontobject \
+                              application/x-font-ttf \
+                              application/x-web-app-manifest+json \
+                              application/xhtml+xml \
+                              application/xml \
+                              font/opentype \
+                              image/svg+xml \
+                              image/x-icon \
+                              text/css \
+                              text/html \
+                              text/plain \
+                              text/x-component \
+                              text/xml
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So, back to Google, wherein lies a &lt;a href=&quot;http://kickassability.com/apache-nginx-mod_deflate-gzip-compression-woes/&quot;&gt;kick ass post&lt;/a&gt; about the woes of compression on a Mediatemple DV, along with a more iterative solution:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;gzip on;
+gzip_http_version 1.1;
+gzip_types text/plain text/html text/css text/javascript application/x-javascript text/xml application/xml application/xml+rss;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;gzip was on, but nginx also controls which file types will be compressed. Ok, so just &lt;code&gt;service nginx restart&lt;/code&gt; right quick, pop back to dev tools, refresh… Huh? CSS is gzipped, and JS isn’t. So did I misspell &lt;code&gt;javacsritp&lt;/code&gt; in &lt;code&gt;nginx.conf&lt;/code&gt;? No, but as it turns out, if you check the response header of a .js file in any browser since the dark ages, the term is &lt;code&gt;Content-Type:text/javascript;&lt;/code&gt;, not &lt;code&gt;text/javascript&lt;/code&gt;. One more round of restart/refresh, and gzip goodness was fully functional.&lt;/p&gt;
+
+&lt;p&gt;So all those neglected sites on my DV are running pretty fast now, even despite the heinously slow internet speeds in Nepal, on par with a dial up modem that’s having a really good day.&lt;/p&gt;
+
+&lt;p&gt;If you’re thinking about hopping aboard the HTTP compression love boat, be sure to keep your packages safe from uncool browsers with &lt;code&gt;Vary: Accept-Encoding&lt;/code&gt;. MaxCDN has a &lt;a href=&quot;http://blog.maxcdn.com/accept-encoding-its-vary-important/&quot;&gt;nice write up&lt;/a&gt; on why it’s vary important.&lt;/p&gt;
+</description>
+        <pubDate>Tue, 17 Jun 2014 09:08:00 +0545</pubDate>
+        <link>http://sean.sh/blog/http-gzip-compression-on-a-mediatemple-(dv)</link>
+        <guid isPermaLink="true">http://sean.sh/blog/http-gzip-compression-on-a-mediatemple-(dv)</guid>
+      </item>
+    
+      <item>
+        <title>iPhone 5 Home Screen</title>
+        <description>&lt;p&gt;Picked up the 5 recently. Here’s what I did with the extra row of apps:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/2013-06-07-01.11.32.png&quot; alt=&quot;iphone-screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The re-arrange game is great entertainment when you have 1 bar and a weak public wifi signal.&lt;/p&gt;
+</description>
+        <pubDate>Fri, 07 Jun 2013 06:58:00 +0545</pubDate>
+        <link>http://sean.sh/blog/iphone-5-home-screen</link>
+        <guid isPermaLink="true">http://sean.sh/blog/iphone-5-home-screen</guid>
+      </item>
+    
+      <item>
+        <title>Paper - The Desktop Text Editor You&#39;ve Been Missing</title>
+        <description>&lt;p&gt;I occasionally have this idealistic daydream where my workspace is a single computer on an large empty desk, in a white room with no other furniture or discernible features. Just empty space.&lt;/p&gt;
+
+&lt;p&gt;One key aspect of this dream is the 100% lack of paper and writing paraphernalia.&lt;/p&gt;
+
+&lt;p&gt;In almost every context of life I avoid paper like the plague (except cash and books). &lt;/p&gt;
+
+&lt;p&gt;The amount of web available to browse is &lt;a href=&quot;http://en.wikipedia.org/wiki/Metric_expansion_of_space&quot;&gt;constantly expanding&lt;/a&gt;.  The initial benefit of rapid access to organized information often spirals into an infinite loop of researching without implementation, without decision. All that researching may end up draining the creative juices that originally caused you to initiate the project, and result in procrastination. Procrastination is one of the leading causes for premature death of revolutionary web applications. &lt;/p&gt;
+
+&lt;p&gt;But can’t you just type stuff into a text editor instead?&lt;/p&gt;
+
+&lt;p&gt;Yeah, sure. Here’s the steps involved, since you’re asking:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Pick a text editor (you probably have more than one, and use them all for different things.&lt;/li&gt;
+  &lt;li&gt;If you don’t have it open, start the application; otherwise, switch to it. &lt;/li&gt;
+  &lt;li&gt;Create new tab/window &lt;/li&gt;
+  &lt;li&gt;Save as, select a location for the file and type out a name. &lt;/li&gt;
+  &lt;li&gt;Type your notes. Pick a method of headline identification, add formatting like indented lists and asterisks for emphasized text, and brackets for links. &lt;/li&gt;
+  &lt;li&gt;Start writing. Maybe you’re a pro and have a nice shiny markdown editor app installed with super productive keyboard shortcuts. Ok what was ordered list again? Cmd+L? No that’s unordered, it’s Cmd+Alt+L. Cool now bold the headline with Cmd+B - oh wait, just use a headline indication that will bold it automatically (Cmd+Z, Cmd+1). I wonder what other themes there are on this app, the new version just came out - don’t worry there’s a shortcut for prefs: Cmd+, that will take us there in no time. Etc, etc. &lt;/li&gt;
+  &lt;li&gt;Keep the text editor window with your note handy somewhere in your GUI. Make sure to keep the Alt+Tab sequence in your working memory, or maybe assign a hot key. There are some great articles on Google about using the services menu to assign your own custom keyboard shortcuts to any application. &lt;/li&gt;
+  &lt;li&gt;Now eventually you’ve got to close the window, but don’t worry. Next time you need to info just open it up from the file browser. What did you name it again? Hmm… Maybe check that recent document list in your OS… Or the recent list in the text editor… Cool there it is. &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Yes, this is a gross dramatization, and technically none of this is a problem if you’re perfectly focused. But for most of us ADHD folks who build the web without the aid of performance enhancing prescription drugs, these distractions happen. A lot. Computers perform textual operations quickly with virtually no effort, meaning each micro formatting change or interlude or visit to the preferences pane doesn’t seem to take much time - so why not do it? Unfortunately, these micro actions add up fast, and constantly break our concentration. Paper, on the other hand, doesn’t have a settings pane, or copy/paste/delete. It doesn’t even have &lt;a href=&quot;http://smilesoftware.com/TextExpander/index.html&quot;&gt;Text Expander&lt;/a&gt; or syntax highlighting. And it requires more work to write. So make it count - clear and concise, efficient. &lt;/p&gt;
+
+&lt;p&gt;Now, if you’re interested in working a new text editor into your development stack, here’s a potential workflow for paper note taking:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Keep a pen and notebook open at your desk, next to your keyboard. &lt;/li&gt;
+  &lt;li&gt;Write stuff down, from time to time. Examples: 
+    &lt;ul&gt;
+      &lt;li&gt;Something to do soon&lt;/li&gt;
+      &lt;li&gt;An outline of something you’re working on. &lt;/li&gt;
+      &lt;li&gt;Pro’s VS. Con’s of something important.&lt;/li&gt;
+      &lt;li&gt;Ideas that pop into your head while you’re doing something that needs to be finished.&lt;/li&gt;
+      &lt;li&gt;Fun doodles and drawings, maybe whilst waiting for thine loading bar.&lt;/li&gt;
+      &lt;li&gt;Etc. &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;If you’ve been out of highschool long enough and mostly use a keyboard, this will feel very akward at first. No pain no gain.&lt;/p&gt;
+</description>
+        <pubDate>Thu, 23 May 2013 04:29:09 +0545</pubDate>
+        <link>http://sean.sh/blog/paper---the-desktop-text-edit-you've-been-missing</link>
+        <guid isPermaLink="true">http://sean.sh/blog/paper---the-desktop-text-edit-you've-been-missing</guid>
+      </item>
+    
+      <item>
+        <title>Getting Started With The Plesk Command Line Interface (CLI) - A Crash Course</title>
+        <description>&lt;p&gt;My main reference for this article is the &lt;a href=&quot;http://download1.parallels.com/Plesk/PP10/10.4/Doc/en-US/online/plesk-unix-cli/&quot; title=&quot;Plesk Command Line Reference (Linux)&quot;&gt;Plesk Command Line Reference (Linux)&lt;/a&gt; direct from the &lt;a href=&quot;http://www.parallels.com/products/plesk/documentation/&quot; title=&quot;Parallels Plesk Documentation&quot;&gt;Parallels Plesk Documentation Page&lt;/a&gt;. Much thanks to the folks at &lt;a href=&quot;http://mediatemple.net&quot; title=&quot;Media Temple Hosting Services&quot;&gt;Media Temple&lt;/a&gt; for passing on these links!&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Before diving in, make sure you have your affairs in order:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;You have a web server, right?&lt;/li&gt;
+  &lt;li&gt;Root access to your server via SSH (&lt;a href=&quot;http://en.wikipedia.org/wiki/Superuser&quot; title=&quot;Wikipedia: The Unix Superuser&quot;&gt;Learn More&lt;/a&gt;)&lt;/li&gt;
+  &lt;li&gt;You are using &lt;a href=&quot;http://www.parallels.com/products/plesk/&quot; title=&quot;Plesk on the Parallels Website&quot;&gt;Parallels Plesk Panel&lt;/a&gt; 10.4 (not &lt;a href=&quot;http://www.cpanel.net/&quot; title=&quot;Cpanel Home Page&quot;&gt;Cpanel&lt;/a&gt; or anything else).&lt;/li&gt;
+  &lt;li&gt;A general understanding of &lt;a href=&quot;http://freeengineer.org/learnUNIXin10minutes.html&quot; title=&quot;Learn Unix In 10 Minutes&quot;&gt;Unix Bash commands&lt;/a&gt; and working giant screens full of text.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If this sounds like you, keep reading. Now some bullets about the author:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;My Setup:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Media Temple (dv) Dedicated-Virtual 4.0&lt;/li&gt;
+  &lt;li&gt;Parallels Plesk Panel v10.4.4_build1013111102.18 &lt;/li&gt;
+  &lt;li&gt;CentOS 5 on Linux 2.6.18-028stab099.3&lt;/li&gt;
+  &lt;li&gt;&lt;abbr title=&quot;Secure Shell&quot;&gt;SSH&lt;/abbr&gt;, iTerm.app on OSX&lt;/li&gt;
+  &lt;li&gt;A big comfy arm chair in a quiet room.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;If you are using a different version of Plesk&lt;/strong&gt;, the official documentation should have extensive notes about the difference between versions. I imagine much of it is about the same though, if you’re anywhere near version 10.4.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;For Windows users&lt;/strong&gt;, the commands should be the same so long as you are piped in via &lt;abbr title=&quot;Secure Shell&quot;&gt;SSH&lt;/abbr&gt; using a Unix Bash emulator of some sort. I hear the names &lt;a href=&quot;http://www.cygwin.com/&quot; title=&quot;Cygwin Project Home Page&quot;&gt;Cygwin&lt;/a&gt; and &lt;a href=&quot;http://www.putty.org/&quot; title=&quot;PuTTY Project Home Page&quot;&gt;PuTTY&lt;/a&gt; quite often….&lt;/p&gt;
+
+&lt;h2 id=&quot;getting-started&quot;&gt;GETTING STARTED&lt;/h2&gt;
+
+&lt;p&gt;Enough with the formalities. Let’s bash it up.&lt;/p&gt;
+
+&lt;p&gt;All Plesk utilities are located in the &lt;code&gt;psa&lt;/code&gt; directory on your machine. For me, that’s &lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;/usr/local/psa/bin/&amp;lt;UTILITY&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To get a quick snapshot of what’s available, take a peek at the directory contents. &lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;ls /usr/local/psa/bin/
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To execute any command, simply navigate to it and enter the instructions. It looks something like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;/usr/local/psa/bin/&amp;lt;UTILITY&amp;gt; --&amp;lt;COMMAND&amp;gt; -&amp;lt;OPTION1&amp;gt; &amp;lt;PARAM&amp;gt; -&amp;lt;COMMAND2&amp;gt; &amp;lt;PARAM&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For all the utilities I’ve bothered to investigate, these are the most common commands. &lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;--create
+--add
+--update
+--info
+--help
+--delete
+--remove
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;These functions have corresponding short forms for those of you with lazy fingers and/or tiny screens:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;-c		# same as --create
+-a		# same as --add
+-u		# same as --update
+-i		# same as --info
+-h		# same as --help
+-d		# same as --delete
+-r		# same as --remove
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So if you’re into the whole brevity thing, just &lt;code&gt;cd&lt;/code&gt; into &lt;code&gt;/usr/local/psa/bin/&lt;/code&gt; and start with &lt;code&gt;./&lt;/code&gt; followed by the utility name, then the short form of the command, and enter your instructions. Here’s what it looks like:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;cd /usr/local/psa/bin/
+./UtilityName -x -&amp;lt;OPTION1&amp;gt; &amp;lt;PARAM&amp;gt; -&amp;lt;COMMAND2&amp;gt; &amp;lt;PARAM&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It would be great if there was a consistent convention for &lt;code&gt;--create&lt;/code&gt; vs &lt;code&gt;--add&lt;/code&gt; and &lt;code&gt;--delete&lt;/code&gt; vs &lt;code&gt;--remove&lt;/code&gt;, so be sure to scope the &lt;a href=&quot;http://download1.parallels.com/Plesk/PP10/10.4/Doc/en-US/online/plesk-unix-cli/index.htm?fileName=40984.htm&quot; title=&quot;Plesk Command Line Reference: Using Command Line Utilities&quot;&gt;Using Command Line Utilities&lt;/a&gt; section of the Parallels documentation and figure out exactly what command goes with a given utility. Looking at the big picture, though, I’m just stoked break away from using a browser-based &lt;abbr title=&quot;Graphical User Interface&quot;&gt;GUI&lt;/abbr&gt; for trivial server admin tasks. There are also plenty of utility-specific commands, so if you’re unsure or feel like something’s missing, you know where to look.&lt;/p&gt;
+
+&lt;h2 id=&quot;examples&quot;&gt;EXAMPLES&lt;/h2&gt;
+
+&lt;p&gt;We have arrived at the moment of truth. This is the part of the article where, in exchange for your hard work and dedication, you are rewarded with some plug &amp;amp; play examples to start things off nice and proper. I’ll assume you’ve &lt;code&gt;cd&lt;/code&gt;-ed into the appropriate directory by now. Let’s go:&lt;/p&gt;
+
+&lt;h3 id=&quot;admin-info&quot;&gt;Admin Info&lt;/h3&gt;
+
+&lt;p&gt;We’ll start off nice and easy. Type this to get info about the admin (you).&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;./admin --info
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Hey look, it’s like your Facebook profile, minus that embarrassing photo you were tagged in at that party. Neat!&lt;/p&gt;
+
+&lt;h3 id=&quot;php-settings&quot;&gt;PHP Settings&lt;/h3&gt;
+
+&lt;p&gt;Ok, now another easy one to get warmed up. To view PHP settings for a certain domain, type:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;./site --show-php-settings example.com
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Zzzzzzz … OK, moving on….&lt;/p&gt;
+
+&lt;h3 id=&quot;managing-email-accounts&quot;&gt;Managing Email Accounts&lt;/h3&gt;
+
+&lt;p&gt;Here’s a hot topic: email boxes. Let’s make one:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;./mail --create JDoe@example.com -passwd &#39;user pass&#39; -mbox_quota -1 -mailbox true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This creates the account JDoe@example.com with password ‘user pass’ and sets the mailbox quota to whatever is the default. There is a “gotcha” with the create function: don’t forget to enter &lt;code&gt;-mailbox true&lt;/code&gt; or the account won’t be functional!&lt;/p&gt;
+
+&lt;p&gt;Now let’s say we want to change the password on the box we just created to something more secure…&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;./mail --update JDoe@example.com -passwd &#39;som3thingm0res3cure&#39; 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Or change the email address to John’s full name…&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;./mail --rename JDoe@example.com -new JohnDoe
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Just in case of any confusion, let’s cover our bases with some aliases!&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;./mail --update JohnDoe@example.com -aliases add:JohnathanDoe,JDoe,JDizzle
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Logging in to webmail and setting up imap can be a pain, so let’s forward John’s email to his gmail account.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;./mail --update JohnDoe@example.com -forwarding true -forwarding-addresses add:jdiesel123zle@gmail.com
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If John is on vacation, just set up an auto-responder with the &lt;code&gt;autoresponder&lt;/code&gt; utility.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;./autoresponder --update bbvacation -mail JohnDoe@example.com -subject &quot;I&#39;m in Bora Bora!&quot; -text &quot;I won&#39;t be checking email until January 1. For urgent matters, please call at 555-555-5555 and leave a message.&quot; -status true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;When John gets back, update the &lt;code&gt;-status&lt;/code&gt; parameter to turn off the “bbvacation” auto-responder.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;./autoresponder --update bbvacation -mail JohnDoe@example.com -status false
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;ftp-users&quot;&gt;FTP Users&lt;/h3&gt;
+
+&lt;p&gt;Another must-have. To make an additional FTP account, use the &lt;code&gt;ftpsubaccount&lt;/code&gt; utility like so:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;./ftpsubaccount --create JohnDoe -passwd &#39;userpass&#39; -domain example.com
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now user JohnDoe can login via FTP and access the main site directory for example.com (but nothing higher up or adjacent). To lock the JDow down to a specific directory within, run &lt;code&gt;--update&lt;/code&gt; and pass the &lt;code&gt;-home&lt;/code&gt; option and a directory path relative to the site root (not your server root):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;./ftpsubaccount --update JohnDoe -home directory/path/here
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;databases&quot;&gt;Databases&lt;/h3&gt;
+
+&lt;p&gt;Here’s one of my personal favorites. When I need to create a database, that usually means I’m building out a new CMS-based site, and don’t want to be distracted. Stopping everything to open Plesk, log in, navigate to the “Database” section, and fill out the forms required to create the a db and add users is not conducive to development eudæmonia. Plus there’s just something stereotypically satisfying about creating a database from a command prompt. Let’s make a MySQL database called “example_db” on example.com and print its ID upon completion.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;./database --create example_db -type mysql -domain example.com -print-id
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Warning: Make sure the &lt;code&gt;-domain&lt;/code&gt; is a primary domain for one of your subscriptions. You can’t use just any domain from your account.&lt;/p&gt;
+
+&lt;p&gt;Now, what good is a database without a user? Let’s give JDoe access.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;./database --update example_db -add_user JDoe -passwd samplepass
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And don’t forget Jane, the out-of-office developer on 219.11.43.178.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;./database --update example_db -add_user Jane -passwd samplepass
+./database --update example_db -update_user Jane -passwd samplepass -add-access 219.11.43.178
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Uh-oh - Jane went rogue. Let’s revoke that remote access ASAP, then remove her user account.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;./database --update example_db -update_user Jane -passwd samplepass -remove-access 192.0.2.78
+./database --update example_db -remove_user Jane
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;subscriptions-users--sites&quot;&gt;Subscriptions, Users, &amp;amp; Sites&lt;/h3&gt;
+
+&lt;p&gt;In Plesk, “subscription” refers to and individual “power panel” (admin panel, control panel, et al) that is granted only enough access to administer certain domains and related tasks. Subscriptions come with a separate user and login credentials, and are owned by another user (usually you, the main server admin).&lt;/p&gt;
+
+&lt;p&gt;For a benevolent serving of data on Plesk subscriptions, check out this &lt;a href=&quot;http://kb.mediatemple.net/questions/1901/Plesk+users+explained#all/subscription&quot; title=&quot;Media Temple: Plesk Users Explained&quot;&gt;Media Temple Knowledge Base article.&lt;/a&gt; &lt;/p&gt;
+
+&lt;p&gt;To start a new subscription based on the domain example.com with the service plan “Unlimited” with a login of “subadmin_name”, run this command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;./subscription --create example.com -owner admin -service-plan &quot;Unlimited&quot; -ip 216.70.84.196 -login subadmin_name -passwd &#39;userpass&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To add another domain to the example.com subscription, use the &lt;code&gt;site&lt;/code&gt; utility.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;./site --create anotherdomain.com -webspace-name example.com -hosting true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To add example.net with the “standard forwarding” hosting type, redirecting all traffic to example.com, pass the &lt;code&gt;-hst_type&lt;/code&gt; option when you create the site.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;./site --create example.net -webspace-name example.com -hosting true -hst_type std -target_url example.com
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To create a user account for webmaster Mary, who will manage websites of JDoe:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;./user --create mary@example.com -owner JDoe -passwd sample -cname Mary -role webmaster
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;other-utilities&quot;&gt;OTHER UTILITIES&lt;/h2&gt;
+
+&lt;p&gt;With your newfound expertise in Linux server administration, I’ll leave you with some other choice utilities to get the administrative juices flowing. &lt;/p&gt;
+
+&lt;h3 id=&quot;subdomains&quot;&gt;Subdomains&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;/usr/local/psa/bin/subdomain
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Add Subdomain&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;--create NAME -domain example.com -hard_quota 1G -ssi true -php true -ssl true -cgi true -fastcgi true -perl true -asp true -python true -coldfusion true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Update Subdomain&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;--update NAME -domain example.com -hard_quota 1G -ssi true -php true -ssl true -cgi true -fastcgi true -perl true -asp true -python true -coldfusion true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Rename Subdomain&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;--update NAME -domain example.com -new_name forum
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Remove Subdomain(s)&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;--remove -subdomains NAME1,NAME2 -domain example.com
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;domain-aliases&quot;&gt;Domain Aliases&lt;/h3&gt;
+
+&lt;p&gt;This nifty little utility allows you redirect both web and mail service from the alias domain to the hosted domain.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;./domalias --create examplealias.net -domain example.com -status enabled -mail true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;With this configuration, any visitors to examplealias.net will be redirected to example.com, and any mail sent to mailbox@examplealias.net will be forwarded to mailbox@example.com, if it exists on the hosted domain. &lt;/p&gt;
+
+&lt;h3 id=&quot;directory-protection&quot;&gt;Directory Protection&lt;/h3&gt;
+
+&lt;p&gt;Here’s another utility that seems made for the command line. Need to protect a directory real quick? Use the &lt;code&gt;protdir&lt;/code&gt; utility.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;./protdir --create Protected_Dir -domain example.com -add_user JDoe -passwd userpass -type cgi
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Use a &lt;code&gt;-type&lt;/code&gt; parameter of ‘nonssl’, or ‘ssl’ for site-level security, or a use ‘cgi’ for root-level security.&lt;/p&gt;
+
+&lt;p&gt;There are also a bunch of utilities I haven’t listed, including a lot related to the business/reselling tools included in Plesk. If that’s your alley, be sure to read through the &lt;a href=&quot;http://download1.parallels.com/Plesk/PP10/10.4/Doc/en-US/online/plesk-unix-cli/index.htm?fileName=40984.htm&quot; title=&quot;Plesk Command Line Reference: Using Command Line Utilities&quot;&gt;Using Command Line Utilities&lt;/a&gt; section of the Plesk CLI docs and see what you can do.&lt;/p&gt;
+
+</description>
+        <pubDate>Wed, 16 May 2012 22:09:45 +0545</pubDate>
+        <link>http://sean.sh/blog/Plesk-CLI</link>
+        <guid isPermaLink="true">http://sean.sh/blog/Plesk-CLI</guid>
+      </item>
+    
+      <item>
+        <title>The Little Things (About Macs)</title>
+        <description>&lt;p&gt;I’m really not big on the whole “Mac vs. PC” spectacle. It’s rather distracting and somewhat distasteful. I primarily used Windows PC’s through age 18, with the exception of a few Macs in computer lab at school. It wasn’t that I really &lt;em&gt;chose&lt;/em&gt; Windows over Mac, it was something familiar and that dominated every computer store in existence other than the Apple Store. I thought Apple computers were more like expensive toys (purely based on looks and scarcity), plus I didn’t want to re-learn or adjust to anything new if it wasn’t absolutely necessary. Working on a new operating system can be crippling, even embarrassing at first. The first reaction for many is “this machine doesn’t do X,” or “where’s the Y button,” and other more profane sayings. &lt;/p&gt;
+
+&lt;p&gt;Personally, I was fortunate enough to have been exposed to mandatory use of Mac machines 6-12 hours a day, 5-7 days per week for about 2 years at my first “grown-up” job. I was 18, my mind still fresh, eager for new data, and open to learning new things (a.k.a I wanted money for rent, fuel and beer). &lt;/p&gt;
+
+&lt;p&gt;At first, using the iMac at the office sort of felt like training wheels. I was accustomed to zipping through the menus on my Windows machine, yet even though I didn’t know where everything was I got a friendly but slow-mo sort of vibe. In a demanding corporate environment, Sometimes you only need to do a lot of work, while other times you need to work faster than is actually possible, without any mistakes. I came to realize the importance of workflow more than ever. During the slower times, I began to pick up bits of knowledge pertaining to more efficient computing methods, including better ways to use Mac OS. Some of it came naturally, some accidentally (frantically slamming keyboard shortcuts and lines of code, no button was off-limits), and a lot came from Googling. Once I realized that both platforms could still perform the same essential tasks, and in theory generate identical results, it simply came down to preference and aesthetic. &lt;/p&gt;
+
+&lt;p&gt;My next computer was a Macbook Pro, one of the best purchases I’ve ever made. I’ve it nearly every day for about three years now, and not gently, but it takes whatever I throw at it. Much of what’s nice about a Mac is purely aesthetic, which I’ve grown to realize makes a big difference when you need interface with a device for 8+ hours a day, before you go to sleep and first thing in the morning. &lt;/p&gt;
+
+&lt;p&gt;Here’s a simple collection of small Mac features that many might not know about.&lt;/p&gt;
+
+&lt;h2 id=&quot;single-tap-definitions&quot;&gt;1. Single Tap Definitions&lt;/h2&gt;
+
+&lt;p&gt;I can three-finger-double-tap any word on the screen and view the dictionary, thesaurus, and wikipedia results without switching windows. In any application.  And, if you don’t have a trackpad, it’s Control-Command-D.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/define-screen-shot.png&quot; alt=&quot;Screen Shot&quot; /&gt;  &lt;/p&gt;
+
+&lt;h2 id=&quot;the-screen-grab-interface&quot;&gt;2. The screen grab interface.&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Command-Shift-3&lt;/strong&gt;: Take a screenshot of the screen, and save it as a file on the desktop&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Command-Shift-4&lt;/strong&gt;, then select an area: Take a screenshot of an area and save it as a file on the desktop&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Command-Shift-4&lt;/strong&gt;, then space, then click a window: Take a screenshot of a window and save it as a file on the desktop&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Command-Control-Shift-3&lt;/strong&gt;: Take a screenshot of the screen, and save it to the clipboard&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Command-Control-Shift-4&lt;/strong&gt;, then select an area: Take a screenshot of an area and save it to the clipboard&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Command-Control-Shift-4&lt;/strong&gt;, then space, then click a window: Take a screenshot of a window and save it to the clipboard&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In Leopard and later, the following keys can be held down while selecting an area (via Command-Shift-4 or Command-Control-Shift-4):&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Space, to lock the size of the selected region and instead move it when the mouse moves&lt;/li&gt;
+  &lt;li&gt;Shift, to resize only one edge of the selected region&lt;/li&gt;
+  &lt;li&gt;Option, to resize the selected region with its center as the anchor point&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;the-transformations-service&quot;&gt;3. The Transformations service.&lt;/h2&gt;
+
+&lt;p&gt;Change any editable text to uppercase, lowercase, or capitalized in any application. &lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/transformations-screen-shot.png&quot; alt=&quot;Transformations Screen Shot&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;command-shift-&quot;&gt;4. Command-Shift-?&lt;/h2&gt;
+
+&lt;p&gt;I used to brag a lot about mouse-less menu navigation in Windows. All you have to do is look for the underlined letter in the menu item you want (like F in &lt;u&gt;F&lt;/u&gt;ile, E in &lt;u&gt;E&lt;/u&gt;fit, etc.), then hold down &lt;code&gt;Alt&lt;/code&gt; to pull the corresponding drop-down. As an added bonus, all the options inside the drop down usually have underlined letters, so pressing the key for the command or sub-menu item desired lets you  churn out commands pretty fast. Just don’t slip up and press any of other keys in the sea of QWERTY, or if you do start praying to whomever that it’s &lt;code&gt;Ctrl-Z&lt;/code&gt;-able.&lt;/p&gt;
+
+&lt;p&gt;Macs take a slightly different approach. In any application, press &lt;code&gt;Command-Shift-?&lt;/code&gt; This invokes the Help menu of the current application and focuses on the input field for search. So what does this all mean? Start typing the name of a menu item, and presto - all menu items and help topics matching your search are displayed based on fuzzy find logic. The more you type, the narrower the results list. So instead of memorizing obscure letter combinations, you just need to know the &lt;em&gt;name of the actual operation&lt;/em&gt; you want to perform. No more scanning up and down through multiple menus to find what you want. And no mouse required. &lt;/p&gt;
+
+&lt;p&gt;Invoking the help search really comes through in applications with copious menu options, like Photoshop. Sometimes, I want to crop an image based on a selection. That requires the “Crop” operation, which inconveniently does not have a designated keyboard shortcut. Even if it did, I prefer to memorize the smallest amount of things possible, to leave room for more important things like what I’m actually working on at the time, names of new acquaintances, and so on. So instead programming my own custom shortcut, or giving in to temptation and grabbing the mouse, I just hit Command-Shift-? and type “crop”, then select the crop function I want and hit Return. Done. When a search result is highlighted, its actual position is revealed in the menu and marked by a huge arrow, which provides additional context and confirmation for what’s about to go down. Personally, this has significantly cut down on misfires and playing the “what operation did I just accidentally perform” game compared to my Windows days. &lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/crop-screen-shot.png&quot; alt=&quot;Crop Screen Shot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;So what if the name of the command is profusely long, and starts with a common group of letters, like “Transform Selection”? No problem. You don’t actually have to search for characters in the same order they appear in the command, so just narrow it down to a couple groups of letters that are unique to that menu item. To transform a selection, just query “tra sel” and your there. Neat.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/tra-sel-screen-shot.png&quot; alt=&quot;tra sel Screen Shot&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;t-and-special-characters--&quot;&gt;5. Âćçéñtś and Special Characters,  √&lt;/h2&gt;
+
+&lt;p&gt;I like being accurate, as long as it’s not to difficult. In some languages, an accent mark can be the difference between referring to someone as an inanimate object or a real live proper noun. Also, umlauts are just plain fun to try and pronounce for us westerners.&lt;/p&gt;
+
+&lt;p&gt;On Mac OS 10.7 (Lion), accented characters are two keystrokes away. Say you want to ask your distant co-worker how the weather is in España. When you get to the tilde N, just hold down the N key and a pop-up menu displays all available accent options with numbers over them. Press the corresponding number on your keyboard (or click it if your mouse is getting dusty) and voilà - the accented character is now part of your prose. &lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/osx-accent-palette.png&quot; alt=&quot;Mac OS Accent Palette Screen Shot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;But wait, there’s more! Ever wanted to ™ something as you type? Or look smart and write math problems like ∆ƒ(n) ≈ √π˚ ≥ ø? Or reference a section of the penal code like §1234.4321? On a Mac, holding down the alt key changes the keys to various symbols. There’s no clear-cut way to guess which one you’ll get at first, but it’s actually fairly intuitive where possible, so remembering your favorites is not too difficult. For example, to enter a checkmark/square root symbol, press alt and V (vaguely reminiscent of a checkmark, no?). Or for a ≠, press alt and the regular equals symbol. Any other symbols will be on in the special characters palette, which is usually accessible by pressing command-alt-T in most applications. &lt;/p&gt;
+
+&lt;p&gt;To be fair, it is possible to enter accented and other special characters from the keyboard on a Windows machine. If you have a numeric keypad on your keyboard, hold down alt and press a few numbers, then let go. I actually enjoyed quite a few hours of entertainment decoding these cryptic combinations as a child, before the family computer had an internet connection. These days I usually have other things to do though, so I enjoy the slightly more sane approach taken by the Mac. &lt;/p&gt;
+
+&lt;h2 id=&quot;dictation&quot;&gt;6. Dictation&lt;/h2&gt;
+
+&lt;p&gt;Computers were designed for us to tell them things, so they can reply back with important information in polite voices. OSX’s built in dictation is a step in the right direction. Double tap the Fn key, and say anything after the beep. Your words will be typed where the cursor was.&lt;/p&gt;
+
+</description>
+        <pubDate>Fri, 20 Apr 2012 08:17:00 +0545</pubDate>
+        <link>http://sean.sh/blog/the-little-things-about-macs</link>
+        <guid isPermaLink="true">http://sean.sh/blog/the-little-things-about-macs</guid>
+      </item>
+    
+  </channel>
+</rss>
