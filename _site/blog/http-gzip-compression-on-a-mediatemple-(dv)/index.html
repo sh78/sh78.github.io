@@ -60,13 +60,13 @@
       <div class="wrap">
       <div class="post">
 
-  <header class="post-header">
-    <h1>HTTP gzip compression on a MediaTemple (dv)</h1>
-    <p class="meta">Jun 16, 2014</p>
-  </header>
+    <header class="post-header">
+        <h1>HTTP gzip compression on a MediaTemple (dv)</h1>
+        <p class="meta">Jun 16, 2014</p>
+    </header>
 
-  <article class="post-content">
-  <p>I’ve had this (mt) DV box for quite some time, mostly use it for staging, small WordPress gigs and running a qmail server that forwards mail elsewhere. It’s reliable, has lots of client-friendly features like Plesk, and can host a zillion websites. But it was always kinda slow, especially from the eastern hemisphere, and executing otherwise simple server admin stuff (like adding ssh keys) was always a bit perverted by the finicky complexities that come with Plesk. So, it wasn’t really my go-to for builds with serious production needs.</p>
+    <article class="post-content">
+        <p>I’ve had this (mt) DV box for quite some time, mostly use it for staging, small WordPress gigs and running a qmail server that forwards mail elsewhere. It’s reliable, has lots of client-friendly features like Plesk, and can host a zillion websites. But it was always kinda slow, especially from the eastern hemisphere, and executing otherwise simple server admin stuff (like adding ssh keys) was always a bit perverted by the finicky complexities that come with Plesk. So, it wasn’t really my go-to for builds with serious production needs.</p>
 
 <p>Recently I’ve embarked on a mission: give out 100 free websites, to raise awareness about the benefits of quality web development in Nepal. The allure of having them all live in one central community, flexible enough to provide features like email and separate client hosting logins when needed, along with he infamous <a href="http://download1.parallels.com/Plesk/PP11/11.0/Doc/en-US/online/plesk-unix-cli/">Plesk Command Line Utilities</a> provided sufficient temptation to get toolin’. First stop: HTTP compression.</p>
 
@@ -137,24 +137,29 @@ gzip_types text/plain text/html text/css text/javascript application/x-javascrip
 
 <p>If you’re thinking about hopping aboard the HTTP compression love boat, be sure to keep your packages safe from uncool browsers with <code>Vary: Accept-Encoding</code>. MaxCDN has a <a href="http://blog.maxcdn.com/accept-encoding-its-vary-important/">nice write up</a> on why it’s vary important.</p>
 
-  </article>
+    </article>
 
-  <aside>
-  	 <script type="text/javascript">
-        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-        var disqus_shortname = 'seanhenderson'; // required: replace example with your forum shortname
+    
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'seansh'; // required: replace example with your forum shortname
 
-        /* * * DON'T EDIT BELOW THIS LINE * * */
-        (function() {
-            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
     </script>
-    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments</a></noscript>
-  </aside>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+    </noscript>
+    
 
 </div>
+
       </div>
     </div>
 
