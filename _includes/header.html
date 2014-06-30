@@ -17,11 +17,14 @@
         </svg>
       </a> -->
       <div class="trigger">
+        <a class="page-link" href="#" title="ghost link"> </a>
         {% for page in site.pages %}
+          {% if page.navigation == true %}
           <a class="page-link" href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a>
+          {% endif %}
         {% endfor %}
+        <a id="rss-subscribe" href="{{ "/feed.xml" | prepend: site.baseurl }}"><i class="fa fa-rss"></i> RSS</a>
       </div>
-      <p class="rss-subscribe"><a href="{{ "/feed.xml" | prepend: site.baseurl }}"><i class="fa fa-rss"></i> RSS</a></p>
     </nav>
 
   </div>

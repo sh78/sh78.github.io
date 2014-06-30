@@ -2,27 +2,27 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://sean.sh/blog/the-little-things-about-macs</loc>
-        <lastmod>2014-06-30T12:19:39-07:00</lastmod>
+        <lastmod>2014-06-30T12:36:10-07:00</lastmod>
     </url>
     <url>
         <loc>http://sean.sh/blog/plesk-cli</loc>
-        <lastmod>2014-06-30T12:19:39-07:00</lastmod>
+        <lastmod>2014-06-30T12:36:10-07:00</lastmod>
     </url>
     <url>
         <loc>http://sean.sh/blog/paper---the-desktop-text-edit-you&apos;ve-been-missing</loc>
-        <lastmod>2014-06-30T12:19:39-07:00</lastmod>
+        <lastmod>2014-06-30T12:36:10-07:00</lastmod>
     </url>
     <url>
         <loc>http://sean.sh/blog/iphone-5-home-screen</loc>
-        <lastmod>2014-06-30T12:19:39-07:00</lastmod>
+        <lastmod>2014-06-30T12:36:10-07:00</lastmod>
     </url>
     <url>
         <loc>http://sean.sh/blog/http-gzip-compression-on-a-mediatemple-(dv)</loc>
-        <lastmod>2014-06-30T12:19:39-07:00</lastmod>
+        <lastmod>2014-06-30T12:36:10-07:00</lastmod>
     </url>
     <url>
         <loc>http://sean.sh/blog/so-you-have-a-strong-password</loc>
-        <lastmod>2014-06-30T12:19:39-07:00</lastmod>
+        <lastmod>2014-06-30T12:36:10-07:00</lastmod>
     </url>
     <url>
         <loc>http://sean.sh/</loc>
@@ -31,5 +31,9 @@
     <url>
         <loc>http://sean.sh/css/main.css</loc>
         <lastmod>2014-06-16T20:55:56-07:00</lastmod>
+    </url>
+    <url>
+        <loc>http://sean.sh/pay/thanks.html</loc>
+        <lastmod>2014-06-30T12:44:30-07:00</lastmod>
     </url>
 </urlset>
