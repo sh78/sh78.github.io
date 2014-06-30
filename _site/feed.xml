@@ -7,6 +7,26 @@
     <atom:link href="http://sean.sh/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>So You Have A Strong Password, Eh?</title>
+        <description>&lt;p&gt;Well it doesn’t really matter. There are affordable consumer grade smartphone controlled drones that can snatch them right out of the air. Wifi not required.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://motherboard.vice.com/read/tapped-all-the-ways-your-phone-can-be-hacked&quot;&gt;&lt;img src=&quot;http://img.youtube.com/vi/dysnKiXUlRU/hqdefault.jpg&quot; alt=&quot;Tapped: All the Ways Your Phone Can Be Hacked&quot; /&gt;&lt;br /&gt;
+Tapped: All the Ways Your Phone Can Be Hacked&lt;/a&gt;  &lt;/p&gt;
+
+&lt;p&gt;But don’t get in your brand new car and run for the hills just yet….&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.vice.com/motherboard/how-to-hack-a-car&quot;&gt;&lt;img src=&quot;http://img.youtube.com/vi/3jstaBeXgAs/hqdefault.jpg&quot; alt=&quot;How To Hack A Car&quot; /&gt;&lt;br /&gt;
+How To Hack A Car&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.vice.com/motherboard/how-las-traffic-system-got-hacked&quot;&gt;&lt;img src=&quot;http://img.youtube.com/vi/hcoVMXLTQzw/hqdefault.jpg&quot; alt=&quot;How LA&#39;s Traffic System Got Hacked&quot; /&gt;&lt;br /&gt;
+How LA’s Traffic System Got Hacked&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Mon, 30 Jun 2014 04:29:00 -0700</pubDate>
+        <link>http://sean.sh/blog/so-you-have-a-strong-password</link>
+        <guid isPermaLink="true">http://sean.sh/blog/so-you-have-a-strong-password</guid>
+      </item>
+    
+      <item>
         <title>HTTP gzip compression on a MediaTemple (dv)</title>
         <description>&lt;p&gt;I’ve had this (mt) DV box for quite some time, mostly use it for staging, small WordPress gigs and running a qmail server that forwards mail elsewhere. It’s reliable, has lots of client-friendly features like Plesk, and can host a zillion websites. But it was always kinda slow, especially from the eastern hemisphere, and executing otherwise simple server admin stuff (like adding ssh keys) was always a bit perverted by the finicky complexities that come with Plesk. So, it wasn’t really my go-to for builds with serious production needs.&lt;/p&gt;
 
@@ -79,7 +99,7 @@ gzip_types text/plain text/html text/css text/javascript application/x-javascrip
 
 &lt;p&gt;If you’re thinking about hopping aboard the HTTP compression love boat, be sure to keep your packages safe from uncool browsers with &lt;code&gt;Vary: Accept-Encoding&lt;/code&gt;. MaxCDN has a &lt;a href=&quot;http://blog.maxcdn.com/accept-encoding-its-vary-important/&quot;&gt;nice write up&lt;/a&gt; on why it’s vary important.&lt;/p&gt;
 </description>
-        <pubDate>Tue, 17 Jun 2014 09:08:00 +0545</pubDate>
+        <pubDate>Mon, 16 Jun 2014 20:23:00 -0700</pubDate>
         <link>http://sean.sh/blog/http-gzip-compression-on-a-mediatemple-(dv)</link>
         <guid isPermaLink="true">http://sean.sh/blog/http-gzip-compression-on-a-mediatemple-(dv)</guid>
       </item>
@@ -92,7 +112,7 @@ gzip_types text/plain text/html text/css text/javascript application/x-javascrip
 
 &lt;p&gt;The re-arrange game is great entertainment when you have 1 bar and a weak public wifi signal.&lt;/p&gt;
 </description>
-        <pubDate>Fri, 07 Jun 2013 06:58:00 +0545</pubDate>
+        <pubDate>Thu, 06 Jun 2013 18:13:00 -0700</pubDate>
         <link>http://sean.sh/blog/iphone-5-home-screen</link>
         <guid isPermaLink="true">http://sean.sh/blog/iphone-5-home-screen</guid>
       </item>
@@ -142,7 +162,7 @@ gzip_types text/plain text/html text/css text/javascript application/x-javascrip
 
 &lt;p&gt;If you’ve been out of highschool long enough and mostly use a keyboard, this will feel very akward at first. No pain no gain.&lt;/p&gt;
 </description>
-        <pubDate>Thu, 23 May 2013 04:29:09 +0545</pubDate>
+        <pubDate>Wed, 22 May 2013 15:44:09 -0700</pubDate>
         <link>http://sean.sh/blog/paper---the-desktop-text-edit-you've-been-missing</link>
         <guid isPermaLink="true">http://sean.sh/blog/paper---the-desktop-text-edit-you've-been-missing</guid>
       </item>
@@ -400,9 +420,9 @@ gzip_types text/plain text/html text/css text/javascript application/x-javascrip
 &lt;p&gt;There are also a bunch of utilities I haven’t listed, including a lot related to the business/reselling tools included in Plesk. If that’s your alley, be sure to read through the &lt;a href=&quot;http://download1.parallels.com/Plesk/PP10/10.4/Doc/en-US/online/plesk-unix-cli/index.htm?fileName=40984.htm&quot; title=&quot;Plesk Command Line Reference: Using Command Line Utilities&quot;&gt;Using Command Line Utilities&lt;/a&gt; section of the Plesk CLI docs and see what you can do.&lt;/p&gt;
 
 </description>
-        <pubDate>Wed, 16 May 2012 22:09:45 +0545</pubDate>
-        <link>http://sean.sh/blog/Plesk-CLI</link>
-        <guid isPermaLink="true">http://sean.sh/blog/Plesk-CLI</guid>
+        <pubDate>Wed, 16 May 2012 09:24:45 -0700</pubDate>
+        <link>http://sean.sh/blog/plesk-cli</link>
+        <guid isPermaLink="true">http://sean.sh/blog/plesk-cli</guid>
       </item>
     
       <item>
@@ -479,7 +499,7 @@ gzip_types text/plain text/html text/css text/javascript application/x-javascrip
 &lt;p&gt;Computers were designed for us to tell them things, so they can reply back with important information in polite voices. OSX’s built in dictation is a step in the right direction. Double tap the Fn key, and say anything after the beep. Your words will be typed where the cursor was.&lt;/p&gt;
 
 </description>
-        <pubDate>Fri, 20 Apr 2012 08:17:00 +0545</pubDate>
+        <pubDate>Thu, 19 Apr 2012 19:32:00 -0700</pubDate>
         <link>http://sean.sh/blog/the-little-things-about-macs</link>
         <guid isPermaLink="true">http://sean.sh/blog/the-little-things-about-macs</guid>
       </item>
