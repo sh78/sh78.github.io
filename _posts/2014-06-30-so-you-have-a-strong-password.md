@@ -2,7 +2,7 @@
 layout: post
 title: So You Have A Strong Password, Eh?
 date: 2014-06-30 11:29:00
-tags: hacking, news
+tags: hacks, news
 published: true
 comments: true
 ---
