@@ -7,6 +7,104 @@
     <atom:link href="http://sean.sh/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>The Free Mega-Weight Dropbox Alternative</title>
+        <description>&lt;p&gt;About a year back, Dropbox decided to delete all the mp3s and miscellaneous parts of the project files inside my music production folder. Didn’t notice until it was too late to restore. That caused me to (1) rethink a mostly cloud-based backup strategy and (2) cancel the 100GB Dropbox plan in favor of the free plan. Fortunately I had completed all the bonus space missions for my account, like referring a bunch of workstations in my college computer lab with bogus email addresses. My free account has 13.2GB instead of 2.&lt;/p&gt;
+
+&lt;p&gt;Now days all dev work is mirrored on a couple git servers and I have multiple physical backups combined with Amazon Glacier for everything else; Dropbox only serves as a temporary stash/collaboration/app sync tool.&lt;/p&gt;
+
+&lt;p&gt;After watching &lt;a href=&quot;http://www.vice.com/vice-news/kim-dotcom-the-man-behind-mega&quot;&gt;the saga of Kim Dotcom and Mega&lt;/a&gt; I decided to check out what they have to offer - a lot. 50GB of space for free, with all the key bells and whistles of Dropbox - slick web interface, collaboration, native sync apps. The web interface, selective sync, and dealing with proxies are much nicer in my opinion. &lt;/p&gt;
+
+&lt;p&gt;The &lt;a href=&quot;http://lifehacker.com/5154698/sync-files-and-folders-outside-your-my-dropbox-folder&quot;&gt;&lt;code&gt;ln -s&lt;/code&gt; trick&lt;/a&gt; works, but there’s actually no need for it - users can add a “Sync” (directory) straight from the desktop client to put any folder on the machine into any folder on Mega, even with a different name. It’s just easy. And super fast.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/mega-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/mega-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;So now, all of the less-recent but non-ancient stuff that doesn’t fit in my Dropbox is going to Mega, such as the year’s raw dump of photos/videos and a massive legal case directory that I occasionally need to share or call up rapidly.&lt;/p&gt;
+
+&lt;p&gt;Oh, and the paid plans are Mega-huge, yo.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;500GB - $9.99/mo&lt;/li&gt;
+  &lt;li&gt;2TB - $19.99/mo&lt;/li&gt;
+  &lt;li&gt;4TB - $29.99/mo&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Compared to Dropbox:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;100GB - $9.99/mo&lt;/li&gt;
+  &lt;li&gt;200GB - $19.99/mo&lt;/li&gt;
+  &lt;li&gt;500GB - $49.99/mo&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://mega.co.nz/&quot;&gt;https://mega.co.nz&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Fri, 11 Jul 2014 07:26:00 -0700</pubDate>
+        <link>http://sean.sh/blog/the-free-mega-weight-dropbox-alternative</link>
+        <guid isPermaLink="true">http://sean.sh/blog/the-free-mega-weight-dropbox-alternative</guid>
+      </item>
+    
+      <item>
+        <title>Automating Tasks With launchd In OSX</title>
+        <description>&lt;p&gt;Just got into some &lt;code&gt;lanchd&lt;/code&gt; automation with OSX. I wanted an automatic &lt;code&gt;rsync&lt;/code&gt; of my &lt;a href=&quot;http://help.agilebits.com/1Password3/1passwordanywhere.html&quot;&gt;1Password Anywhere&lt;/a&gt; files to a remote web server, as a DIY public web service for 1Password.&lt;/p&gt;
+
+&lt;p&gt;First step: make a shell script with whatever you want to do, and save it in your &lt;code&gt;$PATH&lt;/code&gt;. For my 1Password sync, a simple &lt;code&gt;rsync&lt;/code&gt; one-liner:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#!/bin/sh
+rsync -az --force --delete -e &quot;ssh -p7890&quot; /Users/me/Dropbox/Apps/1Password.agilekeychain/. root@yourmama.com:/var/www/vhosts/etc/et.all/public_html/
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then: make a .plist file in XML format so &lt;code&gt;launchd&lt;/code&gt; can understand what must be done. Set the &lt;code&gt;StartInterval&lt;/code&gt; in seconds (300 means every 5 minutes).&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&amp;gt;
+&amp;lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&amp;gt;
+&amp;lt;plist version=&quot;1.0&quot;&amp;gt;
+&amp;lt;dict&amp;gt;
+    &amp;lt;key&amp;gt;Label&amp;lt;/key&amp;gt;
+    &amp;lt;string&amp;gt;com.YOURUSERNAME.NAMEOFTASK.backup&amp;lt;/string&amp;gt;
+    &amp;lt;key&amp;gt;ProgramArguments&amp;lt;/key&amp;gt;
+    &amp;lt;array&amp;gt;
+        &amp;lt;string&amp;gt;YOURSCRIPT.sh&amp;lt;/string&amp;gt;
+    &amp;lt;/array&amp;gt;
+    &amp;lt;key&amp;gt;StartInterval&amp;lt;/key&amp;gt;
+    &amp;lt;integer&amp;gt;300&amp;lt;/integer&amp;gt;
+&amp;lt;/dict&amp;gt;
+&amp;lt;/plist&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Save it as &lt;code&gt;com.YOURUSERNAME.NAMEOFTASK.backup.plist&lt;/code&gt; in &lt;code&gt;~/Library/LaunchAgents/&lt;/code&gt;. Be sure the file name matches the &lt;code&gt;&amp;lt;string&amp;gt;&lt;/code&gt; for &lt;code&gt;&amp;lt;key&amp;gt;label&amp;lt;/key&amp;gt;&lt;/code&gt; in the XML. Also make sure the ownership and permissions are proper.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo chown root com.YOURUSERNAME.NAMEOFTASK.backup.plist
+sudo chmod 644 com.YOURUSERNAME.NAMEOFTASK.backup.plist
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now to tell OSX about our screenplay. Fire up a terminal and&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;launchctl -w load ~/Library/LaunchAgents/com.YOURUSERNAME.NAMEOFTASK.backup.plist
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;-w&lt;/code&gt; flag tells &lt;code&gt;launchctl&lt;/code&gt; to load without waiting for a system reboot.&lt;/p&gt;
+
+&lt;p&gt;BAM. Now your shell script will run in the background every 300 seconds.&lt;/p&gt;
+
+&lt;p&gt;For the 1Password setup, they use a file called &lt;code&gt;1Password.html&lt;/code&gt;, meaning you have to add that to the URL. To streamline the process, I touched an &lt;code&gt;index.html&lt;/code&gt; file on the server that redirects to the 1Password html.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;head&amp;gt;
+    &amp;lt;meta http-equiv=&quot;refresh&quot; content=&quot;0; url=/1Password.html&quot;&amp;gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So yes - my super top secret passwords are technically public on the Internet; however, they’re well encrypted and I’m usually a pretty nice dude… so nobody would hack me right? For the paranoid, you could add some redundancy with an apache &lt;code&gt;.htpasswd&lt;/code&gt; file on the server. 2Passwords is better than one.&lt;/p&gt;
+</description>
+        <pubDate>Thu, 03 Jul 2014 08:38:00 -0700</pubDate>
+        <link>http://sean.sh/blog/automating-tasks-with-launchd-in-osx</link>
+        <guid isPermaLink="true">http://sean.sh/blog/automating-tasks-with-launchd-in-osx</guid>
+      </item>
+    
+      <item>
         <title>So You Have A Strong Password, Eh?</title>
         <description>&lt;p&gt;Well it doesn’t really matter. There are affordable consumer grade smartphone controlled drones that can snatch them right out of the air. Wifi not required.&lt;/p&gt;
 
