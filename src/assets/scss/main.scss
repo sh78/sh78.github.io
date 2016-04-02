@@ -1,1 +1,16 @@
 @charset "utf-8";
+
+// change fonts
+html {
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Source Code Pro', sans-serif;
+}
+
+// make all paragraphs flow text
+//// http://materializecss.com/typography.html#flow
+* {
+  @extend .flow-text;
+}
