@@ -100,7 +100,7 @@ gulp.task('scripts', () =>
   // NOTE: The order here is important since it's concatenated in order from
   // top to bottom, so you want vendor scripts etc on top
   gulp.src([
-    'src/assets/javascript/vendor.js',
+    'bower_components/jquery/dist/jquery.min.js',
     'src/assets/javascript/main.js'
   ])
     .pipe($.newer('.tmp/assets/javascript/index.js', {dest: '.tmp/assets/javascript', ext: '.js'}))
