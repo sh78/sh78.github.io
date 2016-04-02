@@ -1,6 +1,0 @@
-[submodule "_plugins/jekyll-plugins"]
-	path = _plugins/jekyll-plugins
-	url = https://github.com/kinnetica/jekyll-plugins.git
-[submodule "_plugins/reading_time"]
-	path = _plugins/reading_time
-	url = https://github.com/bdesham/reading_time.git
