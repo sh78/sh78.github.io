@@ -101,6 +101,7 @@ gulp.task('scripts', () =>
   // top to bottom, so you want vendor scripts etc on top
   gulp.src([
     'bower_components/jquery/dist/jquery.min.js',
+    'bower_components/Materialize/dist/js/materialize.min.js',
     'src/assets/javascript/main.js'
   ])
     .pipe($.newer('.tmp/assets/javascript/index.js', {dest: '.tmp/assets/javascript', ext: '.js'}))
