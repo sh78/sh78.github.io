@@ -10,7 +10,7 @@
 @import "bower_components/Materialize/sass/components/color";
 
 // Variables;
-@import "bower_components/Materialize/sass/components/variables";
+@import "materialize-variables";
 
 // Reset
 @import "bower_components/Materialize/sass/components/normalize";
@@ -41,3 +41,4 @@
 @import "bower_components/Materialize/sass/components/date_picker/default";
 @import "bower_components/Materialize/sass/components/date_picker/default.date";
 @import "bower_components/Materialize/sass/components/date_picker/default.time";
+

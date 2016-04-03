@@ -1,5 +1,9 @@
 @charset "utf-8";
 
+body {
+  background-color: $primary-color-dark;
+}
+
 // change fonts
 html {
   font-family: 'Source Sans Pro', sans-serif;
@@ -9,8 +13,55 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Source Code Pro', sans-serif;
 }
 
+// override text colors
+nav, footer.page-footer, nav .brand-logo, nav ul a, nav a {
+  color: $secondary-color;
+}
+
+
 // make all paragraphs flow text
 //// http://materializecss.com/typography.html#flow
 * {
   @extend .flow-text;
+}
+
+// layout
+
+@media only screen and (min-width: 601px) {
+  .container {
+      width: 75%;
+  }
+}
+
+@media only screen and (min-width: 993px) {
+  .container {
+      width: 55%;
+  }
+}
+
+// fix li :hover bg position for nav elements
+nav ul a {
+  display: block;
+}
+
+.icon {
+    margin-top: 13px;
+    margin-right: 5px;
+}
+
+.brand-logo {
+  left: 50px;
+}
+
+// header/footer/sidenav separation
+nav {
+  box-shadow: none;
+  border-bottom: 1px solid $layout-divider-color;
+}
+.page-footer {
+  border-top: 1px solid $layout-divider-color;
+}
+.side-nav {
+  box-shadow: none;
+  border-right: 1px solid $layout-divider-color;
 }

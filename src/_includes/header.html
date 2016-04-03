@@ -1,10 +1,12 @@
 <header class="site-header">
-
-
+  <div class="navbar-fixed">
     <nav>
-    <div class="nav-wrapper container">
-      <div class="nav-wrapper">
+      <div class="nav-wrapper container">
+
+        <a href="#" data-activates="nav-mobile" class="button-collapse show-on-large"><img width="40" class="icon circle" src="https://s.gravatar.com/avatar/f58b8f87c3ab75eb35b6b20a584ece4c?s=80" alt="Photo of Sean Henderson"></a>
         <a href="{{ site.baseurl }}/" class="brand-logo">{{ site.title }}</a>
+
+
         <a href="#" data-activates="nav-mobile" class="button-collapse right"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
           {% for my_page in site.pages %}
@@ -19,10 +21,9 @@
             <li><a href="{{ my_page.url | prepend: site.baseurl }}">{{ my_page.title }}</a></li>
             {% endif %}
           {% endfor %}
-      </ul>
+        </ul>
       </div>
-  </div>
     </nav>
-
+  </div>
 </header>
 
