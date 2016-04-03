@@ -9,11 +9,15 @@ permalink: /blog/
   <ul class="post-list">
     {% for post in site.posts %}
       <li>
-        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
-
-        <h2>
-          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-        </h2>
+          <div class="card-panel">
+            <h3 class="post-title">
+              {{ post.title }}
+            </h3>
+            <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+            <div class="card-content">
+            <p>{{ post.excerpt | strip_html | truncatewords: 36 }}</p>
+            <p><a class="post-link" href="{{ post.url | prepend: site.baseurl }}">Read More</a></p>
+          </div>
       </li>
     {% endfor %}
   </ul>
