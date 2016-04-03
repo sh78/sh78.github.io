@@ -13,7 +13,7 @@ permalink: /blog/
             <h3 class="post-title">
               {{ post.title }}
             </h3>
-            <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+            <p class="post-meta"><time datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">{{ post.date | date: "%b %-d, %Y" }}</time>
             <div class="card-content">
             <p>{{ post.excerpt | strip_html | truncatewords: 36 }}</p>
             <p><a class="post-link" href="{{ post.url | prepend: site.baseurl }}">Read More</a></p>
