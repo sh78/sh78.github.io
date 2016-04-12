@@ -27,7 +27,7 @@ a:visited {
 
 // make all main content into flow text
 //// http://materializecss.com/typography.html#flow
-.post-content, .post-header, .home {
+.post-content, .post-header, .page-content, .home {
   @extend .flow-text;
 }
 
