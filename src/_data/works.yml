@@ -15,6 +15,23 @@
     - HTML
     - CSS
     - JavaScript
+- title: Portfolio Item One
+  id: portfolio-1
+  description: >
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas fugit magni nostrum, illum aliquam, officiis iure perferendis voluptatum porro pariatur, doloribus ea blanditiis! Repellat aliquid eius asperiores quo accusantium. Fugit.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta placeat, deserunt perferendis, ipsa, laborum tempora dignissimos consectetur earum autem odio doloremque necessitatibus ullam possimus saepe. Blanditiis ab, aliquid asperiores nulla!</p>
+  link: http://sean.sh/
+  images:
+    - url: http://placekitten.com/400/200
+      title: Kitten One
+    - url: http://placekitten.com/400/200
+      title: Kitten Two
+    - url: http://placekitten.com/400/200
+      title: Kitten Three
+  tags:
+    - HTML
+    - CSS
+    - JavaScript
 - title: Portfolio Item Two
   id: portfolio-2
   description: >
