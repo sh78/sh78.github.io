@@ -110,11 +110,16 @@ nav {
 // works (portfolio) index
 
 .works {
-  .card .card-title {
-    font-size: inherit;
-    line-height: inherit;
-  }
-  .card-title h4 {
-    margin-top: 0;
+  .card {
+    .card-title {
+      font-size: inherit;
+      line-height: inherit;
+      h4 {
+        margin-top: 0;
+      }
+    }
+    .card-action + .card-reveal {
+      padding-bottom: 8em;
+    }
   }
 }
