@@ -10,7 +10,7 @@ permalink: /works/
 <div class="row">
     {% endif %}
     <div class="col l6">
-        <div class="card" id="{{ node.id }}">
+        <div class="card work-item" id="{{ node.id }}">
             <div class="card-image waves-effect waves-block waves-light">
                 <img src="{{ node.images[0].url }}" alt="{{ node.images[0].title }}">
             </div>
@@ -22,7 +22,8 @@ permalink: /works/
             <div class="card-action">
                 <a class="btn-floating btn-large waves-effect waves-light" title="Visit Website Of {{node.title}}" href="{{node.link}}" target="_blank"><i class="fa fa-link" aria-hidden="true"></i></a>
                 <a class="btn-floating btn-large waves-effect waves-light" title="View Images For {{node.title}}" href="" target="_blank"><i class="fa fa-picture-o" aria-hidden="true"></i></a>
-                <a class="btn-floating btn-large waves-effect waves-light activator" title="Read More About {{node.title}}"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
+                <a class="btn-floating btn-large waves-effect waves-light card-title reveal-toggle" title="Read More About {{node.title}}"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
+
             </div>
             {% include work-item-tags.html %}
             <div class="card-reveal">
@@ -30,7 +31,6 @@ permalink: /works/
                     <h4>{{ node.title }}</h4>
                 </span>
                 {{ node.description }}
-                <a class="btn-floating btn-large waves-effect waves-light card-title"><i class="fa fa-times"></i></a>
             </div>
         </div>
     </div>
