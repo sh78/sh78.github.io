@@ -9,16 +9,16 @@
 
         <a href="#" data-activates="nav-mobile" class="button-collapse right"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
-          {% for my_page in site.pages %}
-            {% if my_page.title != "404: Page not found" %}
-            <li><a href="{{ my_page.url | prepend: site.baseurl }}">{{ my_page.title }}</a></li>
+          {% for node in site.pages %}
+            {% if node.title != "404: Page not found" %}
+            <li><a class="{% if page.url == node.url %}active{% endif %}" href="{{ node.url | prepend: site.baseurl }}">{{ node.title }}</a></li>
             {% endif %}
           {% endfor %}
         </ul>
         <ul class="side-nav" id="nav-mobile">
-          {% for my_page in site.pages %}
-            {% if my_page.title != "404: Page not found" %}
-            <li><a href="{{ my_page.url | prepend: site.baseurl }}">{{ my_page.title }}</a></li>
+          {% for node in site.pages %}
+            {% if node.title != "404: Page not found" %}
+            <li><a class="{% if page.url == node.url %}active{% endif %}" href="{{ node.url | prepend: site.baseurl }}">{{ node.title }}</a></li>
             {% endif %}
           {% endfor %}
         </ul>
