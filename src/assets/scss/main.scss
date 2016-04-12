@@ -7,7 +7,7 @@ body {
 // override fonts
 html {
   font-family: 'Source Sans Pro', sans-serif;
-  font-size: 100%;
+  // font-size: 100%;
 }
 
 em { font-style: italic; }
@@ -18,12 +18,16 @@ small { font-size: 75%; }
 
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Source Code Pro', sans-serif;
+  font-family: 'Source Code Pro', monospace;
 }
 
 // override text colors
-nav, footer.page-footer, nav .brand-logo, nav ul a, nav a {
-  color: $secondary-color;
+nav, .page-footer, nav .brand-logo, nav ul a, nav a {
+  color: lighten($secondary-color, 50%);
+}
+
+.page-footer strong {
+  color: lighten($secondary-color, 10%);
 }
 
 // override negative margin on grid rows
@@ -70,9 +74,10 @@ nav ul a {
   left: 50px;
 }
 
-// make footer text smaller
+// make footer text smaller and heavy weight
 .page-footer {
   font-size: 1rem;
+  font-weight: 600;
 }
 
 // header/footer/sidenav separation
@@ -122,4 +127,15 @@ nav {
       padding-bottom: 8em;
     }
   }
+}
+
+// footer cc0 svg icon size
+#cc0 {
+  width: .8rem;
+  height:.8rem;
+  opacity: .5;
+}
+
+#copyright {
+  font-weight: 300;
 }

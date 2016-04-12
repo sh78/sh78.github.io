@@ -45,4 +45,7 @@ $(function() {
     $(this).toggleClass('card-title');
   });
 
+  // make footer copyright is current year
+  $('#current-year').text(new Date().getFullYear());
+
 });
