@@ -32,16 +32,14 @@ nav, footer.page-footer, nav .brand-logo, nav ul a, nav a {
   margin-right: auto;
 }
 
-// grey out :vistited links
-a:visited {
-  color: lighten($secondary-color, 50%);
-}
 
 
-// make all main content into flow text
-//// http://materializecss.com/typography.html#flow
 .post-content, .post-header, .page-content, .home {
-  @extend .flow-text;
+  @extend .flow-text; // make all main content into flow text
+  a:visited {
+    color: lighten($secondary-color, 50%); // grey out :vistited links
+  }
+
 }
 
 // layout
