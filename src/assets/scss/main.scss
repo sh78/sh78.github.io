@@ -4,11 +4,19 @@ body {
   background-color: $primary-color-dark;
 }
 
-// change fonts
+// override fonts
 html {
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 100%;
 }
+
+// Text Styles
+em { font-style: italic; }
+strong { font-weight: 600; }
+small { font-size: 75%; }
+.light { font-weight: 300; }
+.thin { font-weight: 200; }
+
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Source Code Pro', sans-serif;
