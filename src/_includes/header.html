@@ -10,7 +10,10 @@
         <a href="#" data-activates="nav-mobile" class="button-collapse right"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
           {% for node in site.pages %}
-            {% if node.title != "404: Page not found" %}
+            {% if node.url != "/" and
+              node.url != "/404.html" and
+              node.url != "/feed.xml"
+            %}
             <li><a class="{% if page.url == node.url %}active{% endif %}" href="{{ node.url | prepend: site.baseurl }}">{{ node.title }}</a></li>
             {% endif %}
           {% endfor %}
