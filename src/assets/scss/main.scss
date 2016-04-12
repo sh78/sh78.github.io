@@ -10,7 +10,6 @@ html {
   font-size: 100%;
 }
 
-// Text Styles
 em { font-style: italic; }
 strong { font-weight: 600; }
 small { font-size: 75%; }
@@ -25,6 +24,12 @@ h1, h2, h3, h4, h5, h6 {
 // override text colors
 nav, footer.page-footer, nav .brand-logo, nav ul a, nav a {
   color: $secondary-color;
+}
+
+// override negative margin on grid rows
+.container .row {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 // grey out :vistited links
