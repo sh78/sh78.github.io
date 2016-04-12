@@ -20,7 +20,10 @@
         </ul>
         <ul class="side-nav" id="nav-mobile">
           {% for node in site.pages %}
-            {% if node.title != "404: Page not found" %}
+            {% if node.url != "/" and
+              node.url != "/404.html" and
+              node.url != "/feed.xml"
+            %}
             <li><a class="{% if page.url == node.url %}active{% endif %}" href="{{ node.url | prepend: site.baseurl }}">{{ node.title }}</a></li>
             {% endif %}
           {% endfor %}
