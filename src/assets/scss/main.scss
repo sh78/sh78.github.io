@@ -19,6 +19,11 @@ nav, footer.page-footer, nav .brand-logo, nav ul a, nav a {
   color: $secondary-color;
 }
 
+// grey out :vistited links
+a:visited {
+  color: lighten($secondary-color, 50%);
+}
+
 
 // make all main content into flow text
 //// http://materializecss.com/typography.html#flow
