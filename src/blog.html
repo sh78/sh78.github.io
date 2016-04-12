@@ -9,14 +9,29 @@ permalink: /blog/
   <ul class="post-list">
     {% for post in site.posts %}
       <li>
-          <div class="card-panel">
-            <h3 class="post-title">
-              {{ post.title }}
-            </h3>
-            <p class="post-meta"><time datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">{{ post.date | date: "%b %-d, %Y" }}</time>
+          <div class="card">
             <div class="card-content">
-            <p>{{ post.excerpt | strip_html | truncatewords: 36 }}</p>
-            <p><a class="post-link" href="{{ post.url | prepend: site.baseurl }}">Read More</a></p>
+              <h3 class="post-title">
+                {{ post.title }}
+              </h3>
+              <p>{{ post.excerpt | strip_html | truncatewords: 36 }}</p>
+              <p><a class="post-link" href="{{ post.url | prepend: site.baseurl }}">Read More</a></p>
+            </div>
+            <div class="card-action post-meta">
+              <span class="reading-time" title="Estimated read time">
+              {% assign words = post.content | number_of_words %}
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              {% if words < 360 %}
+                1 minute
+              {% else %}
+                {{ words | divided_by:180 }} minutes
+              {% endif %}
+              </span>
+              <span class="publish-date">
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+                <time datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">{{ post.date | date: "%b %-d, %Y" }}</time>
+              </span>
+            </div>
           </div>
       </li>
     {% endfor %}
