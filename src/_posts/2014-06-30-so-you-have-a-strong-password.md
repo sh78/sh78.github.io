@@ -1,10 +1,7 @@
 ---
-layout: post
 title: So You Have A Strong Password, Eh?
 date: 2014-06-30 11:29:00
 tags: hacks, news
-published: true
-comments: true
 ---
 
 Well it doesn't really matter. There are affordable consumer grade smartphone controlled drones that can snatch them right out of the air. Wifi not required.

@@ -1,10 +1,7 @@
 ---
-layout: post
 title: Compass One-Liner For Automating CSS Transitions
 date: 2013-06-12 16:55:23
 tags: sass, design
-published: false
-comments: true
 ---
 
 Here's a magnificently eloqent compass mixin that will work CSS3 transition magic on all elements in one fell swoop:

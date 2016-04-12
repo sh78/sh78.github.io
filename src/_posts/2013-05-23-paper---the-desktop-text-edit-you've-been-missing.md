@@ -1,10 +1,7 @@
 ---
-layout: post
 title: Paper - The Desktop Text Editor You've Been Missing
 date: 2013-05-22 22:44:09
 tags: workflow, productivity
-published: true
-comments: true
 ---
 
 I occasionally have this idealistic daydream where my workspace is a single computer on an large empty desk, in a white room with no other furniture or discernible features. Just empty space.

@@ -1,10 +1,7 @@
 ---
-layout: post
 title: Automating Tasks With launchd In OSX
 date: 2014-07-03 15:38:00
 tags: hacks, 
-published: true
-comments: true
 ---
 
 Just got into some `lanchd` automation with OSX. I wanted an automatic `rsync` of my [1Password Anywhere](http://help.agilebits.com/1Password3/1passwordanywhere.html) files to a remote web server, as a DIY public web service for 1Password.
