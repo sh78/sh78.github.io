@@ -1,0 +1,11 @@
+<span class="publish-date">
+  <i class="fa fa-calendar" aria-hidden="true"></i>
+  {% if post.date %}
+  <time datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">
+    {{ post.date | date: "%b %-d, %Y" }}
+  {% else %}
+  <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+    {{ page.date | date: "%b %-d, %Y" }}
+  {% endif %}
+  </time>
+</span>

@@ -18,19 +18,11 @@ permalink: /blog/
               <p><a class="post-link" href="{{ post.url | prepend: site.baseurl }}">Read More</a></p>
             </div>
             <div class="card-action post-meta">
-              <span class="reading-time" title="Estimated read time">
-              {% assign words = post.content | number_of_words %}
-              <i class="fa fa-clock-o" aria-hidden="true"></i>
-              {% if words < 360 %}
-                1 minute
-              {% else %}
-                {{ words | divided_by:180 }} minutes
+              {% include reading-time.html %}
+              {% include publish-date.html %}
+              {% if post.author %}
+                {% include post-author.html %}
               {% endif %}
-              </span>
-              <span class="publish-date">
-                <i class="fa fa-calendar" aria-hidden="true"></i>
-                <time datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">{{ post.date | date: "%b %-d, %Y" }}</time>
-              </span>
             </div>
           </div>
       </li>

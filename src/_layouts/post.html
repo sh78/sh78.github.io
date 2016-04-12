@@ -6,25 +6,11 @@ layout: default
   <header class="post-header">
     <h1 class="post-title" itemprop="name headline">{{ page.title }}</h1>
     <p class="post-meta">
-      <span class="reading-time">
-        {% assign words = content | number_of_words %}
-        <i class="fa fa-clock-o" aria-hidden="true"></i>
-        {% if words < 360 %}
-          1 minute
-        {% else %}
-          {{ words | divided_by:180 }} minutes
-        {% endif %}
-      </span>
-      <span class="publish-date">
-        <i class="fa fa-calendar" aria-hidden="true"></i>
-        <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">{{ page.date | date: "%b %-d, %Y" }}</time>
-      </span>
-      <span class="post-author">
-        {% if page.author %}
-        <i class="fa fa-user" aria-hidden="true"></i>
-        <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">{{ page.author }}</span></span>
-        {% endif %}
-      </span>
+      {% include reading-time.html %}
+      {% include publish-date.html %}
+      {% if page.author %}
+        {% include post-author.html %}
+      {% endif %}
     </p>
   </header>
 

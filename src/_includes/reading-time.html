@@ -1,0 +1,13 @@
+<span class="reading-time">
+  {% if post.content %}
+    {% assign words = post.content | number_of_words %}
+  {% else %}
+    {% assign words = content | number_of_words %}
+  {% endif %}
+  <i class="fa fa-clock-o" aria-hidden="true"></i>
+  {% if words < 360 %}
+    1 minute
+  {% else %}
+    {{ words | divided_by:180 }} minutes
+  {% endif %}
+</span>
