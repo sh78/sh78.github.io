@@ -1,0 +1,30 @@
+---
+layout: page
+title: Works
+permalink: /works/
+---
+
+{% for node in site.data.works %}
+<div class="card" id="{{ node.id }}">
+    <div class="card-image waves-effect waves-block waves-light">
+        <img src="{{ node.images[0].url }}" alt="{{ node.images[0].title }}">
+    </div>
+    <div class="card-content">
+        <span class="card-title activator grey-text text-darken-4">
+          <h4 class="activator">{{ node.title }}</h4>
+          <i class="fa fa-info-circle right" aria-hidden="true"></i>
+        </span>
+        <p class="external-link">
+          <a href="{{node.link}}"><i class="fa fa-external-link" aria-hidden="true"></i> {{ node.link}}</a>
+        </p>
+    </div>
+    <div class="card-reveal">
+        <span class="card-title grey-text text-darken-4">
+        <h4 class="activator">{{ node.title }}</h4>
+        <i class="fa fa-times-circle right" aria-hidden="true"></i></span>
+        <p>{{ node.description }}</p>
+        {% include work-item-tags.html %}
+    </div>
+    {% include work-item-tags.html %}
+</div>
+{% endfor %}

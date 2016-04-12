@@ -103,3 +103,16 @@ nav {
     margin-right: 1em;
   }
 }
+
+// works (portfolio) index
+
+.works {
+  .card .card-title {
+    font-size: inherit;
+    line-height: inherit;
+  }
+  .card-title h4 {
+    display: inline-block;
+    margin-top: 0;
+  }
+}
