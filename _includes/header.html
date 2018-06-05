@@ -1,0 +1,20 @@
+<header class="page-header" role="banner">
+    {%- assign default_paths = site.pages | map: "path" -%}
+    {%- assign page_paths = site.header_pages | default: default_paths -%}
+
+    {%- if page_paths -%}
+      <nav>
+        <div class="nav-wrapper container">
+          <a class="brand-logo" rel="author" href="{{ "/" | relative_url }}">{{ site.title | escape }}</a>
+          <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+          <ul class="right hide-on-med-and-down" id="nav-large">
+            {%- include nav-links.html -%}
+          </ul>
+        </div>
+
+        <ul class="sidenav" id="nav-mobile">
+          {%- include nav-links.html -%}
+        </ul>
+      </nav>
+    {%- endif -%}
+</header>

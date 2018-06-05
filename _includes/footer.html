@@ -1,0 +1,34 @@
+<footer class="page-footer">
+  <data class="u-url" href="{{ "/" | relative_url }}"></data>
+
+  <div class="container">
+    <div class="row">
+      <div class="col l6 s12">
+        <h5 class="white-text">{{ site.title | escape }}</h5>
+        <p class="grey-text text-lighten-4">
+          {%- if site.author -%}
+            {{ site.author | escape }}
+          {%- else -%}
+            {{ site.title | escape }}
+          {%- endif -%}
+          {%- if site.email -%}
+          <br>
+          <a class="u-email" href="mailto:{{ site.email }}">{{ site.email }}</a>
+        </p>
+        {%- endif -%}
+        <p class="grey-text text-lighten-4">{{- site.description | escape -}}</p>
+      </div>
+      <div class="col l4 offset-l2 s12">
+        <h5 class="white-text">Links</h5>
+        {%- include social.html -%}
+      </div>
+    </div>
+  </div>
+  <div class="footer-copyright">
+    <div class="container">
+    &copy; 2018 Copyright Text
+    <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+    </div>
+  </div>
+
+</footer>
