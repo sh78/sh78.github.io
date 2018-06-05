@@ -1,10 +1,9 @@
-title: Minimaterialize
-author: GitHub User
-email: your-email@domain.com
-description: > # this means to ignore newlines until "twitter_username:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
+title: ./log
+author: Sean Henderson
+email: mail@sean.sh
+description: > # this means to ignore newlines until outdented
+  Sean's weblog: rants, musings, software speak, how-to's, developer-ese,
+  and more.
 
 permalink: /blog/:title/
 
@@ -18,22 +17,18 @@ sass:
     - node_modules/materialize-css/sass
 
 # social links
-twitter_username: jekyllrb
-github_username:  jekyll
+twitter_username: seanmh78
+github_username:  sh78
+linkedin_username: seanmhenderson
+facebook_username: seanmhenderson
+youtube_username: seansh7
+
 rss: rss
-# dribbble_username: jekyll
-# facebook_username: jekyll
-# flickr_username: jekyll
-# instagram_username: jekyll
-# linkedin_username: jekyll
-# pinterest_username: jekyll
-# youtube_username: jekyll
-# googleplus_username: +jekyll
 
 # Mastodon instances
 # mastodon:
-# - username: jekyll
-#   instance: example.com
+- username: sh78
+  instance: mastodon.technology
 # - username: jekyll2
 #   instance: example.com
 
@@ -53,7 +48,7 @@ minima:
 
 # If you want to link only specific pages in your header, uncomment
 # this and add the path to the pages in order as they should show up
-#header_pages:
+# header_pages:
 # - about.html
 
 # Build settings
