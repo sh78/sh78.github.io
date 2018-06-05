@@ -3,7 +3,7 @@
   {%- if my_page.title -%}
   <li><a class="page-link" href="{{ my_page.url | relative_url }}">
     {%- if my_page.icon -%}
-      <i class="material-icons left">{{ my_page.icon }}</i>
+      <i class="fas fa-{{ my_page.icon }}"></i>
     {%- endif -%}
     {{ my_page.title | escape }}
   </a></li>
