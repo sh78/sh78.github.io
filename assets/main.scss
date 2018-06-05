@@ -76,6 +76,20 @@
   }
 }
 
+nav {
+  ul {
+    a {
+      font-size: 1.2rem;
+      text-transform: lowercase;
+
+      i {
+        font-size: 1.2rem;
+        margin-right: .25em;
+      }
+    }
+  }
+}
+
 // Touch up the main post listing layout
 .post-listing {
   .row {
