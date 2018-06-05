@@ -1,4 +1,4 @@
-title: ./log
+title: "./log"
 author: Sean Henderson
 email: mail@sean.sh
 description: > # this means to ignore newlines until outdented
@@ -27,8 +27,8 @@ rss: rss
 
 # Mastodon instances
 # mastodon:
-- username: sh78
-  instance: mastodon.technology
+# - username: sh78
+#   instance: mastodon.technology
 # - username: jekyll2
 #   instance: example.com
 
