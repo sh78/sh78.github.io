@@ -56,12 +56,18 @@
 @import "minima/syntax-highlighting";
 
 // here be the author's styles
-@import "atoms"; // bit-sized heloper classes
+@import "atoms"; // bite-sized heloper classes
+@import "theme"; // just skin deep
 
 /* Main Styles */
 $body_font: 'Work Sans', 'Segoe UI', Tahoma, sans-serif;
 $headline_font: 'Space Mono', 'Fira Code', 'Source Code Pro', monospace;
 $pre_font: $headline_font;
+
+html * {
+    color-profile: sRGB;
+    rendering-intent: auto;
+}
 
 body {
   font-family: $body_font;
