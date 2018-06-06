@@ -1,20 +1,33 @@
 <header class="page-header" role="banner">
-    {%- assign default_paths = site.pages | map: "path" -%}
-    {%- assign page_paths = site.header_pages | default: default_paths -%}
+  {%- assign default_paths = site.pages | map: "path" -%}
+  {%- assign page_paths = site.header_pages | default: default_paths -%}
 
-    {%- if page_paths -%}
-      <nav>
-        <div class="nav-wrapper container">
-          <a class="brand-logo" rel="author" href="{{ "/" | relative_url }}">{{ site.title | escape }}</a>
-          <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-          <ul class="right hide-on-med-and-down" id="nav-large">
-            {%- include nav-links.html -%}
-          </ul>
-        </div>
-
-        <ul class="sidenav" id="nav-mobile">
-          {%- include nav-links.html -%}
-        </ul>
-      </nav>
-    {%- endif -%}
+  {%- if page_paths -%}
+  <!-- Dropdown Structure -->
+  <ul id="dropdown-more" class="dropdown-content">
+    <li><a href="#!">one</a></li>
+    <li><a href="#!">two</a></li>
+    <li class="divider"></li>
+    <li><a href="#!">three</a></li>
+  </ul>
+  <nav>
+    <div class="nav-wrapper container">
+      <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <a class="brand-logo center" rel="author" href="{{ "/" | relative_url }}">{{ site.title | escape }}</a>
+      <ul class="left hide-on-med-and-down" id="nav-large">
+        {%- include nav-links.html -%}
+      </ul>
+      <ul class="right">
+        <li>
+          <a class="dropdown-trigger" href="#!" data-target="dropdown-more">
+            <i class="material-icons right">more_vert</i>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <ul class="sidenav" id="nav-mobile">
+      {%- include nav-links.html -%}
+    </ul>
+  </nav>
+  {%- endif -%}
 </header>
