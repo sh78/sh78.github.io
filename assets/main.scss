@@ -56,7 +56,7 @@
 @import "minima/syntax-highlighting";
 
 // here be the author's styles
-@import "atoms"; // bite-sized heloper classes
+@import "atoms"; // bite-sized helpper classes
 @import "theme"; // just skin deep
 
 /* Main Styles */
@@ -72,6 +72,7 @@ html * {
 body {
   font-family: $body_font;
   font-size: 1.3rem;
+	background-color: color("solarized", "base01");
 }
 
 h1, h2, h3, h4, h5 {

@@ -1,125 +1,25 @@
-/* Solarized color */
-
-// Solarized background and content tones have their own object...
-$solar-base: (
-	"$03":    #002b36,
-	"$02":    #073642,
-	"$01":    #586e75,
-	"$00":    #657b83,
-	"$0":     #839496,
-	"$1":     #93a1a1,
-	"$2":     #eee8d5,
-	"$3":     #fdf6e3,
+// Solarized color palette
+$solarized: (
+	"base03":    #002b36,
+	"base02":    #073642,
+	"base01":    #586e75,
+	"base00":    #657b83,
+	"base0":     #839496,
+	"base1":     #93a1a1,
+	"base2":     #eee8d5,
+	"base3":     #fdf6e3,
+	"yellow":    #b58900,
+	"orange":    #cb4b16,
+	"red":       #dc322f,
+	"magenta":   #d33682,
+	"violet":    #6c71c4,
+	"blue":      #268bd2,
+	"cyan":      #2aa198,
+	"green":     #859900,
 );
 
-// ... while for Solarized accent tones, each $color's "base" is the true Solarized color
-// and other colors are lighter/darker per Material Design's math
-$solar-yellow: (
-	"$base":			#b58900,
-  "lighten-5":  #fdeaeb,
-  "lighten-4":  #f8c1c3,
-  "lighten-3":  #f3989b,
-  "lighten-2":  #ee6e73,
-  "lighten-1":  #ea454b,
-  "darken-1":   #d0181e,
-  "darken-2":   #b9151b,
-  "darken-3":   #a21318,
-  "darken-4":   #8b1014,
-);
 
-$solar-orange: (
-	"$base":			#cb4b16,
-  "lighten-5":  #fdeaeb,
-  "lighten-4":  #f8c1c3,
-  "lighten-3":  #f3989b,
-  "lighten-2":  #ee6e73,
-  "lighten-1":  #ea454b,
-  "darken-1":   #d0181e,
-  "darken-2":   #b9151b,
-  "darken-3":   #a21318,
-  "darken-4":   #8b1014,
-);
-
-$solar-red: (
-	"$base":			#dc322f,
-  "lighten-5":  #fdeaeb,
-  "lighten-4":  #f8c1c3,
-  "lighten-3":  #f3989b,
-  "lighten-2":  #ee6e73,
-  "lighten-1":  #ea454b,
-  "darken-1":   #d0181e,
-  "darken-2":   #b9151b,
-  "darken-3":   #a21318,
-  "darken-4":   #8b1014,
-);
-
-$solar-magenta: (
-	"$base":			#d33682,
-  "lighten-5":  #fdeaeb,
-  "lighten-4":  #f8c1c3,
-  "lighten-3":  #f3989b,
-  "lighten-2":  #ee6e73,
-  "lighten-1":  #ea454b,
-  "darken-1":   #d0181e,
-  "darken-2":   #b9151b,
-  "darken-3":   #a21318,
-  "darken-4":   #8b1014,
-);
-
-$solar-violet: (
-	"$base":			#6c71c4,
-  "lighten-5":  #fdeaeb,
-  "lighten-4":  #f8c1c3,
-  "lighten-3":  #f3989b,
-  "lighten-2":  #ee6e73,
-  "lighten-1":  #ea454b,
-  "darken-1":   #d0181e,
-  "darken-2":   #b9151b,
-  "darken-3":   #a21318,
-  "darken-4":   #8b1014,
-);
-
-$solar-blue: (
-	"$base":			#268bd2,
-  "lighten-5":  #fdeaeb,
-  "lighten-4":  #f8c1c3,
-  "lighten-3":  #f3989b,
-  "lighten-2":  #ee6e73,
-  "lighten-1":  #ea454b,
-  "darken-1":   #d0181e,
-  "darken-2":   #b9151b,
-  "darken-3":   #a21318,
-  "darken-4":   #8b1014,
-);
-
-$solar-cyan: (
-	"$base":			#2aa198,
-  "lighten-5":  #fdeaeb,
-  "lighten-4":  #f8c1c3,
-  "lighten-3":  #f3989b,
-  "lighten-2":  #ee6e73,
-  "lighten-1":  #ea454b,
-  "darken-1":   #d0181e,
-  "darken-2":   #b9151b,
-  "darken-3":   #a21318,
-  "darken-4":   #8b1014,
-);
-
-$solar-green: (
-	"$base":			#859900,
-  "lighten-5":  #fdeaeb,
-  "lighten-4":  #f8c1c3,
-  "lighten-3":  #f3989b,
-  "lighten-2":  #ee6e73,
-  "lighten-1":  #ea454b,
-  "darken-1":   #d0181e,
-  "darken-2":   #b9151b,
-  "darken-3":   #a21318,
-  "darken-4":   #8b1014,
-);
-
-// Google Color Palette defined: http://www.google.com/design/spec/style/color.html
-
+// Google Color Palette http://www.google.com/design/spec/style/color.html
 $materialize-red: (
   "base":       #e51c23,
   "lighten-5":  #fdeaeb,
@@ -451,6 +351,7 @@ $shades: (
 );
 
 $colors: (
+  "solarized": $solarized,
   "materialize-red": $materialize-red,
   "red": $red,
   "pink": $pink,
