@@ -1,5 +1,8 @@
 ---
 layout: home
+title: About
+header_title: sean
+icon: user
 ---
 
 # Oh Hello There
