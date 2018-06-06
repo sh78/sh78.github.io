@@ -1,6 +1,10 @@
 ---
-# Feel free to add content and custom Front Matter to this file.
-# To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
-
 layout: home
 ---
+
+# Oh Hello There
+<!-- Dynamic language change, as if someone were typing -->
+
+I'm Sean.
+
+Here be rants, musings, software speak, how-to's, developer-ese, and much more.
