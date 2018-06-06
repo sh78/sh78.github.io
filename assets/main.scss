@@ -55,7 +55,19 @@
 // keep the original minima syntax highlighting
 @import "minima/syntax-highlighting";
 
+// here be the author's styles
+@import "atoms"; // bit-sized heloper classes
+
 /* Main Styles */
+
+body {
+  font-family: 'Work Sans', 'Segoe UI', Tahoma, sans-serif;
+  font-size: 1.3rem;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Space Mono', monospace;
+}
 
 // Links
 .page-content {
@@ -126,3 +138,4 @@ nav {
 .post-content, .page-content {
   margin-bottom: 30px;
 }
+

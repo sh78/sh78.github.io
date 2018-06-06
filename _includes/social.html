@@ -2,7 +2,7 @@
   {%- if site.github_username -%}
     <li>
       <a href="https://github.com/{{ site.github_username| cgi_escape | escape }}">
-        <i class="fab fa-github fa-fw"></i>
+        <i class="fab fa-github fa-fw"><span class="sr-only">GitHub</span></i>
         <span class="username">{{ site.github_username| escape }}</span>
       </a>
     </li>
@@ -10,7 +10,7 @@
   {%- if site.twitter_username -%}
     <li>
       <a href="https://twitter.com/{{ site.twitter_username| cgi_escape | escape }}">
-        <i class="fab fa-twitter fa-fw"></i>
+        <i class="fab fa-twitter fa-fw"><span class="sr-only">Twitter</span></i>
         <span class="username">{{ site.twitter_username| escape }}</span>
       </a>
     </li>
@@ -18,7 +18,7 @@
   {%- if site.linkedin_username -%}
     <li>
       <a href="https://www.linkedin.com/in/{{ site.linkedin_username| cgi_escape | escape }}">
-        <i class="fab fa-linkedin fa-fw"></i>
+        <i class="fab fa-linkedin fa-fw"><span class="sr-only">linkedin</span></i>
         <span class="username">{{ site.linkedin_username| escape }}</span>
       </a>
     </li>
@@ -26,14 +26,14 @@
   {%- if site.facebook_username -%}
     <li>
       <a href="https://www.facebook.com/{{ site.facebook_username| cgi_escape | escape }}">
-        <i class="fab fa-facebook fa-fw"></i>
+        <i class="fab fa-facebook fa-fw"><span class="sr-only">facebook</span></i>
         <span class="username">{{ site.facebook_username| escape }}</span>
       </a>
     </li>
   {%- endif -%}
   {%- if site.flickr_username -%}
     <li>
-      <i class="fab fa-flickr fa-fw"></i>
+      <i class="fab fa-flickr fa-fw"><span class="sr-only">flickr</span></i>
       <a href="https://www.flickr.com/photos/{{ site.flickr_username| cgi_escape | escape }}"><span class="username">{{ site.flickr_username| escape }}</span>
       </a>
     </li>
@@ -50,7 +50,7 @@
   {%- if site.youtube_username -%}
     <li>
       <a href="https://www.youtube.com/{{ site.youtube_username| cgi_escape | escape }}">
-        <i class="fab fa-youtube fa-fw"></i>
+        <i class="fab fa-youtube fa-fw"><span class="sr-only">youtube</span></i>
         <span class="username">{{ site.youtube_username| escape }}</span>
       </a>
     </li>
@@ -58,7 +58,7 @@
   {%- if site.googleplus_username -%}
     <li>
       <a href="https://plus.google.com/{{ site.googleplus_username| escape }}">
-        <i class="fab fa-google-plus fa-fw"></i>
+        <i class="fab fa-google-plus fa-fw"><span class="sr-only">Google Plus</span></i>
         <span class="username">{{ site.googleplus_username| escape }}</span>
       </a>
     </li>
@@ -66,7 +66,7 @@
   {%- if site.rss -%}
     <li>
       <a href="{{ 'feed.xml' | relative_url }}">
-        <i class="fas fa-rss fa-fw"></i>
+        <i class="fas fa-rss fa-fw"><span class="sr-only">rss</span></i>
         <span>{{ site.rss | escape }}</span>
       </a>
     </li>
@@ -74,7 +74,7 @@
   {%- if site.instagram_username -%}
     <li>
       <a href="https://www.instagram.com/{{ site.instagram_username| cgi_escape | escape }}">
-        <i class="fab fa-instagram fa-fw"></i>
+        <i class="fab fa-instagram fa-fw"><span class="sr-only">instagram</span></i>
         <span class="username">{{ site.instagram_username| escape }}</span>
       </a>
     </li>
@@ -82,7 +82,7 @@
   {%- if site.pinterest_username -%}
     <li>
       <a href="https://www.pinterest.com/{{ site.pinterest_username| cgi_escape | escape }}">
-        <i class="fab fa-pinterest fa-fw"></i>
+        <i class="fab fa-pinterest fa-fw"><span class="sr-only">pinterest</span></i>
         <span class="username">{{ site.pinterest_username| escape }}</span>
       </a>
     </li>
@@ -90,7 +90,7 @@
   {%- if site.dribbble_username -%}
     <li>
       <a href="https://dribbble.com/{{ site.dribbble_username| cgi_escape | escape }}">
-        <i class="fab fa-dribbble fa-fw"></i>
+        <i class="fab fa-dribbble fa-fw"><span class="sr-only">dribbble</span></i>
         <span class="username">{{ site.dribbble_username| escape }}</span>
       </a>
     </li>
