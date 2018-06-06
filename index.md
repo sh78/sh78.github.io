@@ -3,6 +3,7 @@ layout: home
 title: About
 header_title: sean
 icon: user
+image: /assets/images/sean.jpg
 ---
 
 # Hello There
