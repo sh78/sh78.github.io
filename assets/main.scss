@@ -59,14 +59,27 @@
 @import "atoms"; // bit-sized heloper classes
 
 /* Main Styles */
+$body_font: 'Work Sans', 'Segoe UI', Tahoma, sans-serif;
+$headline_font: 'Space Mono', 'Fira Code', 'Source Code Pro', monospace;
+$pre_font: $headline_font;
 
 body {
-  font-family: 'Work Sans', 'Segoe UI', Tahoma, sans-serif;
+  font-family: $body_font;
   font-size: 1.3rem;
 }
 
 h1, h2, h3, h4, h5 {
-  font-family: 'Space Mono', monospace;
+  font-family: $headline_font;
+  font-weight: 700;
+}
+
+strong {
+  font-weight: 700;
+}
+
+code, kbd, samp {
+  font-family: $pre_font;
+  font-weight: 400;
 }
 
 // Links
