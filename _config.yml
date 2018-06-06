@@ -1,4 +1,4 @@
-title: "./log"
+title: "./sean"
 author: Sean Henderson
 email: mail@sean.sh
 description: > # this means to ignore newlines until outdented
@@ -50,6 +50,7 @@ minima:
 # this and add the path to the pages in order as they should show up
 # header_pages:
 #   - about.md
+#   - blog.md
 
 # Build settings
 theme: minimaterialize
