@@ -25,7 +25,7 @@ layout: default
           {%- endif -%}
           <div class="{%- if site.post_cards -%}card-content{%- endif -%}">
             {%- if site.post_cards -%}
-            <a class="btn-floating halfway-fab waves-effect waves-light hoverable" href="{{ post.url | relative_url }}"><i class="material-icons">subdirectory_arrow_right</i></a>
+            <a title="read more..." class="btn-floating halfway-fab waves-effect waves-light hoverable" href="{{ post.url | relative_url }}"><i class="fas fa-glasses"><span class="sr-only">Read More...</span></i></a>
             {%- endif -%}
             <h3 class="card-title">
               <a class="post-link" href="{{ post.url | relative_url }}">
