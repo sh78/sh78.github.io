@@ -4,10 +4,10 @@
   <div class="container">
     <div class="row">
       <div class="col l6 s12">
-        <h5 class="white-text">{{ site.title | escape }}</h5>
+        {% comment %} <h5 class="white-text">{{ site.title | escape }}</h5> {% endcomment %}
         <p class="grey-text text-lighten-4">
           {%- if site.author -%}
-            {{ site.author | escape }}
+          <h5 class="white-text">{{ site.author | escape }}</h5>
           {%- else -%}
             {{ site.title | escape }}
           {%- endif -%}
@@ -26,8 +26,8 @@
   </div>
   <div class="footer-copyright">
     <div class="container">
-    &copy; 2018 Copyright Text
-    <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+      <p class="left">&copy; <code>nil</code></p>
+      <p class="right">Made In California with and <i class="fab fa-linux"></i> &amp; <i class="fas fa-beer"></i></p>
     </div>
   </div>
 
