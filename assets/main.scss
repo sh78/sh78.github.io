@@ -8,7 +8,6 @@
 @import "colors";
 @import "variables";
 
-
 /* Materialize Imports*/
 
 // Color
@@ -58,55 +57,6 @@
 // here be the author's styles
 @import "atoms"; // bite-sized helpper classes
 @import "theme"; // just skin deep
-
-/* Main Styles */
-$body_font: 'Work Sans', 'Segoe UI', Tahoma, sans-serif;
-$headline_font: 'Space Mono', 'Fira Code', 'Source Code Pro', monospace;
-$pre_font: $headline_font;
-
-html * {
-    color-profile: sRGB;
-    rendering-intent: auto;
-}
-
-body {
-  font-family: $body_font;
-  font-size: 1.3rem;
-	background-color: color("solarized", "base01");
-}
-
-h1, h2, h3, h4, h5 {
-  font-family: $headline_font;
-  font-weight: 700;
-}
-
-strong {
-  font-weight: 700;
-}
-
-code, kbd, samp {
-  font-family: $pre_font;
-  font-weight: 400;
-}
-
-// Links
-.page-content {
-  a {
-    &:hover {
-      color: darken($link-color, 10%);
-    }
-  }
-}
-
-.page-header, .page-footer {
-  a {
-    color: color("light-blue", "lighten-4");
-
-    &:hover {
-      color: color("light-blue", "lighten-5");
-    }
-  }
-}
 
 nav {
   ul {

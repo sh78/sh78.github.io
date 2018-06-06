@@ -23,11 +23,11 @@
 //  17. Tabs
 //  18. Tables
 //  19. Toasts
+//  24. Progress Bar
 //  20. Typography
 //  21. Footer
 //  22. Flow Text
 //  23. Collections
-//  24. Progress Bar
 
 
 
@@ -35,14 +35,16 @@
 // ==========================================================================
 // https://materializecss.com/color.html
 
-$primary-color: color("blue-grey", "darken-1");
+$primary-color: color("solarized", "base03");
 $primary-color-light: lighten($primary-color, 15%);
 $primary-color-dark: darken($primary-color, 15%);
 
-$secondary-color: color("light-blue", "lighten-1");
+$secondary-color: color("orange", "lighten-1");
 $success-color: color("green", "base");
-$error-color: color("red", "base");
-$link-color: color("light-blue", "darken-1");
+$error-color: color("solarized", "red");
+$link-color: color("shades", "white");
+$supplement-color: color("solarized", "cyan");
+$special-color: color("solarized", "magenta");
 
 
 // 2. Badges
@@ -71,7 +73,7 @@ $button-disabled-color: #9F9F9F;
 // Raised buttons
 $button-raised-background: $secondary-color;
 $button-raised-background-hover: lighten($button-raised-background, 5%);
-$button-raised-color: #fff;
+$button-raised-color: color("shades", "white");
 
 // Large buttons
 $button-large-font-size: 15px;
@@ -92,7 +94,7 @@ $button-flat-disabled-color: lighten(#999, 10%);
 // Floating buttons
 $button-floating-background: $secondary-color;
 $button-floating-background-hover: darken($button-floating-background, 10%);
-$button-floating-color: #fff;
+$button-floating-color: color("shades", "white");
 $button-floating-size: 40px;
 $button-floating-radius: 50%;
 
@@ -101,8 +103,8 @@ $button-floating-radius: 50%;
 // ==========================================================================
 
 $card-padding: 24px;
-$card-bg-color: #fff;
-$card-link-color: color("orange", "accent-2");
+$card-bg-color: color("solarized", "base03");
+$card-link-color: $link-color;
 $card-link-color-light: lighten($card-link-color, 20%);
 
 
@@ -119,7 +121,7 @@ $carousel-item-width: $carousel-item-height;
 
 $collapsible-height: 3rem;
 $collapsible-line-height: $collapsible-height;
-$collapsible-header-color: #fff;
+$collapsible-header-color: color("shades", "white");
 $collapsible-border-color: #ddd;
 
 
@@ -154,7 +156,7 @@ $timepicker-clock-plate-bg: #eee;
 // 9. Dropdown
 // ==========================================================================
 
-$dropdown-bg-color: #fff;
+$dropdown-bg-color: color("shades", "white");
 $dropdown-hover-bg-color: #eee;
 $dropdown-color: $secondary-color;
 $dropdown-item-height: 50px;
@@ -167,7 +169,7 @@ $dropdown-item-height: 50px;
 $input-height: 3rem;
 $input-border-color: color("grey", "base");
 $input-border: 1px solid $input-border-color;
-$input-background: #fff;
+$input-background: color("shades", "white");
 $input-error-color: $error-color;
 $input-success-color: $success-color;
 $input-focus-color: $secondary-color;
@@ -248,7 +250,7 @@ $navbar-line-height: $navbar-height;
 $navbar-height-mobile: 56px;
 $navbar-line-height-mobile: $navbar-height-mobile;
 $navbar-font-size: 1rem;
-$navbar-font-color: #fff;
+$navbar-font-color: color("shades", "white");
 $navbar-brand-font-size: 2.1rem;
 
 // 14. Side Navigation
@@ -257,7 +259,7 @@ $navbar-brand-font-size: 2.1rem;
 $sidenav-width: 300px;
 $sidenav-font-size: 14px;
 $sidenav-font-color: rgba(0,0,0,.87);
-$sidenav-bg-color: #fff;
+$sidenav-bg-color: color("shades", "white");
 $sidenav-padding: 16px;
 $sidenav-item-height: 48px;
 $sidenav-line-height: $sidenav-item-height;
@@ -282,7 +284,7 @@ $spinner-default-color: $secondary-color;
 
 $tabs-underline-color: $primary-color-light;
 $tabs-text-color: $primary-color;
-$tabs-bg-color: #fff;
+$tabs-bg-color: color("shades", "white");
 
 
 // 18. Tables
@@ -297,12 +299,16 @@ $table-striped-color: rgba(242, 242, 242, 0.5);
 
 $toast-height: 48px;
 $toast-color: #323232;
-$toast-text-color: #fff;
+$toast-text-color: color("shades", "white");
 $toast-action-color: #eeff41;
 
 
 // 20. Typography
 // ==========================================================================
+
+$body-font: 'Work Sans', 'Segoe UI', Tahoma, sans-serif;
+$headline-font: 'Space Mono', 'Fira Code', 'Source Code Pro', monospace;
+$pre_font: $headline-font;
 
 $font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 $off-black: rgba(0, 0, 0, 0.87);
@@ -318,9 +324,9 @@ $h6-fontsize: 1.15rem;
 // 21. Footer
 // ==========================================================================
 
-$footer-font-color: #fff;
+$footer-font-color: rgba(255,255,255,.8);
 $footer-bg-color: $primary-color;
-$footer-copyright-font-color: rgba(255,255,255,.8);
+$footer-copyright-font-color: rgba(255,255,255,.6);
 $footer-copyright-bg-color: rgba(51,51,51,.08);
 
 
@@ -336,7 +342,7 @@ $interval-size: $range / $intervals;
 // ==========================================================================
 
 $collection-border-color: #e0e0e0;
-$collection-bg-color: #fff;
+$collection-bg-color: color("shades", "white");
 $collection-active-bg-color: $secondary-color;
 $collection-active-color: lighten($secondary-color, 55%);
 $collection-hover-bg-color: #ddd;

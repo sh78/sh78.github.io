@@ -5,7 +5,7 @@
     <div class="row">
       <div class="col l6 s12">
         {% comment %} <h5 class="white-text">{{ site.title | escape }}</h5> {% endcomment %}
-        <p class="grey-text text-lighten-4">
+        <p>
           {%- if site.author -%}
           <h5 class="white-text">{{ site.author | escape }}</h5>
           {%- else -%}
@@ -16,10 +16,10 @@
           <a class="u-email" href="mailto:{{ site.email }}">{{ site.email }}</a>
         </p>
         {%- endif -%}
-        <p class="grey-text text-lighten-4">{{- site.description | escape -}}</p>
+        <p>{{- site.description | escape -}}</p>
       </div>
       <div class="col l4 offset-l2 s12">
-        <h5 class="white-text">Links</h5>
+        <h5>Links</h5>
         {%- include social.html -%}
       </div>
     </div>
