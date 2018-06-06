@@ -13,7 +13,9 @@
   <nav>
     <div class="nav-wrapper container">
       <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="fas fa-bars"><span class="sr-only">menu</span></i></a>
-      <a class="brand-logo center" rel="author" href="{{ "/" | relative_url }}">{{ site.title | escape }}</a>
+      <div class="brand-logo center">
+        <a href="{{ "/" | relative_url }}">./{{ site.title | escape }}</a>{% if page.header_title %}/{{ page.header_title }}{% else  %}{% if page.layout == "log" or page.layout == "post" %}<a href="{{ "/log" | relative_url }}">/log</a>{% endif %}{% if page.layout == "post" %}<a href="{{ "#" }}">/post</a>{% endif %}{% endif %}
+      </div>
       <ul class="left hide-on-med-and-down" id="nav-large">
         {%- include nav-links.html -%}
       </ul>

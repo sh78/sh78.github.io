@@ -1,5 +1,5 @@
 ---
-layout: blog
+layout: log
 title: log
 icon: pencil-alt
 description: >

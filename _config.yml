@@ -1,11 +1,11 @@
-title: "./sean"
+title: "sean"
 author: Sean Henderson
 email: mail@sean.sh
 description: > # this means to ignore newlines until outdented
   Sean's weblog: rants, musings, software speak, how-to's, developer-ese,
   and more.
 
-permalink: /blog/:title/
+permalink: /log/:title/
 
 # whitelist node_modules
 exclude: []
