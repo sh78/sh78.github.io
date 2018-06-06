@@ -1,7 +1,7 @@
 body {
   font-family: $body-font;
   font-size: 1.3rem;
-	background-color: color("solarized", "base02");
+	background-color: $primary-color-light;
   color: lighten(color("solarized", "base1"), 10%);
 }
 
@@ -9,6 +9,7 @@ h1, h2, h3, h4, h5 {
   font-family: $headline-font;
   font-weight: 700;
   color: color("grey", "lighten-3");
+  word-spacing: -1rem;
 }
 
 strong {

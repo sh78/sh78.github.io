@@ -8,3 +8,18 @@
   clip: rect(0,0,0,0);
   border: 0;
 }
+
+.avatar {
+  max-width: 120px;
+
+  img {
+    width: 100%;
+    border-radius: 7890ex;
+  }
+}
+
+.highlight {
+  margin: 1em 0;
+  padding: .5em 1em;
+  width: 100%;
+}

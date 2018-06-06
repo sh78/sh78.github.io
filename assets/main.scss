@@ -50,9 +50,9 @@
 @import "components/datepicker";
 @import "components/timepicker";
 
-
-// keep the original minima syntax highlighting
-@import "minima/syntax-highlighting";
+// wcag approved solarized syntax highlighting
+@import "syntax/solarized-dark";
+@import "syntax/solarized-light";
 
 // here be the author's styles
 @import "atoms"; // bite-sized helpper classes

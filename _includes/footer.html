@@ -3,23 +3,25 @@
 
   <div class="container">
     <div class="row">
-      <div class="col l6 s12">
-        {% comment %} <h5 class="white-text">{{ site.title | escape }}</h5> {% endcomment %}
+      <div class="col m6 s12">
         <p>
           {%- if site.author -%}
-          <h5 class="white-text">{{ site.author | escape }}</h5>
+          <a href="/assets/images/sean.jpg" title="view image">
+            <div class="avatar" data-cycle="sean">
+              <img src="/assets/images/sean.jpg" alt="photo of Sean Henderson">
+            </div>
+          </a>
+          <p>{{ site.author | escape }}</p>
           {%- else -%}
             {{ site.title | escape }}
           {%- endif -%}
           {%- if site.email -%}
           <br>
-          <a class="u-email" href="mailto:{{ site.email }}">{{ site.email }}</a>
         </p>
         {%- endif -%}
-        <p>{{- site.description | escape -}}</p>
+        <p></p>
       </div>
-      <div class="col l4 offset-l2 s12">
-        <h5>Links</h5>
+      <div class="col m5 offset-m1 s12">
         {%- include social.html -%}
       </div>
     </div>

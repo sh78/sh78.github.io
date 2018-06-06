@@ -36,7 +36,7 @@
 // https://materializecss.com/color.html
 
 $primary-color: color("solarized", "base03");
-$primary-color-light: lighten($primary-color, 15%);
+$primary-color-light: color("solarized", "base02");
 $primary-color-dark: darken($primary-color, 15%);
 
 $secondary-color: color("orange", "lighten-1");
@@ -156,9 +156,9 @@ $timepicker-clock-plate-bg: #eee;
 // 9. Dropdown
 // ==========================================================================
 
-$dropdown-bg-color: color("shades", "white");
+$dropdown-bg-color: $primary-color-light;
 $dropdown-hover-bg-color: #eee;
-$dropdown-color: $secondary-color;
+$dropdown-color: $link-color;
 $dropdown-item-height: 50px;
 
 
@@ -258,8 +258,8 @@ $navbar-brand-font-size: 2.1rem;
 
 $sidenav-width: 300px;
 $sidenav-font-size: 14px;
-$sidenav-font-color: rgba(0,0,0,.87);
-$sidenav-bg-color: color("shades", "white");
+$sidenav-font-color: $navbar-font-color;
+$sidenav-bg-color: $primary-color-light;
 $sidenav-padding: 16px;
 $sidenav-item-height: 48px;
 $sidenav-line-height: $sidenav-item-height;
@@ -310,7 +310,8 @@ $body-font: 'Work Sans', 'Segoe UI', Tahoma, sans-serif;
 $headline-font: 'Space Mono', 'Fira Code', 'Source Code Pro', monospace;
 $pre_font: $headline-font;
 
-$font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+$font-stack: $headline-font;
+$materialize-font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 $off-black: rgba(0, 0, 0, 0.87);
 // Header Styles
 $h1-fontsize: 4.2rem;
