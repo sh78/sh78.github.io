@@ -10,9 +10,6 @@ M.AutoInit();
     // lazy loading per
     // https://developers.google.com/web/fundamentals/performance/lazy-loading-guidance/
     var lazyImages = [].slice.call(document.querySelectorAll("img"));
-    for(let i = 0; i < lazyImages.length; i++) {
-      console.log(lazyImages[i]);
-    }
 
     if ("IntersectionObserver" in window) {
       let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
