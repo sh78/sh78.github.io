@@ -25,6 +25,10 @@ a {
   }
 }
 
+pre {
+  overflow: scroll;
+}
+
 code, kbd, samp {
   font-family: $pre-font;
   font-weight: 400;

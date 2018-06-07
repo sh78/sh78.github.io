@@ -50,9 +50,13 @@
 @import "components/datepicker";
 @import "components/timepicker";
 
-// wcag approved solarized syntax highlighting
+// pygments solarized syntax highlighting
 @import "syntax/solarized-dark";
 @import "syntax/solarized-light";
+// https://github.com/lonekorean/gist-syntax-themes
+@import "syntax/gist";
+@import "syntax/solarized-dark-gist";
+@import "syntax/solarized-light-gist";
 
 // here be the author's styles
 @import "atoms"; // bite-sized helpper classes
