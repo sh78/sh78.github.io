@@ -2,7 +2,7 @@ M.AutoInit();
 
 (function () {
   document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.sidenav');
-    var instances = M.Sidenav.init();
+    // add class confirming dom is loaded
+    document.querySelector('html.js').classList.add('loaded');
   });
 })();
