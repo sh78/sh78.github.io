@@ -5,6 +5,9 @@ description: > # this means to ignore newlines until outdented
   Sean's weblog: rants, musings, software speak, how-to's, developer-ese,
   and more.
 
+disqus:
+  shortname: sean-sh
+
 permalink: /log/:title/
 
 # whitelist node_modules
