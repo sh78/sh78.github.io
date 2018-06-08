@@ -1,3 +1,7 @@
+$body-font: 'Work Sans', 'Segoe UI', Tahoma, sans-serif;
+$headline-font: 'Space Mono', 'Fira Code', 'Source Code Pro', monospace;
+$pre-font: $headline-font;
+
 body {
   font-family: $body-font;
   font-size: 1.3rem;

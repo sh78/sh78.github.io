@@ -3,11 +3,25 @@
 M.AutoInit();
 
 (function () {
-  document.addEventListener('DOMContentLoaded', function() {
+  // document.addEventListener('DOMContentLoaded', function() {
     // add class confirming dom is loaded
     document.querySelector('html.js').classList.add('loaded');
 
-    // infinite scrolling
+    // theme switcherooodledidity
+    const setTheme = function (themeName) {
+      const themeElement = document.getElementsByClassName('theme-variant');
+      const themePath = themeElement[0].href.split('/').pop();
+      let currentTheme = themeElement[0].href.split('/');
+      currentTheme = currentTheme[currentTheme.length - 1];
+      console.log(themeElement, themePath, currentTheme);
+
+      theme.href = themePath + themeName + ".css";
+      themeElement.href = newTheme;
+
+    };
+    setTheme('materialized-light');
+
+    // infinite scrolling on blog index
     const blogScrolling = jQuery.ias({
       container:  '.post-listing',
       item:       '.row',
@@ -15,7 +29,7 @@ M.AutoInit();
       next:       '.next'
     });
 
-    blogScrolling.extension(new IASSpinnerExtension({ 
+    blogScrolling.extension(new IASSpinnerExtension({
       html: '<div class="loading-ring blog"><div></div><div></div><div></div><div></div></div>'
     }));
 
@@ -82,5 +96,5 @@ M.AutoInit();
     }
 
 
-  });
+  // });
 })();
