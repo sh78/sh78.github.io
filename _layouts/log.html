@@ -13,7 +13,7 @@ layout: default
     </h2>
     <div class="row{% if site.post_columns %} fill-height{% endif %}">
       {%- for post in paginator.posts -%}
-      <div class="col s12{% if site.post_columns %} m6{% endif %}">
+      <div class="post col s12{% if site.post_columns %} m6{% endif %}">
         <div class="{%- if site.post_cards -%}card{%- endif -%}">
           {%- if site.post_images -%}
             <div class="card-image">
@@ -52,13 +52,14 @@ layout: default
   </div>
 
   {%- endif -%}
+
   {% if paginator.total_pages > 1 %}
   <div class="pagination">
     {% if paginator.previous_page %}
       {% if paginator.page == 2 %}
         <a href="{{ site.siteurl }}/log/">&laquo; Prev</a>
       {% else %}
-        <a href="{{ site.siteurl }}/log/page{{ paginator.previous_page }}/">&laquo; Prev</a>
+        <a class="previous" href="{{ site.siteurl }}/log/page{{ paginator.previous_page }}/">&laquo; Prev</a>
       {% endif %}    
     {% else %}
       <span>&laquo; Prev</span>
@@ -69,6 +70,7 @@ layout: default
     {% else %}
       <span class='next'>Next &raquo;</span>
     {% endif %}
+
   </div>
   {% endif %}
 

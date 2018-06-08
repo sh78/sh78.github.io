@@ -7,6 +7,22 @@ M.AutoInit();
     // add class confirming dom is loaded
     document.querySelector('html.js').classList.add('loaded');
 
+    // infinite scrolling
+    // $('.post-index').jscroll({
+    //   contentSelector: ".post-index",
+    //   nextSelector: '.next'
+    // });
+    var ias = jQuery.ias({
+      container:  '.post-listing',
+      item:       '.row',
+      pagination: '.pagination',
+      next:       '.next'
+    });
+
+    ias.extension(new IASSpinnerExtension({
+      html: '<div class="loading-ring blog"><div></div><div></div><div></div><div></div></div>'
+    }));
+
     // lazy loading per
     // https://developers.google.com/web/fundamentals/performance/lazy-loading-guidance/
     var lazyImages = [].slice.call(document.querySelectorAll("img"));
