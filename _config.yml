@@ -10,7 +10,7 @@ disqus:
 
 permalink: /log/:title/
 
-paginate: 5
+paginate: 6
 paginate_path: "log/page:num/"
 
 # whitelist node_modules
