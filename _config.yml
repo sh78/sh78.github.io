@@ -8,6 +8,8 @@ description: > # this means to ignore newlines until outdented
 disqus:
   shortname: sean-sh
 
+google_analytics: UA-33069541-1
+
 permalink: /log/:title/
 
 paginate: 6
