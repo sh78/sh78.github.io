@@ -8,20 +8,23 @@ M.AutoInit();
     document.querySelector('html.js').classList.add('loaded');
 
     // infinite scrolling
-    // $('.post-index').jscroll({
-    //   contentSelector: ".post-index",
-    //   nextSelector: '.next'
-    // });
-    var ias = jQuery.ias({
+    const blogScrolling = jQuery.ias({
       container:  '.post-listing',
       item:       '.row',
       pagination: '.pagination',
       next:       '.next'
     });
 
-    ias.extension(new IASSpinnerExtension({
+    blogScrolling.extension(new IASSpinnerExtension({ 
       html: '<div class="loading-ring blog"><div></div><div></div><div></div><div></div></div>'
     }));
+
+    // fires on home page as well :/
+    // blogScrolling.on('noneLeft', function() {
+    //   M.toast({html: 'You\'ve reached the end, weary traveller'});
+    // });
+
+    // /infinite scrolling
 
     // lazy loading per
     // https://developers.google.com/web/fundamentals/performance/lazy-loading-guidance/
