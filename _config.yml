@@ -9,7 +9,9 @@ disqus:
   shortname: sean-sh
 
 permalink: /log/:title/
+
 paginate: 5
+paginate_path: "log/page:num/"
 
 # whitelist node_modules
 exclude: []
@@ -52,9 +54,9 @@ minima:
 
 # If you want to link only specific pages in your header, uncomment
 # this and add the path to the pages in order as they should show up
-# header_pages:
-#   - about.md
-#   - blog.md
+header_pages:
+  - index.md
+  - log/index.html
 
 # Build settings
 theme: minimaterialize
@@ -62,3 +64,5 @@ theme: minimaterialize
 plugins:
  - jekyll-feed
  - jekyll-seo-tag
+ - jekyll-paginate
+
