@@ -9,43 +9,61 @@ html.loaded .no-fouc {
   transition: opacity .5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 
-.loaded .spinner {
+/* loading animation */
+.loaded .loading-ring.page {
   display: none;
 }
 
-/* loading animation */
-.spinner {
+.loading-ring {
+  display: block;
+  width: 100px;
+  height: 100px;
+  position: relative;
+}
+
+.loading-ring.page {
   bottom: 0;
-  height: 60px;
   left: 0;
   margin: auto;
   position: fixed;
   right: 0;
   top: 0;
-  width: 60px;
+}
+.loading-ring.blog {
+  margin: 0 auto;
 }
 
-.double-bounce1, .double-bounce2 {
-  animation: sk-bounce 2.0s infinite ease-in-out;
-  background-color: #eee;
-  border-radius: 50%;
-  height: 100%;
-  left: 0;
-  opacity: 0.6;
+.loading-ring div {
+  box-sizing: border-box;
+  display: block;
   position: absolute;
-  top: 0;
-  width: 100%;
+  width: 51px;
+  height: 51px;
+  margin: 6px;
+  border: 6px solid #fff;
+  border-radius: 50%;
+  animation: loading-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #d33682 transparent transparent transparent;
+}
+.loading-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.loading-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.loading-ring div:nth-child(3) {
+  animation-delay: -0.15s;
 }
 
-.double-bounce2 {
-  animation-delay: -1.0s;
-}
-
-@keyframes sk-bounce {
-  0%, 100% {
-    transform: scale(0.0);
-  } 50% {
-    transform: scale(1.0);
+@keyframes loading-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
+
 </style>
