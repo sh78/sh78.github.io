@@ -14,14 +14,12 @@ permalink: /log/:title/
 paginate: 6
 paginate_path: "log/page:num/"
 
-# whitelist node_modules
-exclude: []
+exclude: ['bin', 'node_modules', '*.json', '*.lock']
 
 # make npm packagaes available
 sass:
   load_paths:
     - _sass
-    - node_modules/materialize-css/sass
 
 # social links
 twitter_username: seanmh78

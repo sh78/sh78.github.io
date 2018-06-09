@@ -318,22 +318,57 @@ M.AutoInit();
   // add class confirming dom is loaded
   document.querySelector('html.js').classList.add('loaded');
 
-  // theme switcher
-  var setTheme = function setTheme(themeName) {
-    // unset loaded state, in case the css takes a long time
-    var page = document.querySelector('html.loaded');
-    page.classList.toggle('loaded');
-    var themeElement = document.querySelector('.theme-variant');
-    var themeCurrent = themeElement.href.split('/').pop();
-    var themePath = themeElement.href.split('/').slice(0, -1).join('/') + '/';
+  var theme = {
+    get: function get() {
+      var themeElement = document.querySelector('.theme-variant');
+      var themeCurrent = themeElement.href.split('/').pop().split('.')[0];
+      return themeCurrent;
+    },
+    set: function set(themeName) {
+      // unset loaded state, in case the css takes a long time
+      var page = document.querySelector('html.loaded');
+      page.classList.toggle('loaded');
 
-    themeElement.href = themePath + themeName + ".css";
-    // restore loaded state
-    page.classList.toggle('loaded');
+      // switch the link's href
+      var themeElement = document.querySelector('.theme-variant');
+      var themeCurrent = themeElement.href.split('/').pop();
+      var themePath = themeElement.href.split('/').slice(0, -1).join('/') + '/';
+      themeElement.href = themePath + themeName + ".css";
+      console.info('Theme set to \'' + themeName + '\'');
+
+      // restore loaded state
+      page.classList.toggle('loaded');
+    },
+    toggleSolarized: function toggleSolarized() {
+      var currently = theme.get();
+      if (currently === 'materialized-dark') {
+        theme.set('materialized-light');
+      } else {
+        theme.set('materialized-dark');
+      }
+    },
+    init: function init() {
+      // bind event for day/night mode
+      var themeSwitcher = document.querySelector('.solarized-mode');
+      themeSwitcher.addEventListener('click', function (e) {
+        e.preventDefault();
+        theme.toggleSolarized();
+      });
+
+      // bind any other theme pickers
+      var themePickers = document.querySelector('.theme-select');
+      themePickers.addEventListener('click', function (e) {
+        e.preventDefault();
+        var desiredTheme = e.target.dataset.theme;
+        if (theme.get === theme) {
+          return;
+        } else {
+          theme.set(desiredTheme);
+        }
+      });
+    }
   };
-  document.addEventListener('click', function () {
-    setTheme('materialized-light');
-  });
+  theme.init();
 
   // infinite scrolling on blog index
   var blogScrolling = jQuery.ias({
