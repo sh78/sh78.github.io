@@ -13,7 +13,7 @@ Here's a magnificently eloquent compass mixin that will work CSS3 transition mag
 
 If you're not familiar, [read all about the compass sass framework here](http://compass-style.org/). Also make sure you `@import 'compass/css3/transition'` once sass/compass are up and running.
 
-The code above actually outputs 5 lines when all is said and done, but this is CSS, so let's not [argue semantics](http://stackoverflow.com/questions/4204459/how-to-open-multiple-stand-alone-browser-windows-using-javascript, http://stackoverflow.com/questions/7064998/how-to-make-a-link-open-multiple-pages-when-clicked, http://alistapart.com/article/semanticsinhtml5http://coding.smashingmagazine.com/2011/11/11/our-pointless-pursuit-of-semantic-value/).
+The code above actually outputs 5 lines when all is said and done, but this is CSS, so let's not [argue](http://coding.smashingmagazine.com/2011/11/11/our-pointless-pursuit-of-semantic-value/) [semantics](http://alistapart.com/article/semanticsinhtml5), ).
 
     * {
       -webkit-transition: all 0.3s ease-in-out 0.1s;
