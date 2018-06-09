@@ -17,7 +17,9 @@
 @import "atoms"; // bite-sized helper classes for global elements
 @import "layout"; // aptly-named
 @import "modules"; // speicifc components
-@import "gist"; // gist embeds
+@import "gist"; // gist embeds (global)
+@import "themes/syntax/pygments-solarized-light"; // code
+@import "themes/syntax/gist-solarized-light"; // gist embeds (themed)
 
 // // themes - mostly colors and typography
 @import "themes/materialized-light/extra";
