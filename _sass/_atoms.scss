@@ -13,15 +13,20 @@
   max-width: 120px;
 
   img {
+    @extend .z-depth-2;
     width: 100%;
     border-radius: 7890ex;
   }
 }
 
 .highlight {
-  margin: 1em 0;
-  padding: .5em 1em;
-  width: 100%;
+  @extend .z-depth-1;
+
+  pre {
+    margin: 1em 0;
+    padding: .5em 1em;
+    width: 100%;
+  }
 }
 
 .pagination {
