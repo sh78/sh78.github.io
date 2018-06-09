@@ -6,5 +6,17 @@
   "repository": "git@github.com:sh78/sh78.github.io.git",
   "author": "Sean Henderson <mail@sean.sh>",
   "license": "MIT",
-  "private": true
+  "private": true,
+  "scripts": {
+    "build": "concurrently \"yarn run js\" \"jekyll build\"",
+    "js": "bin/js",
+    "css": "bin/css"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.1",
+    "jquery": "^3.3.1",
+    "jquery-ias": "^2.3.1",
+    "materialize-css": "^0.100.2",
+    "modernizr": "^3.6.0"
+  }
 }
