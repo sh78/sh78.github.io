@@ -138,12 +138,21 @@ M.AutoInit();
 
 
     // automatic ToC for blog posts
+    const tocSections = document.querySelectorAll('.post-main h2, .post-main h3, .post-main h4, .post-main h5');
     let tocItems = '';
-    const tocSections = document.querySelectorAll('.post-main h2');
     for(let i = 0; i < tocSections.length; i++) {
+      const thisLevel = parseInt(tocSections[i].tagName.slice(1)); // => int matching current heading level
+      const nextLevel = i+1 < tocSections.length ? parseInt(tocSections[i+1].tagName.slice(1)) : undefined;
+      console.log('this' + thisLevel, 'next' + nextLevel);
       const href = tocSections[i].id;
       const text = tocSections[i].innerText;
-      tocItems += `<li><a href="#${href}">${text}</a></li>`;
+      if(thisLevel < nextLevel) {
+        tocItems += `<li><a href="#${href}">${text}</a><ol>`;
+      } else if(thisLevel > nextLevel) {
+        tocItems += `</ol></li>`;
+      } else {
+        tocItems += `<li><a href="#${href}">${text}</a></li>`;
+      }
     }
 
     let tocTemplate = `
