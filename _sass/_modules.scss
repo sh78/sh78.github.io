@@ -1,0 +1,17 @@
+/* single post/page */
+.post.h-entry {
+  display: flex;
+  flex-direction: column;
+}
+.page-content {
+  // animate any element that was linked to
+  *:target {
+    animation: highlight 1s ease;
+  }
+
+  // animation for `:target` effect
+  @keyframes highlight {
+    from { background: $special-color; }
+    to { background: transparent; }
+  }
+}

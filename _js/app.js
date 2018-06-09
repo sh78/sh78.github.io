@@ -3,7 +3,7 @@
 M.AutoInit();
 
 (function () {
-  // document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function() {
     // add class confirming dom is loaded
     document.querySelector('html.js').classList.add('loaded');
 
@@ -58,27 +58,8 @@ M.AutoInit();
       }
     };
     theme.init();
+    // /theme settings
 
-
-
-    // infinite scrolling on blog index
-    const blogScrolling = jQuery.ias({
-      container:  '.post-listing',
-      item:       '.row',
-      pagination: '.pagination',
-      next:       '.next'
-    });
-
-    blogScrolling.extension(new IASSpinnerExtension({
-      html: '<div class="loading-ring blog"><div></div><div></div><div></div><div></div></div>'
-    }));
-
-    // fires on home page as well :/
-    // blogScrolling.on('noneLeft', function() {
-    //   M.toast({html: 'You\'ve reached the end, weary traveller'});
-    // });
-
-    // /infinite scrolling
 
     // lazy loading per
     // https://developers.google.com/web/fundamentals/performance/lazy-loading-guidance/
@@ -136,5 +117,55 @@ M.AutoInit();
     }
 
 
-  // });
+    // infinite scrolling on blog index
+    const blogScrolling = jQuery.ias({
+      container:  '.post-listing',
+      item:       '.row',
+      pagination: '.pagination',
+      next:       '.next'
+    });
+
+    blogScrolling.extension(new IASSpinnerExtension({
+      html: '<div class="loading-ring blog"><div></div><div></div><div></div><div></div></div>'
+    }));
+
+    // fires on home page as well :/
+    // blogScrolling.on('noneLeft', function() {
+    //   M.toast({html: 'You\'ve reached the end, weary traveller'});
+    // });
+
+    // /infinite scrolling
+
+
+    // automatic ToC for blog posts
+    let tocItems = '';
+    const tocSections = document.querySelectorAll('.post-main h2');
+    for(let i = 0; i < tocSections.length; i++) {
+      const href = tocSections[i].id;
+      const text = tocSections[i].innerText;
+      tocItems += `<li><a href="#${href}">${text}</a></li>`;
+    }
+
+    let tocTemplate = `
+    <nav role='navigation' class='post-toc hide-on-medium-down'>
+      <header>
+        <h3>Table of Contents:</h3>
+      </header>
+      <ol class="post-toc">
+        ${ tocItems }
+      </ol>
+    </nav>
+    `;
+
+    const tocContainer = document.querySelector('.post-header');
+    tocContainer.innerHTML = tocContainer.innerHTML + tocTemplate;
+    // / automatic ToC
+
+    // materialize scrollspy ToC
+    // TODO: need solution for either
+      // 1) wrapping each section in an elem to scrollspy automatically, or
+      // 2) use soemthing custom to watch the last seen headline
+    // var elems = document.querySelectorAll('.scrollspy');
+    // var instances = M.ScrollSpy.init(elems, options);
+  });
 })();
