@@ -157,8 +157,10 @@ M.AutoInit();
     </nav>
     `;
 
-    const tocContainer = document.querySelector('.post-header');
-    tocContainer.innerHTML = tocContainer.innerHTML + tocTemplate;
+    if(tocItems.length > 0) {
+      const tocContainer = document.querySelector('.post-header');
+      tocContainer.innerHTML = tocContainer.innerHTML + tocTemplate;
+    }
     // / automatic ToC
 
     // materialize scrollspy ToC
