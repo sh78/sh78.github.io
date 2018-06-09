@@ -36,13 +36,17 @@
 // https://materializecss.com/color.html
 
 $primary-color: color("solarized", "base3");
-$primary-color-light: color("solarized", "base2");
+$primary-color-light: lighten(color("solarized", "base3"), 10%);
 $primary-color-dark: darken($primary-color, 15%);
-
 $secondary-color: color("orange", "lighten-1");
+
+$background-color: color("solarized", "base2");
+$text-color: darken(color("solarized", "base0"), 10%);
+$link-color: color("solarized", "base03");
+$headline-color: color("solarized", "base03");
+
 $success-color: color("green", "base");
 $error-color: color("solarized", "red");
-$link-color: color("shades", "white");
 $supplement-color: color("solarized", "cyan");
 $special-color: color("solarized", "magenta");
 
@@ -103,7 +107,7 @@ $button-floating-radius: 50%;
 // ==========================================================================
 
 $card-padding: 24px;
-$card-bg-color: color("solarized", "base03");
+$card-bg-color: $primary-color;
 $card-link-color: $link-color;
 $card-link-color-light: lighten($card-link-color, 20%);
 
@@ -250,7 +254,7 @@ $navbar-line-height: $navbar-height;
 $navbar-height-mobile: 56px;
 $navbar-line-height-mobile: $navbar-height-mobile;
 $navbar-font-size: 1rem;
-$navbar-font-color: color("shades", "white");
+$navbar-font-color: $text-color;
 $navbar-brand-font-size: 2.1rem;
 
 // 14. Side Navigation
@@ -309,7 +313,6 @@ $toast-action-color: #eeff41;
 $body-font: 'Work Sans', 'Segoe UI', Tahoma, sans-serif;
 $headline-font: 'Space Mono', 'Fira Code', 'Source Code Pro', monospace;
 $pre-font: $headline-font;
-
 $font-stack: $headline-font;
 $materialize-font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 $off-black: rgba(0, 0, 0, 0.87);
@@ -325,10 +328,10 @@ $h6-fontsize: 1.15rem;
 // 21. Footer
 // ==========================================================================
 
-$footer-font-color: rgba(255,255,255,.8);
+$footer-font-color: lighten($text-color, 10%);
 $footer-bg-color: $primary-color;
-$footer-copyright-font-color: rgba(255,255,255,.6);
-$footer-copyright-bg-color: rgba(51,51,51,.08);
+$footer-copyright-font-color: $footer-font-color;
+$footer-copyright-bg-color: $primary-color;
 
 
 // 22. Flow Text

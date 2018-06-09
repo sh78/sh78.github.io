@@ -1,24 +1,20 @@
-$body-font: 'Work Sans', 'Segoe UI', Tahoma, sans-serif;
-$headline-font: 'Space Mono', 'Fira Code', 'Source Code Pro', monospace;
-$pre-font: $headline-font;
-
 body {
   font-family: $body-font;
   font-size: 1.3rem;
-	background-color: $primary-color-light;
-  color: lighten(color("solarized", "base1"), 10%);
+	background-color: $background-color;
+  color: $text-color;
 }
 
 h1, h2, h3, h4, h5 {
   font-family: $headline-font;
   font-weight: 700;
-  color: color("grey", "lighten-3");
+  color: $headline-color;
   word-spacing: -0.3em;
 }
 
 strong {
   font-weight: 700;
-  color: color("shades", "white");
+  color: $link-color;
 }
 
 a {

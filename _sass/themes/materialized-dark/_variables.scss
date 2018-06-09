@@ -38,14 +38,17 @@
 $primary-color: color("solarized", "base03");
 $primary-color-light: color("solarized", "base02");
 $primary-color-dark: darken($primary-color, 15%);
-
 $secondary-color: color("orange", "lighten-1");
+
+$background-color: $primary-color-light;
+$text-color: lighten(color("solarized", "base1"), 10%);
+$link-color: color("shades", "white");
+$headline-color: color("shades", "white");
+
 $success-color: color("green", "base");
 $error-color: color("solarized", "red");
-$link-color: color("shades", "white");
 $supplement-color: color("solarized", "cyan");
 $special-color: color("solarized", "magenta");
-
 
 // 2. Badges
 // ==========================================================================
@@ -250,7 +253,7 @@ $navbar-line-height: $navbar-height;
 $navbar-height-mobile: 56px;
 $navbar-line-height-mobile: $navbar-height-mobile;
 $navbar-font-size: 1rem;
-$navbar-font-color: color("shades", "white");
+$navbar-font-color: $link-color;
 $navbar-brand-font-size: 2.1rem;
 
 // 14. Side Navigation
@@ -325,10 +328,10 @@ $h6-fontsize: 1.15rem;
 // 21. Footer
 // ==========================================================================
 
-$footer-font-color: rgba(255,255,255,.8);
+$footer-font-color: darken($text-color, 10%);
 $footer-bg-color: $primary-color;
-$footer-copyright-font-color: rgba(255,255,255,.6);
-$footer-copyright-bg-color: rgba(51,51,51,.08);
+$footer-copyright-font-color: $footer-font-color;
+$footer-copyright-bg-color: $primary-color;
 
 
 // 22. Flow Text
