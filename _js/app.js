@@ -7,19 +7,22 @@ M.AutoInit();
     // add class confirming dom is loaded
     document.querySelector('html.js').classList.add('loaded');
 
-    // theme switcherooodledidity
-    const setTheme = function (themeName) {
-      const themeElement = document.getElementsByClassName('theme-variant');
-      const themePath = themeElement[0].href.split('/').pop();
-      let currentTheme = themeElement[0].href.split('/');
-      currentTheme = currentTheme[currentTheme.length - 1];
-      console.log(themeElement, themePath, currentTheme);
+    // theme switcher
+    const setTheme = function(themeName) {
+      // unset loaded state, in case the css takes a long time
+      const page = document.querySelector('html.loaded');
+      page.classList.toggle('loaded');
+      const themeElement = document.querySelector('.theme-variant');
+      const themeCurrent = themeElement.href.split('/').pop();
+      const themePath = themeElement.href.split('/').slice(0, -1).join('/') + '/';
 
-      theme.href = themePath + themeName + ".css";
-      themeElement.href = newTheme;
-
+      themeElement.href = themePath + themeName + ".css";
+      // restore loaded state
+      page.classList.toggle('loaded');
     };
-    setTheme('materialized-light');
+    document.addEventListener('click', function() {
+      setTheme('materialized-light');
+    });
 
     // infinite scrolling on blog index
     const blogScrolling = jQuery.ias({

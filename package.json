@@ -6,17 +6,28 @@
   "repository": "git@github.com:sh78/sh78.github.io.git",
   "author": "Sean Henderson <mail@sean.sh>",
   "license": "MIT",
-  "private": true,
+  "private": false,
   "scripts": {
-    "build": "concurrently \"yarn run js\" \"jekyll build\"",
-    "js": "bin/js",
-    "css": "bin/css"
+    "build": "npm run es5 && jekyll build && npm run uglify-js",
+    "dev": "concurrently \"npm run watch-js\" \"jekyll serve\"",
+    "es5": "npx babel --presets env _js/jquery-ias.min.js _js/app.js --source-maps --out-file assets/js/app.es5.js",
+    "uglify-js": "cat assets/js/app.es5.js | npx uglifyjs > _site/assets/js/app.es5.js",
+    "preuglify-js": "npm run es5",
+    "libs": "npm run modernizr && bin/libs",
+    "watch-js": "npm run es5 -- --watch",
+    "modernizr": "npx modernizr --config modernizr.json --uglify --dest assets/js/modernizr.min.js",
+    "css-libs": "echo TODO"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
     "concurrently": "^3.5.1",
     "jquery": "^3.3.1",
     "jquery-ias": "^2.3.1",
-    "materialize-css": "^0.100.2",
-    "modernizr": "^3.6.0"
-  }
+    "materialize-css": "^1.0.0-rc.1",
+    "modernizr": "^3.6.0",
+    "typed.js": "^2.0.7",
+    "uglify-js": "^3.4.0"
+  },
+  "dependencies": {}
 }
