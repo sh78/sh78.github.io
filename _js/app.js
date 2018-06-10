@@ -56,9 +56,11 @@
       }
     },
     load: function() {
-      const savedTheme = sessionStorage.getItem('theme');
+      const savedTheme = localStorage.getItem('theme');
       if(savedTheme) {
         theme.set(savedTheme);
+      } else {
+        theme.autoLoad();
       }
     },
     updateUI: function() {
@@ -75,6 +77,22 @@
         uiIcon.classList.add("fa-moon");
         uiIcon.classList.remove("fa-sun");
       }
+    },
+    autoLoad: function() {
+      const session = sessionStorage.getItem('theme');
+      const hour = new Date().getHours();
+      let result;
+      if (session) {
+        result = session;
+        console.log(sessionStorage);
+      } else {
+        if(hour > 5 && hour < 19) {
+          result = theme.dayTheme;
+        } else {
+          result = theme.nightTheme;
+        }
+      }
+      theme.set(result);
     },
     init: function() {
       theme.updateUI();
@@ -94,7 +112,7 @@
           return;
         } else {
           theme.set(desiredTheme);
-          theme.saveTheme(desiredTheme);
+          theme.saveTimed(desiredTheme);
         }
       });
     }
