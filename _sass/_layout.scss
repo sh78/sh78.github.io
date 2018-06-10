@@ -21,6 +21,18 @@ img {
   .card-title {
     margin-top: 0;
   }
+
+  // align vertically
+  .card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+
+    .card--bottom {
+      padding-bottom: .3em;
+    }
+  }
 }
 // 2-coloumn grid of cards that fill empty vertical space
 @media #{$medium-and-up} {

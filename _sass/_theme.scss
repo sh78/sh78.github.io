@@ -30,6 +30,16 @@ code, kbd, samp {
   font-weight: 400;
 }
 
+main {
+	p {
+		code {
+			padding: 0 0.3em;
+			background-color: $primary-color;
+			@extend .z-depth-1;
+		}
+	}
+}
+
 .nav-main {
   ul {
     margin: 0;
@@ -44,3 +54,7 @@ code, kbd, samp {
   }
 }
 
+.post-meta {
+  font-family: $pre-font;
+  font-style: italic;
+}

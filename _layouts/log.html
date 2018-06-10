@@ -24,17 +24,21 @@ layout: default
             {%- if site.post_cards -%}
             <a title="read more..." class="btn-floating halfway-fab waves-effect waves-light hoverable" href="{{ post.url | relative_url }}"><i class="fas fa-glasses"><span class="sr-only">Read More...</span></i></a>
             {%- endif -%}
-            <h3 class="card-title">
-              <a class="post-link" href="{{ post.url | relative_url }}">
-                {{ post.title | escape }}
-              </a>
-            </h3>
-            {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-            <span class="post-meta grey-text">
-              <time datetime="{{ post.date }}">{{ post.date | date: date_format }}</time>
-            </span>
+            <div class="card--top">
+              <h3 class="card-title">
+                <a class="post-link" href="{{ post.url | relative_url }}">
+                  {{ post.title | escape }}
+                </a>
+              </h3>
+              {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+              <span class="post-meta grey-text">
+                <time datetime="{{ post.date }}">{{ post.date | date: date_format }}</time>
+              </span>
+            </div>
             {%- if site.show_excerpts -%}
-            <p class="{%- if site.truncate_excerpts -%}truncate{%- endif -%}">{{ post.excerpt | remove: '<p>' | remove: '</p>' }}</p>
+            <div class="card--bottom">
+              <p class="{%- if site.truncate_excerpts -%}truncate{%- endif -%}">{{ post.excerpt | remove: '<p>' | remove: '</p>' }}</p>
+            </div>
             {%- endif -%}
           </div>
         </div>
