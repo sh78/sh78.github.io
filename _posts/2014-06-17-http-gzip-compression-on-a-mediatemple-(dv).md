@@ -1,7 +1,7 @@
 ---
 title: HTTP gzip compression on a MediaTemple (dv)
 date: 2014-06-17 03:23:00
-tags: devops server web-performance hosting
+tags: [devops, server, web performance, hosting]
 ---
 
 I've had this (mt) DV box for quite some time, mostly use it for staging, small WordPress gigs and running a qmail server that forwards mail elsewhere. It's reliable, has lots of client-friendly features like Plesk, and can host a zillion websites. But it was always kinda slow, especially from the eastern hemisphere, and executing otherwise simple server admin stuff (like adding ssh keys) was always a bit perverted by the finicky complexities that come with Plesk. So, it wasn't really my go-to for builds with serious production needs.
