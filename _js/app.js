@@ -35,10 +35,12 @@
       // you set it, we don't fagetit
       console.info(`Saved ${themeName} as your preferred theme.`);
       localStorage.setItem('theme', themeName);
+      // clear any session theme
+      sessionStorage.clear();
     },
     saveTimed: function(themeName) {
       // you set it, we don't fagetit
-      console.info(`Set ${themeName}, for now.`);
+      console.info(`Set '${themeName}' as you theme, for now.`);
       sessionStorage.setItem('theme', themeName);
     },
     toggleTimedTheme: function() {
@@ -57,7 +59,10 @@
     },
     load: function() {
       const savedTheme = localStorage.getItem('theme');
-      if(savedTheme) {
+      const sessionTheme = sessionStorage.getItem('theme');
+      if(sessionTheme) {
+        theme.set(sessionTheme);
+      } else if(savedTheme) {
         theme.set(savedTheme);
       } else {
         theme.autoLoad();
