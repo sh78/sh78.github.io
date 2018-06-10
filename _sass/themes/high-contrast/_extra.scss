@@ -1,0 +1,10 @@
+
+.nav-main, .nav-main ul, .card, footer {
+  a {
+    color: color("shades", "white");
+  }
+}
+
+.dropdown-content li > a, .dropdown-content li > span {
+      color: color("shades", "white");
+}

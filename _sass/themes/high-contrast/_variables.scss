@@ -35,20 +35,21 @@
 // ==========================================================================
 // https://materializecss.com/color.html
 
-$primary-color: color("solarized", "base03");
-$primary-color-light: color("solarized", "base02");
+$primary-color: color("shades", "black");
+$primary-color-light: lighten($primary-color, 15%);
 $primary-color-dark: darken($primary-color, 15%);
-$secondary-color: color("orange", "lighten-1");
+$secondary-color: color("grey", "base");
 
-$background-color: $primary-color-light;
-$text-color: lighten(color("solarized", "base1"), 10%);
-$link-color: color("shades", "white");
-$headline-color: color("shades", "white");
+$background-color: color("shades", "white");
+$text-color: $secondary-color;
+$link-color: $primary-color;
+$headline-color: $primary-color;
 
-$success-color: color("solarized", "green");
-$error-color: color("solarized", "red");
-$supplement-color: color("solarized", "cyan");
-$special-color: color("solarized", "magenta");
+$success-color: color("green", "base");
+$error-color: color("red", "red");
+$supplement-color: color("blue", "base");
+$special-color: color("pink", "base");
+
 
 // 2. Badges
 // ==========================================================================
@@ -106,7 +107,7 @@ $button-floating-radius: 50%;
 // ==========================================================================
 
 $card-padding: 24px;
-$card-bg-color: color("solarized", "base03");
+$card-bg-color: $primary-color;
 $card-link-color: $link-color;
 $card-link-color-light: lighten($card-link-color, 20%);
 
@@ -253,7 +254,7 @@ $navbar-line-height: $navbar-height;
 $navbar-height-mobile: 56px;
 $navbar-line-height-mobile: $navbar-height-mobile;
 $navbar-font-size: 1.4rem;
-$navbar-font-color: $link-color;
+$navbar-font-color: $text-color;
 $navbar-brand-font-size: 2.1rem;
 
 // 14. Side Navigation
@@ -328,7 +329,7 @@ $h6-fontsize: 1rem;
 // 21. Footer
 // ==========================================================================
 
-$footer-font-color: darken($text-color, 10%);
+$footer-font-color: lighten($secondary-color, 10%);
 $footer-bg-color: $primary-color;
 $footer-copyright-font-color: $footer-font-color;
 $footer-copyright-bg-color: $primary-color;
