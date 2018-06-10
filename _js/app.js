@@ -1,76 +1,119 @@
 /*jshint esversion: 6 */
 
-M.AutoInit();
-
 (function () {
+
+  // set theme per local storage
+  const theme = {
+    availableThemes: {},
+    dayTheme: 'materialized-light',
+    nightTheme: 'materialized-dark',
+    get: function() {
+      const themeElement = document.querySelector('.theme-variant');
+      const themeCurrent = themeElement.href.split('/').pop().split('.')[0];
+      return themeCurrent;
+    },
+    set: function(themeName) {
+      // unset loaded state, in case the css takes a long time
+      const page = document.querySelector('html.loaded');
+      if(page) {
+        page.classList.toggle('loaded');
+      }
+
+      // switch the link's href
+      const themeElement = document.querySelector('.theme-variant');
+      const themeCurrent = themeElement.href.split('/').pop();
+      const themePath = themeElement.href.split('/').slice(0, -1).join('/') + '/';
+      themeElement.href = themePath + themeName + ".css";
+      console.info('Theme set to \'' + themeName + '\'');
+
+      // restore loaded state
+      if(page) {
+        page.classList.toggle('loaded');
+      }
+    },
+    saveTheme: function(themeName) {
+      // you set it, we don't fagetit
+      console.info(`Saved ${themeName} as your preferred theme.`);
+      localStorage.setItem('theme', themeName);
+    },
+    saveTimed: function(themeName) {
+      // you set it, we don't fagetit
+      console.info(`Set ${themeName}, for now.`);
+      sessionStorage.setItem('theme', themeName);
+    },
+    toggleTimedTheme: function() {
+      const currently = theme.get();
+
+      // decide theme to set and update UI state
+      if (currently === theme.dayTheme) {
+        theme.set(theme.nightTheme);
+        theme.updateUI(theme.nightTheme);
+        theme.saveTimed(theme.nightTheme);
+      } else {
+        theme.set(theme.dayTheme);
+        theme.updateUI(theme.dayTheme);
+        theme.saveTimed(theme.dayTheme);
+      }
+    },
+    load: function() {
+      const savedTheme = sessionStorage.getItem('theme');
+      if(savedTheme) {
+        theme.set(savedTheme);
+      }
+    },
+    updateUI: function() {
+      const currently = theme.get();
+      const uiText = document.querySelector('.theme-timed span');
+      const uiIcon = document.querySelector('.theme-timed i');
+
+      if (currently === theme.nightTheme) {
+        uiText.innerText = "Day";
+        uiIcon.classList.add("fa-sun");
+        uiIcon.classList.remove("fa-moon");
+      } else {
+        uiText.innerText = "Night";
+        uiIcon.classList.add("fa-moon");
+        uiIcon.classList.remove("fa-sun");
+      }
+    },
+    init: function() {
+      theme.updateUI();
+      // set up day/night mode manual toggle
+      const dayTripper = document.querySelector('.theme-timed');
+      dayTripper.addEventListener('click', function(e) {
+        e.preventDefault();
+        theme.toggleTimedTheme();
+      });
+
+      // bind any other theme pickers
+      const themePickers = document.querySelector('.theme-select');
+      themePickers.addEventListener('click', function(e) {
+        e.preventDefault();
+        const desiredTheme = e.target.dataset.theme;
+        if(theme.get === theme) {
+          return;
+        } else {
+          theme.set(desiredTheme);
+          theme.saveTheme(desiredTheme);
+        }
+      });
+    }
+  };
+  // /theme settings
+
+  // set theme per session storage
+  theme.load();
+
+  // init materialize css
+  M.AutoInit();
+
+  // ready, set
   document.addEventListener('DOMContentLoaded', function() {
     // add class confirming dom is loaded
     document.querySelector('html.js').classList.add('loaded');
 
-    const theme = {
-      availableThemes: {},
-      dayTheme: 'materialized-light',
-      nightTheme: 'materialized-dark',
-      get: function() {
-        const themeElement = document.querySelector('.theme-variant');
-        const themeCurrent = themeElement.href.split('/').pop().split('.')[0];
-        return themeCurrent;
-      },
-      set: function(themeName) {
-        // unset loaded state, in case the css takes a long time
-        const page = document.querySelector('html.loaded');
-        page.classList.toggle('loaded');
-
-        // switch the link's href
-        const themeElement = document.querySelector('.theme-variant');
-        const themeCurrent = themeElement.href.split('/').pop();
-        const themePath = themeElement.href.split('/').slice(0, -1).join('/') + '/';
-        themeElement.href = themePath + themeName + ".css";
-        console.info('Theme set to \'' + themeName + '\'');
-
-        // restore loaded state
-        page.classList.toggle('loaded');
-      },
-      toggleTimedTheme: function() {
-        const currently = theme.get();
-        const uiText = document.querySelector('.theme-timed span');
-        const uiIcon = document.querySelector('.theme-timed i');
-        if (currently === theme.dayTheme) {
-          theme.set(theme.nightTheme);
-          uiText.innerText = "Day";
-          uiIcon.classList.add("fa-sun");
-          uiIcon.classList.remove("fa-moon");
-        } else {
-          theme.set(theme.dayTheme);
-          uiText.innerText = "Night";
-          uiIcon.classList.add("fa-moon");
-          uiIcon.classList.remove("fa-sun");
-        }
-      },
-      init: function() {
-        // set up day/night mode manual toggle
-        const dayTripper = document.querySelector('.theme-timed');
-        dayTripper.addEventListener('click', function(e) {
-          e.preventDefault();
-          theme.toggleTimedTheme();
-        });
-
-        // bind any other theme pickers
-        const themePickers = document.querySelector('.theme-select');
-        themePickers.addEventListener('click', function(e) {
-          e.preventDefault();
-          const desiredTheme = e.target.dataset.theme;
-          if(theme.get === theme) {
-            return;
-          } else {
-            theme.set(desiredTheme);
-          }
-        });
-      }
-    };
+    // initialize theme movers and shakers
     theme.init();
-    // /theme settings
-
 
     // lazy loading per
     // https://developers.google.com/web/fundamentals/performance/lazy-loading-guidance/
