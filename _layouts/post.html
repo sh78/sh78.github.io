@@ -6,20 +6,29 @@ layout: default
     <header class="post-header">
       <h1 class="post-title p-name" itemprop="name headline">{{ page.title | escape }}</h1>
       <p class="post-meta">
-        <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
-          {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-          {{ page.date | date: date_format }}
-        </time>
-        {%- if page.author -%}
-        • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">{{ page.author }}</span></span>
-        {%- endif -%}</p>
-        {%- for tag in page.tags -%}
-          <a href="/log/tags/{{ tag | url_encode | replace: "+", "-" }}/">
-            <div class="chip">
-              {{ tag }}
-            </div>
-          </a>
-        {%- endfor -%}
+        {
+        <br>
+        <span class="indent">
+          date: <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+            {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+            {{ page.date }}</time>,
+
+          {%- if page.author -%}
+            <br>
+            author: "<span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">{{ page.author }}</span></span>",
+          {%- endif -%}
+
+          <br>
+          <span class="tags">
+            tags: [
+            {% for tag in page.tags %}
+              <a href="/log/tags/{{ tag | url_encode | replace: "+", "-" }}/">{{ tag | replace: " ", "-" }}</a>,
+            {% endfor %}
+            ]
+          </span>
+        </span>
+        }
+      </p>
     </header>
 
     <div class="post-content e-content" itemprop="articleBody">
