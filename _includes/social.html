@@ -15,6 +15,15 @@
       </a>
     </li>
   {%- endif -%}
+  {%- if site.stackoverflow_username -%}
+    <li>
+      <a href="https://stackoverflow.com/{{ site.stackoverflow_username| cgi_escape | escape }}">
+        <i class="fab fa-stack-overflow fa-fw"><span class="sr-only">StackOverflow</span></i>
+        {% assign so_arr = site.stackoverflow_username | split: '/' %}
+        <span class="username">{{ so_arr.last | escape }}</span>
+      </a>
+    </li>
+  {%- endif -%}
   {%- if site.twitter_username -%}
     <li>
       <a href="https://twitter.com/{{ site.twitter_username| cgi_escape | escape }}">
