@@ -20,15 +20,15 @@
   height: $navbar-height-mobile;
   line-height: $navbar-line-height-mobile;
 
-  a { color: $navbar-font-color; }
+  a { 
+    color: $navbar-font-color; 
+  }
 
-  // i,
-  // [class^="fa"] {
-  //   display: block;
-  //   font-size: 24px;
-  //   height: $navbar-height-mobile;
-  //   line-height: $navbar-line-height-mobile;
-  // }
+  i {
+    font-size: 24px;
+    height: $navbar-height-mobile;
+    line-height: $navbar-line-height-mobile;
+  }
 
   .nav-wrapper {
     position: relative;
@@ -197,11 +197,11 @@
   nav.nav-extended .nav-wrapper {
     min-height: $navbar-height;
   }
-  .nav-main, nav .nav-wrapper i, nav a.sidenav-trigger, nav a.sidenav-trigger i {
+  .nav-main, nav .nav-wrapper i, nav a.sidenav-trigger, .nav-main a.sidenav-trigger i {
     height: $navbar-height;
     line-height: $navbar-line-height;
   }
   .navbar-fixed {
-    height: $navbar-height;
+    // height: $navbar-height;
   }
 }

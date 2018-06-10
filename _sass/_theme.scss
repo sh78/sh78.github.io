@@ -30,14 +30,14 @@ code, kbd, samp {
   font-weight: 400;
 }
 
-nav {
+.nav-main {
   ul {
+    margin: 0;
+
     a {
-      font-size: 1.2rem;
       text-transform: lowercase;
 
       i {
-        font-size: 1.2rem;
         margin-right: .25em;
       }
     }
