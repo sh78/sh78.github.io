@@ -225,11 +225,11 @@
       const href = tocSections[i].id;
       const text = tocSections[i].innerText;
       if(thisLevel < nextLevel) {
-        tocItems += `<li><a href="#${href}">${text}</a><ol>`;
+        tocItems += `<li><a href="#${href}-scrollspy">${text}</a><ol>`;
       } else if(thisLevel > nextLevel) {
         tocItems += `</ol></li>`;
       } else {
-        tocItems += `<li><a href="#${href}">${text}</a></li>`;
+        tocItems += `<li><a href="#${href}-scrollspy">${text}</a></li>`;
       }
     }
 
@@ -251,10 +251,18 @@
     // / automatic ToC
 
     // materialize scrollspy ToC
-    // TODO: need solution for either
-      // 1) wrapping each section in an elem to scrollspy automatically, or
-      // 2) use soemthing custom to watch the last seen headline
-    // var elems = document.querySelectorAll('.scrollspy');
-    // var instances = M.ScrollSpy.init(elems, options);
+    // doing this w/out jquery would be a pain...
+    $(tocSections).each(function(i, e) {
+      const id = $(e).attr('id');
+      console.log(`${id}`);
+      $(e).nextUntil('h2, h3, h4, h5').wrapAll(`<section id="${id}-scrollspy" class="section scrollspy">`);
+      $(e).prependTo(`section#${id}-scrollspy`);
+    });
+    const scrollSpyElems = document.querySelectorAll('.scrollspy');
+    const instances = M.ScrollSpy.init(scrollSpyElems, {
+      scrollOffset: 40,
+      throttle: 100
+    });
+    // / materialize scrollspy ToC
   });
 })();
