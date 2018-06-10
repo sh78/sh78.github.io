@@ -260,7 +260,7 @@ $navbar-brand-font-size: 2.1rem;
 // ==========================================================================
 
 $sidenav-width: 300px;
-$sidenav-font-size: 14px;
+$sidenav-font-size: 1rem;
 $sidenav-font-color: $navbar-font-color;
 $sidenav-bg-color: $primary-color-light;
 $sidenav-padding: 16px;
@@ -313,8 +313,8 @@ $body-font: 'Work Sans', 'Segoe UI', Tahoma, sans-serif;
 $headline-font: 'Space Mono', 'Fira Code', 'Source Code Pro', monospace;
 $pre-font: $headline-font;
 
-$font-stack: $headline-font;
-$materialize-font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+$font-size: 1.3rem;
+
 $off-black: rgba(0, 0, 0, 0.87);
 // Header Styles
 $h1-fontsize: 4.2rem;
