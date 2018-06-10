@@ -21,6 +21,7 @@ gem 'minimaterialize', '~> 1.1', '>= 1.1.2'
 group :jekyll_plugins do
   gem "jekyll-feed", "~> 0.6"
   gem "jekyll-paginate"
+  gem "jekyll-gist"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

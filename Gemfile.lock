@@ -9,6 +9,8 @@ GEM
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0.6.0)
     eventmachine (1.2.7)
+    faraday (0.15.2)
+      multipart-post (>= 1.2, < 3)
     ffi (1.9.25)
     forwardable-extended (2.6.0)
     http_parser.rb (0.6.0)
@@ -29,6 +31,8 @@ GEM
       safe_yaml (~> 1.0)
     jekyll-feed (0.9.3)
       jekyll (~> 3.3)
+    jekyll-gist (1.5.0)
+      octokit (~> 4.2)
     jekyll-paginate (1.1.0)
     jekyll-sass-converter (1.5.2)
       sass (~> 3.4)
@@ -47,6 +51,9 @@ GEM
       jekyll (~> 3.5)
       jekyll-feed (~> 0.9)
       jekyll-seo-tag (~> 2.1)
+    multipart-post (2.0.0)
+    octokit (4.9.0)
+      sawyer (~> 0.8.0, >= 0.5.3)
     pathutil (0.16.1)
       forwardable-extended (~> 2.6)
     public_suffix (3.0.2)
@@ -61,6 +68,9 @@ GEM
     sass-listen (4.0.0)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
+    sawyer (0.8.1)
+      addressable (>= 2.3.5, < 2.6)
+      faraday (~> 0.8, < 1.0)
 
 PLATFORMS
   ruby
@@ -68,6 +78,7 @@ PLATFORMS
 DEPENDENCIES
   jekyll (~> 3.8.3)
   jekyll-feed (~> 0.6)
+  jekyll-gist
   jekyll-paginate
   minimaterialize (~> 1.1, >= 1.1.2)
   tzinfo-data

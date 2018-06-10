@@ -1,5 +1,9 @@
-body .gist .highlight {
-    background: #fdf6e3;
+body .gist {
+  background: #fdf6e3;
+
+  .highlight {
+    background: transparent;
+  }
 }
 body .gist .blob-num,
 body .gist .blob-code-inner,

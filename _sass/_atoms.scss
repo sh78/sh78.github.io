@@ -19,12 +19,12 @@
   }
 }
 
-.highlight {
+.highlight, .gist {
   @extend .z-depth-1;
+  padding: .5em;
 
   pre {
     margin: 1em 0;
-    padding: .5em 1em;
     width: 100%;
   }
 }
