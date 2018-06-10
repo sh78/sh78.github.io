@@ -8,6 +8,9 @@ M.AutoInit();
     document.querySelector('html.js').classList.add('loaded');
 
     const theme = {
+      availableThemes: {},
+      dayTheme: 'materialized-light',
+      nightTheme: 'materialized-dark',
       get: function() {
         const themeElement = document.querySelector('.theme-variant');
         const themeCurrent = themeElement.href.split('/').pop().split('.')[0];
@@ -28,20 +31,28 @@ M.AutoInit();
         // restore loaded state
         page.classList.toggle('loaded');
       },
-      toggleSolarized: function() {
+      toggleTimedTheme: function() {
         const currently = theme.get();
-        if (currently === 'materialized-dark') {
-          theme.set('materialized-light');
+        const uiText = document.querySelector('.theme-timed span');
+        const uiIcon = document.querySelector('.theme-timed i');
+        if (currently === theme.dayTheme) {
+          theme.set(theme.nightTheme);
+          uiText.innerText = "Day";
+          uiIcon.classList.add("fa-sun");
+          uiIcon.classList.remove("fa-moon");
         } else {
-          theme.set('materialized-dark');
+          theme.set(theme.dayTheme);
+          uiText.innerText = "Night";
+          uiIcon.classList.add("fa-moon");
+          uiIcon.classList.remove("fa-sun");
         }
       },
       init: function() {
-        // bind event for day/night mode
-        const themeSwitcher = document.querySelector('.solarized-mode');
-        themeSwitcher.addEventListener('click', function(e) {
+        // set up day/night mode manual toggle
+        const dayTripper = document.querySelector('.theme-timed');
+        dayTripper.addEventListener('click', function(e) {
           e.preventDefault();
-          theme.toggleSolarized();
+          theme.toggleTimedTheme();
         });
 
         // bind any other theme pickers
