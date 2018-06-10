@@ -34,13 +34,16 @@ Aha, [someone in the (mt) community forums](https://forum.mediatemple.net/topic/
 
 A quick peek into `/etc/nginx/nginx.conf` shows that not only are there ready-made gzip switches in place, they've been commented out.
 
-    #gzip on;
-    #gzip_disable "MSIE [1-6]\.(?!.*SV1)";
+```nginx
+#gzip on;
+#gzip_disable "MSIE [1-6]\.(?!.*SV1)";
+```
 
 After uncommenting and `service nginx restart`ing, gzip compression was working... for *only for* `index.html`! js, css, etc were still missing the elusive `Content-Encoding:gzip` header. Time to crack a second litre of whiskey.
 
 My `mod_deflate` rules included all the correct content types. I even added redundant declarations in both `httpd.conf` and the indigenous `.htaccess`.
 
+```apache
     AddOutputFilterByType DEFLATE application/atom+xml \
                                   application/javascript \
                                   application/json \
@@ -59,12 +62,15 @@ My `mod_deflate` rules included all the correct content types. I even added redu
                                   text/plain \
                                   text/x-component \
                                   text/xml
+```
 
 So, back to Google, wherein lies a [kick ass post](http://kickassability.com/apache-nginx-mod_deflate-gzip-compression-woes/) about the woes of compression on a Mediatemple DV, along with a more iterative solution:
 
+```nginx
     gzip on;
     gzip_http_version 1.1;
     gzip_types text/plain text/html text/css text/javascript application/x-javascript text/xml application/xml application/xml+rss;
+```
 
 `gzip` was on, but nginx also controls which file types will be compressed. Ok, so just `service nginx restart` right quick, pop back to dev tools, refresh... Huh? CSS is gzipped, and JS isn't. So did I misspell `javacsritp` in `nginx.conf`? No, but as it turns out, if you check the response header of a .js file in any browser since the dark ages, the term is `Content-Type:text/javascript;`, not `text/javascript`. One more round of restart/refresh, and gzip goodness was fully functional.
 
