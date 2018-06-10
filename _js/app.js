@@ -45,14 +45,14 @@
       const currently = theme.get();
 
       // decide theme to set and update UI state
-      if (currently === theme.dayTheme) {
-        theme.set(theme.nightTheme);
-        theme.updateUI(theme.nightTheme);
-        theme.saveTimed(theme.nightTheme);
-      } else {
+      if (currently === theme.nightTheme) {
         theme.set(theme.dayTheme);
-        theme.updateUI(theme.dayTheme);
+        theme.updateUI();
         theme.saveTimed(theme.dayTheme);
+      } else {
+        theme.set(theme.nightTheme);
+        theme.updateUI();
+        theme.saveTimed(theme.nightTheme);
       }
     },
     load: function() {
@@ -112,7 +112,8 @@
           return;
         } else {
           theme.set(desiredTheme);
-          theme.saveTimed(desiredTheme);
+          theme.saveTheme(desiredTheme);
+          theme.updateUI();
         }
       });
     }
