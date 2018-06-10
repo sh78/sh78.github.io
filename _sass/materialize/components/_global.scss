@@ -324,6 +324,11 @@ ul.staggered-list li {
     display: none !important;
   }
 }
+.hide-on-large-and-down {
+  @media #{$large-and-down} {
+    display: none !important;
+  }
+}
 .hide-on-large-only {
   @media #{$large-and-up} {
     display: none !important;
