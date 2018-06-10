@@ -1,5 +1,4 @@
 ---
-layout: post
 title: Compass One-Liner For Automating CSS Transitions
 date: 2013-06-12 16:55:23
 tags: sass design css

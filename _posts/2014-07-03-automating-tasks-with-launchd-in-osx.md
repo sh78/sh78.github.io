@@ -1,5 +1,4 @@
 ---
-layout: post
 title: Automating Tasks With launchd In OS X
 date: 2014-07-03 15:38:00
 tags: hacks, security, shell, macOS, *nix

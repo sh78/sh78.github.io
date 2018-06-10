@@ -1,5 +1,4 @@
 ---
-layout: post
 title: iPhone 5 Home Screen
 date: 2013-06-07 01:13:00
 tags: iOS, mobile, home-screens

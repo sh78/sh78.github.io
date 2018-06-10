@@ -72,3 +72,10 @@ plugins:
   - jekyll-paginate
   - jekyll-gist
 
+defaults:
+  -
+    scope:
+      type: "posts"
+    values:
+      layout: "post" # overrides previous default layout
+      author: "Sean Henderson"

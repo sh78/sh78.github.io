@@ -1,5 +1,4 @@
 ---
-layout: post
 title: The Free Mega-Weight Dropbox Alternative
 date: 2014-07-11 14:26:00
 tags: the-cloud backup 

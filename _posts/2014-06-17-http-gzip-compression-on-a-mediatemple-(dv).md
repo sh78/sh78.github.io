@@ -1,5 +1,4 @@
 ---
-layout: post
 title: HTTP gzip compression on a MediaTemple (dv)
 date: 2014-06-17 03:23:00
 tags: devops server web-performance hosting

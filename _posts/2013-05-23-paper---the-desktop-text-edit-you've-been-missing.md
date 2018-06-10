@@ -1,9 +1,10 @@
 ---
-layout: post
-title: Paper - The Desktop Text Editor You've Been Missing
+title: The Desktop Text Editor You've Been Missing
 date: 2013-05-22 22:44:09
-tags: workflow, productivity, optinion
+tags: workflow, productivity, opinion
 ---
+
+Paper.
 
 I occasionally have this idealistic daydream where my workspace is a single computer on an large empty desk, in a white room with no other furniture or discernible features. Just empty space.
 
@@ -40,4 +41,4 @@ Now, if you're interested in working a new text editor into your development sta
    * Fun doodles and drawings, maybe whilst waiting for thine loading bar.
    * Etc. 
 
-If you've been out of highschool long enough and mostly use a keyboard, this will feel very akward at first. No pain no gain.
+If you've been out of high school long enough and mostly use a keyboard, this will feel very award at first. No pain no gain.

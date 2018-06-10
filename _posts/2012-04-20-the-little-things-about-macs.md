@@ -1,5 +1,4 @@
 ---
-layout: post
 title:  "The Little Things (About Macs)"
 date:   2012-04-20 02:32:00 
 tags: mac, workflow
