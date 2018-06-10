@@ -36,7 +36,7 @@
 // https://materializecss.com/color.html
 
 $primary-color: color("solarized", "base3");
-$primary-color-light: lighten(color("solarized", "base3"), 10%);
+$primary-color-light: lighten(color("solarized", "base3"), 1%);
 $primary-color-dark: darken($primary-color, 15%);
 $secondary-color: color("orange", "lighten-1");
 
