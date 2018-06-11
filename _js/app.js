@@ -216,14 +216,17 @@
 
 
     // blog posts ToC / scrollspy
-    const tocSections = document.querySelectorAll('.post-main h2, .post-main h3');
+    const tocHeadlines = document.querySelectorAll('.post-main h2, .post-main h3');
 
     // materialize scrollspy ToC
     // doing this w/out jquery would be a pain...
-    $(tocSections).each(function(i, e) {
+    $(tocHeadlines).each(function(i, e) {
       const id = $(e).attr('id');
-      $(e).nextUntil('h2, h3, h4, h5').wrapAll(`<section id="${id}-scrollspy" class="section scrollspy">`);
-      $(e).prependTo(`section#${id}-scrollspy`);
+      // transplant the id from headline to section element
+      $(e).removeAttr('id');
+      $(e).nextUntil('h2, h3').wrapAll(`<section id="${id}" class="section scrollspy">`);
+      // move headline into its section
+      $(e).prependTo(`section#${id}`);
     });
     const scrollSpyElems = document.querySelectorAll('.scrollspy');
     const instances = M.ScrollSpy.init(scrollSpyElems, {
@@ -232,15 +235,16 @@
     });
     // scrollspy
     let tocItems = '';
-    for(let i = 0; i < tocSections.length; i++) {
-      const thisLevel = parseInt(tocSections[i].tagName.slice(1)); // => int matching current heading level
-      const nextLevel = i+1 < tocSections.length ? parseInt(tocSections[i+1].tagName.slice(1)) : undefined;
+    const tocSections = document.querySelectorAll('.scrollspy');
+    for(let i = 0; i < tocHeadlines.length; i++) {
+      const thisLevel = parseInt(tocHeadlines[i].tagName.slice(1)); // => int matching current heading level
+      const nextLevel = i+1 < tocHeadlines.length ? parseInt(tocHeadlines[i+1].tagName.slice(1)) : undefined;
       const href = tocSections[i].id;
-      const text = tocSections[i].innerText;
+      const text = tocHeadlines[i].innerText;
       if(thisLevel < nextLevel) {
-        tocItems += `<li><a class="internal" href="#${href}-scrollspy">${text}</a><ol>`;
+        tocItems += `<li><a class="internal" href="#${href}">${text}</a><ol>`;
       } else {
-        tocItems += `<li><a class="internal" href="#${href}-scrollspy">${text}</a></li>`;
+        tocItems += `<li><a class="internal" href="#${href}">${text}</a></li>`;
       }
       if(thisLevel > nextLevel) {
         tocItems += `</ol></li>`;
