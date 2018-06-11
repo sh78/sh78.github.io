@@ -72,6 +72,10 @@ plugins:
   - jekyll-seo-tag
   - jekyll-paginate
   - jekyll-gist
+  - jekyll/tagging
+
+tag_page_layout: tag
+tag_page_dir: log/tag
 
 defaults:
   -

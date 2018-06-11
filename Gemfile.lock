@@ -38,6 +38,8 @@ GEM
       sass (~> 3.4)
     jekyll-seo-tag (2.5.0)
       jekyll (~> 3.3)
+    jekyll-tagging (1.1.0)
+      nuggets
     jekyll-watch (2.0.0)
       listen (~> 3.0)
     kramdown (1.17.0)
@@ -52,6 +54,7 @@ GEM
       jekyll-feed (~> 0.9)
       jekyll-seo-tag (~> 2.1)
     multipart-post (2.0.0)
+    nuggets (1.5.0)
     octokit (4.9.0)
       sawyer (~> 0.8.0, >= 0.5.3)
     pathutil (0.16.1)
@@ -80,6 +83,7 @@ DEPENDENCIES
   jekyll-feed (~> 0.6)
   jekyll-gist
   jekyll-paginate
+  jekyll-tagging
   minimaterialize (~> 1.1, >= 1.1.2)
   tzinfo-data
 

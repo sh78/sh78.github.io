@@ -22,7 +22,7 @@ layout: default
           <span class="tags">
             tags: [
             {% for tag in page.tags %}
-              <a href="/log/tags/{{ tag | url_encode | replace: "+", "-" }}/">{{ tag | replace: " ", "-" }}</a>,
+              <a href="/log/tag/{{ tag | url_encode | replace: "+", "-" }}/">{{ tag | replace: " ", "-" }}</a>,
             {% endfor %}
             ]
           </span>

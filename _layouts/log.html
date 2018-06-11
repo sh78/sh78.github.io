@@ -5,6 +5,12 @@ layout: default
 <div class="blog">
 
   {{ content }}
+  {% if page.tag %}
+    {% assign posts = site.tags[page.tag] %}
+    <h1>Posts Tagged &ldquo;{{ page.tag | replace: '-', ' ' }}&rdquo;</h1>
+  {% else %}
+    {% assign posts = paginator.posts %}
+  {% endif %}
 
   {%- if site.posts.size > 0 -%}
   <div class="post-listing">
@@ -12,7 +18,7 @@ layout: default
       {%- if site.blog_posts_title -%}{{ page.list_title | default: "Posts" }}{%- endif -%}
     </h2>
     <div class="row{% if site.post_columns %} fill-height{% endif %}">
-      {%- for post in paginator.posts -%}
+      {%- for post in posts -%}
       <div class="post col s12{% if site.post_columns %} m6{% endif %}">
         <div class="{%- if site.post_cards -%}card{%- endif -%}">
           {%- if site.post_images -%}
