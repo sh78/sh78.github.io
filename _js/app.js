@@ -274,7 +274,7 @@
 				.offset().top
 			: 0;
     const bottomOffset = footerOffset - tocHeight;
-    const offsetFromTop = $('.post-toc').offset().top;
+    const offsetFromTop = $('.post-toc').length ? $('.post-toc').offset().top : 0;
     // console.log(tocHeight, footerOffset, bottomOffset, offsetFromTop );
     // init pushpin
     const pushpinInstances = M.Pushpin.init(pushpinElems, {
