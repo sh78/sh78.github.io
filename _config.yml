@@ -74,7 +74,10 @@ plugins:
   - jekyll-gist
   - jekyll/tagging
 
-tag_page_layout: tag
+gems:
+  - jekyll/tagging
+
+tag_page_layout: log
 tag_page_dir: log/tag
 
 defaults:
