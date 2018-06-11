@@ -222,7 +222,7 @@
     // doing this w/out jquery would be a pain...
     $(tocSections).each(function(i, e) {
       const id = $(e).attr('id');
-      $(e).nextUntil('h2, h3, h4, h5').wrapAll(`<section id="${id}-scrollspy" class="section scrollspy">`);
+      $(e).nextUntil('h2, h3').wrapAll(`<section id="${id}-scrollspy" class="section scrollspy">`);
       $(e).prependTo(`section#${id}-scrollspy`);
     });
     const scrollSpyElems = document.querySelectorAll('.scrollspy');

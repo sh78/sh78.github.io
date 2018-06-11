@@ -1,7 +1,7 @@
 ---
 title:  "The Little Things (About Macs)"
 date:   2012-04-20 02:32:00 
-tags: mac, workflow
+tags: [mac, workflow]
 ---
 
 I'm really not big on the whole "Mac vs. PC" spectacle. It's rather distracting and somewhat distasteful. I primarily used Windows PC's through age 18, with the exception of a few Macs in computer lab at school. It wasn't that I really *chose* Windows over Mac, it was something familiar and that dominated every computer store in existence other than the Apple Store. I thought Apple computers were more like expensive toys (purely based on looks and scarcity), plus I didn't want to re-learn or adjust to anything new if it wasn't absolutely necessary. Working on a new operating system can be crippling, even embarrassing at first. The first reaction for many is "this machine doesn't do X," or "where's the Y button," and other more profane sayings. 

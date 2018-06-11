@@ -1,7 +1,7 @@
 ---
 title: The Desktop Text Editor You've Been Missing
 date: 2013-05-22 22:44:09
-tags: workflow, productivity, opinion
+tags: [workflow, productivity, opinion]
 ---
 
 Paper.
