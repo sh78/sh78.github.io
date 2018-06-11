@@ -47,3 +47,11 @@ pre.highlight, .gist {
     color: lighten($text-color, 15%)
   }
 }
+
+#scrollProgressBar {
+  position: fixed;
+  bottom: 0;
+  width: 0;
+  height: .5rem;
+  background-color: $supplement-color;
+}

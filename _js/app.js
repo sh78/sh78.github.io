@@ -283,5 +283,26 @@
       offset: $('.nav-main').height() + 20 // height from top of window to fix it
     });
     // / automatic ToC
+
+    // blog post reading progress
+
+    // When the user scrolls the page, execute myFunction
+    function setScrollProgress() {
+      var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      var scrolled = (winScroll / height) * 100;
+      document.getElementById("scrollProgressBar").style.width = scrolled + "%";
+    }
+    if(document.querySelectorAll('.post.h-entry').length > 0) {
+      const el = document.createElement('div');
+      el.id = 'scrollProgressBar';
+      document.body.appendChild(el);
+
+      window.onscroll = function() {
+        setScrollProgress();
+      };
+    }
+
+    // / blog post reading progress
   });
 })();
