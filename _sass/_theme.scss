@@ -59,3 +59,22 @@ main {
   font-style: italic;
   font-size: .9em;
 }
+
+.post-toc {
+  a {
+    color: lighten($text-color, 10%);
+  }
+  &.pinned {
+    transition: top .5s ease;
+  }
+  ol {
+    padding-left: 1rem;
+  }
+  li {
+    list-style-type: none;
+  }
+
+  .active {
+    font-weight: bold;
+  }
+}

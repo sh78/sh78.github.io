@@ -215,46 +215,13 @@
     // /infinite scrolling
 
 
-    // automatic ToC for blog posts
-    const tocSections = document.querySelectorAll('.post-main h2, .post-main h3, .post-main h4, .post-main h5');
-    let tocItems = '';
-    for(let i = 0; i < tocSections.length; i++) {
-      const thisLevel = parseInt(tocSections[i].tagName.slice(1)); // => int matching current heading level
-      const nextLevel = i+1 < tocSections.length ? parseInt(tocSections[i+1].tagName.slice(1)) : undefined;
-      console.log('this' + thisLevel, 'next' + nextLevel);
-      const href = tocSections[i].id;
-      const text = tocSections[i].innerText;
-      if(thisLevel < nextLevel) {
-        tocItems += `<li><a href="#${href}-scrollspy">${text}</a><ol>`;
-      } else if(thisLevel > nextLevel) {
-        tocItems += `</ol></li>`;
-      } else {
-        tocItems += `<li><a href="#${href}-scrollspy">${text}</a></li>`;
-      }
-    }
-
-    let tocTemplate = `
-    <nav role='navigation' class='post-toc hide-on-medium-down'>
-      <header>
-        <h3>Table of Contents:</h3>
-      </header>
-      <ol class="post-toc">
-        ${ tocItems }
-      </ol>
-    </nav>
-    `;
-
-    if(tocItems.length > 0) {
-      const tocContainer = document.querySelector('.post-header');
-      tocContainer.innerHTML = tocContainer.innerHTML + tocTemplate;
-    }
-    // / automatic ToC
+    // blog posts ToC / scrollspy
+    const tocSections = document.querySelectorAll('.post-main h2, .post-main h3');
 
     // materialize scrollspy ToC
     // doing this w/out jquery would be a pain...
     $(tocSections).each(function(i, e) {
       const id = $(e).attr('id');
-      console.log(`${id}`);
       $(e).nextUntil('h2, h3, h4, h5').wrapAll(`<section id="${id}-scrollspy" class="section scrollspy">`);
       $(e).prependTo(`section#${id}-scrollspy`);
     });
@@ -263,6 +230,58 @@
       scrollOffset: 40,
       throttle: 100
     });
-    // / materialize scrollspy ToC
+    // scrollspy
+    let tocItems = '';
+    for(let i = 0; i < tocSections.length; i++) {
+      const thisLevel = parseInt(tocSections[i].tagName.slice(1)); // => int matching current heading level
+      const nextLevel = i+1 < tocSections.length ? parseInt(tocSections[i+1].tagName.slice(1)) : undefined;
+      const href = tocSections[i].id;
+      const text = tocSections[i].innerText;
+      if(thisLevel < nextLevel) {
+        tocItems += `<li><a class="internal" href="#${href}-scrollspy">${text}</a><ol>`;
+      } else {
+        tocItems += `<li><a class="internal" href="#${href}-scrollspy">${text}</a></li>`;
+      }
+      if(thisLevel > nextLevel) {
+        tocItems += `</ol></li>`;
+      }
+    }
+    // insert toc markup
+    let tocTemplate = `
+    <nav role='navigation' class='post-toc hide-on-medium-down'>
+      <ol>
+        <li>
+        <h3 class="post-toc-title">Jump to:</h3>
+          <ol>
+            ${ tocItems }
+          </ol>
+        </li>
+      </ol>
+    </nav>
+    `;
+    if(tocItems.length > 0) {
+      const tocContainer = document.querySelector('.toc-container');
+      tocContainer.innerHTML = tocContainer.innerHTML + tocTemplate;
+    }
+
+    // materialize pushpin
+    const pushpinElems = document.querySelectorAll('.post-toc');
+    const pageHeight = $(document.body).height();
+    const tocHeight = $('.post-toc').length ? $('.post-toc').height() : 0;
+    const footerOffset = $('.page-footer').first().length ?
+			$('.page-footer')
+				.first()
+				.offset().top
+			: 0;
+    const bottomOffset = footerOffset - tocHeight;
+    const offsetFromTop = $('.post-toc').offset().top;
+    // console.log(tocHeight, footerOffset, bottomOffset, offsetFromTop );
+    // init pushpin
+    const pushpinInstances = M.Pushpin.init(pushpinElems, {
+      top: offsetFromTop + 40, // where to start fixed pos (from top)
+      bottom: bottomOffset,
+      offset: $('.nav-main').height() + 20 // height from top of window to fix it
+    });
+    // / automatic ToC
   });
 })();

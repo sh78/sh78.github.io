@@ -29,11 +29,21 @@ pre.highlight, .gist {
   }
 }
 
-.pagination {
-  text-align: center;
-}
-
 .indent {
   display: block;
   padding-left: 2em;
+}
+
+.internal {
+  position: relative;
+  &:before {
+    font-family: "Font Awesome 5 Free";
+    content: "\f292";
+    font-weight: 900;
+    font-size: 0.7rem;
+    position: absolute;
+    left: -0.7rem;
+    top: .1rem;
+    color: lighten($text-color, 15%)
+  }
 }

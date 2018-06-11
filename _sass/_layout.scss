@@ -55,7 +55,35 @@ img {
   margin-bottom: 30px;
 }
 
+// pagination links
 .pagination {
   text-align: center;
 }
 
+// scrollspying toc in single post view
+.toc-container {
+  display: none; // materialize's style only works on large screens
+}
+
+@media #{$large-and-up} {
+  .post-content {
+    display: flex;
+    flex-direction: row;
+  }
+  .toc-container {
+    display: block;
+    order: 1;
+    padding-left: 10%;
+
+    .post-toc {
+      width: 240px;
+
+      .post-toc-title {
+        font-size: $h5-fontsize;
+      }
+    }
+  }
+  .post-content-inner {
+    max-width: 75%;
+  }
+}

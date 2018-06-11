@@ -32,7 +32,10 @@ layout: default
     </header>
 
     <div class="post-content e-content" itemprop="articleBody">
-      {{ content }}
+      <div class="toc-container"></div>
+      <div class="post-content-inner">
+        {{ content }}
+      </div>
     </div>
 
     {%- if site.disqus.shortname -%}
