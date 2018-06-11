@@ -8,3 +8,11 @@
 .dropdown-content li > a, .dropdown-content li > span {
       color: color("shades", "white");
 }
+
+main {
+  p {
+    code {
+      color: color("shades", "white");
+    }
+  }
+}

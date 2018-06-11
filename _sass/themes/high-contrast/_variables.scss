@@ -5,7 +5,7 @@
 $primary-color: color("shades", "black");
 $primary-color-light: lighten($primary-color, 15%);
 $primary-color-dark: darken($primary-color, 15%);
-$secondary-color: color("grey", "lighten-1");
+$secondary-color: color("grey", "darken-1");
 
 $background-color: color("shades", "white");
 $text-color: $secondary-color;
