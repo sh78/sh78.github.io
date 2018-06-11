@@ -222,7 +222,7 @@
     // doing this w/out jquery would be a pain...
     $(tocSections).each(function(i, e) {
       const id = $(e).attr('id');
-      $(e).nextUntil('h2, h3').wrapAll(`<section id="${id}-scrollspy" class="section scrollspy">`);
+      $(e).nextUntil('h2, h3, h4, h5').wrapAll(`<section id="${id}-scrollspy" class="section scrollspy">`);
       $(e).prependTo(`section#${id}-scrollspy`);
     });
     const scrollSpyElems = document.querySelectorAll('.scrollspy');
@@ -274,7 +274,7 @@
 				.offset().top
 			: 0;
     const bottomOffset = footerOffset - tocHeight;
-    const offsetFromTop = $('.post-toc').length ? $('.post-toc').offset().top : 0;
+    const offsetFromTop = $('.post-toc').length > 0 ? $('.post-toc').offset().top : 0;
     // console.log(tocHeight, footerOffset, bottomOffset, offsetFromTop );
     // init pushpin
     const pushpinInstances = M.Pushpin.init(pushpinElems, {
@@ -283,26 +283,5 @@
       offset: $('.nav-main').height() + 20 // height from top of window to fix it
     });
     // / automatic ToC
-
-    // blog post reading progress
-
-    // When the user scrolls the page, execute myFunction
-    function setScrollProgress() {
-      var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-      var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      var scrolled = (winScroll / height) * 100;
-      document.getElementById("scrollProgressBar").style.width = scrolled + "%";
-    }
-    if(document.querySelectorAll('.post.h-entry').length > 0) {
-      const el = document.createElement('div');
-      el.id = 'scrollProgressBar';
-      document.body.appendChild(el);
-
-      window.onscroll = function() {
-        setScrollProgress();
-      };
-    }
-
-    // / blog post reading progress
   });
 })();
