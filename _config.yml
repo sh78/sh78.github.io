@@ -22,9 +22,10 @@ sass:
     - _sass
 
 # social links
-twitter_username: seanmh78
-github_username:  sh78
+github_username: sh78
+gitlab_username: sh78
 stackoverflow_username: users/2537500/sh78
+twitter_username: seanmh78
 linkedin_username: seanmhenderson
 facebook_username: seanmhenderson
 youtube_username: SeanHenderson7

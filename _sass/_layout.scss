@@ -87,3 +87,9 @@ img {
     max-width: 75%;
   }
 }
+
+.social-media-list {
+  a + a {
+    margin-left: .5rem;
+  }
+}
