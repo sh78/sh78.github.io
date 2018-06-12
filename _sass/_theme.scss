@@ -78,3 +78,41 @@ main {
     font-weight: bold;
   }
 }
+
+.cta-full-width {
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: $supplement-color;
+  position: relative;
+  top: 30px;
+  padding: 0 2em;
+  font-family: $headline-font;
+
+  a {
+    display: flex;
+    align-items: center;
+    &:hover {
+      text-decoration: none;
+      text-shadow: .1rem .1rem .2rem #000;
+    }
+  }
+
+  .prev {
+    i {
+      padding-right: 2rem;
+    }
+  }
+
+  .next { 
+    text-align: end;
+    i {
+      padding-left: 2rem;
+    }
+  }
+
+  i {
+    font-size: 4rem;
+  }
+}
