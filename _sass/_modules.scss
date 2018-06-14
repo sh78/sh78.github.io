@@ -31,8 +31,11 @@
     display: flex;
     align-items: center;
     &:hover {
+      text-decoration: underline;
+    }
+
+    i {
       text-decoration: none;
-      text-shadow: .1rem .1rem .2rem #000;
     }
   }
 
@@ -42,7 +45,7 @@
     }
   }
 
-  .next { 
+  .next {
     text-align: end;
     i {
       padding-left: 2rem;
