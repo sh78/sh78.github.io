@@ -17,14 +17,13 @@
 }
 
 .cta-full-width {
-  height: 5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   background: $supplement-color;
   position: relative;
   top: 30px;
-  padding: 0 2em;
+  padding: 1rem 2em;
   font-family: $headline-font;
 
   a {
