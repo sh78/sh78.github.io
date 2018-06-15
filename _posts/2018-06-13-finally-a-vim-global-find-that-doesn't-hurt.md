@@ -1,5 +1,5 @@
 ---
-title: Finally, A Vim Global Find That Doesn't Suck
+title: Finally, A Vim Global Find That Doesn't Hurt
 date: 2018-06-13 17:35:00
 tags: [Linux, *nix, shell, vim, dotfiles]
 ---
