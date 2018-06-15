@@ -597,11 +597,12 @@ sudo hostnamectl set-hostname sapka
 
 On macOS, there is `defaults write`, and `defaults export`/`import`. So this is Linux, can we automate Fedora's preferences in such a fashion?
 
-Well it doesn't matter, because here comes i3wm.
+Well, not going to bother, because here comes [i3wm](https://i3wm.org/).
 
+# To Be Continued
+<!--
 # i3wm: A Tiling Window Manager
 
-[i3wm](https://i3wm.org/)
 
 ## To Gap Or Not To Gap
 
@@ -650,13 +651,4 @@ The camera, however, took some convincing. [...]
 
 ## Working The Night Shift
 
-
-
-
-
-
-
-
-
-
-
+-->
