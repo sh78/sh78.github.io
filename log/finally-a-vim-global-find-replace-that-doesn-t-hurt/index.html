@@ -3,24 +3,22 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
-<title>Finally, A Vim Global Find That Doesn’t Hurt | ./sean</title>
+<title>Finally, A Vim Global Find/Replace That Doesn’t Hurt | ./sean</title>
 <meta name="generator" content="Jekyll v3.8.3" />
-<meta property="og:title" content="Finally, A Vim Global Find That Doesn’t Hurt" />
+<meta property="og:title" content="Finally, A Vim Global Find/Replace That Doesn’t Hurt" />
 <meta name="author" content="Sean Henderson" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="I’m a recent vim convert. 100% in it now. There has been literally one thing, and only one thing, I’ve missed from other editors (namely Sublime Text) until today: Global, or project-wide, find and replace." />
 <meta property="og:description" content="I’m a recent vim convert. 100% in it now. There has been literally one thing, and only one thing, I’ve missed from other editors (namely Sublime Text) until today: Global, or project-wide, find and replace." />
-<link rel="canonical" href="http://localhost:4000/log/finally-a-vim-global-find-that-doesn't-hurt/" />
-<meta property="og:url" content="http://localhost:4000/log/finally-a-vim-global-find-that-doesn't-hurt/" />
 <meta property="og:site_name" content="./sean" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2018-06-13T10:35:00-07:00" />
 <script type="application/ld+json">
-{"url":"http://localhost:4000/log/finally-a-vim-global-find-that-doesn't-hurt/","author":{"@type":"Person","name":"Sean Henderson"},"description":"I’m a recent vim convert. 100% in it now. There has been literally one thing, and only one thing, I’ve missed from other editors (namely Sublime Text) until today: Global, or project-wide, find and replace.","headline":"Finally, A Vim Global Find That Doesn’t Hurt","dateModified":"2018-06-13T10:35:00-07:00","datePublished":"2018-06-13T10:35:00-07:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/log/finally-a-vim-global-find-that-doesn't-hurt/"},"@context":"http://schema.org"}</script>
+{"url":"/log/finally-a-vim-global-find-replace-that-doesn-t-hurt/","author":{"@type":"Person","name":"Sean Henderson"},"description":"I’m a recent vim convert. 100% in it now. There has been literally one thing, and only one thing, I’ve missed from other editors (namely Sublime Text) until today: Global, or project-wide, find and replace.","headline":"Finally, A Vim Global Find/Replace That Doesn’t Hurt","dateModified":"2018-06-13T10:35:00-07:00","datePublished":"2018-06-13T10:35:00-07:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"/log/finally-a-vim-global-find-replace-that-doesn-t-hurt/"},"@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link class="theme-variant" rel="stylesheet" href="/assets/themes/materialized-dark.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-  <script src="/assets/js/modernizr.min.js"></script><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="./sean" /><style>
+  <script src="/assets/js/modernizr.min.js"></script><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="./sean" /><style>
 /* fade in on loaded */
 html.js .no-fouc {
   opacity: 0;
@@ -126,7 +124,7 @@ html.loaded .no-fouc {
         <article class="post h-entry container" itemscope itemtype="http://schema.org/BlogPosting">
   <div class="post-main">
     <header class="post-header">
-      <h1 class="post-title p-name" itemprop="name headline">Finally, A Vim Global Find That Doesn&#39;t Hurt</h1>
+      <h1 class="post-title p-name" itemprop="name headline">Finally, A Vim Global Find/Replace That Doesn&#39;t Hurt</h1>
       <p class="post-meta">
         {
         <br>
@@ -141,6 +139,8 @@ html.loaded .no-fouc {
               <a href="/log/tag/shell/">shell</a>,
             
               <a href="/log/tag/vim/">vim</a>,
+            
+              <a href="/log/tag/workflow/">workflow</a>,
             
               <a href="/log/tag/dotfiles/">dotfiles</a>,
             
@@ -161,7 +161,8 @@ thing, and only one thing, I’ve missed from other editors (namely <a href="htt
 
 <h2 id="global-findreplace-in-sublime-text-and-the-like">Global Find/Replace in Sublime Text and the like</h2>
 
-<p><img src="" alt="The global find/replace drawer in sublime text." /></p>
+<p><img src="/assets/images/sublime-find-replace.png" alt="The global find/replace drawer in sublime
+text." /></p>
 
 <p>Use case: you have a massive project with tons partials/includes and so forth.
 You want to jump to a specific markup node to add a new feature/bug. So instead
@@ -172,7 +173,7 @@ occurrences are listed, and you can open one up and start working.</p>
 <p>Later, you change a class and need to update 17,342 css files to replace the old
 class name with the new one. So:</p>
 
-<p><img src="" alt="Replacing a class name in Sublime Text" /></p>
+<p><img src="/assets/images/sublime-find-replace-class.png" alt="Replacing a class name in Sublime Text" /></p>
 
 <p>So vim must have this built in right?</p>
 
@@ -355,7 +356,7 @@ can fix that with some vim script in our <code class="highlighter-rouge">.vimrc<
 <span class="p">:</span>nnoremap <span class="p">&lt;</span>Leader<span class="p">&gt;</span>fr <span class="p">:</span><span class="k">call</span> FindReplace<span class="p">()&lt;</span>CR<span class="p">&gt;</span>
 </code></pre></div></div>
 
-<p><strong>WARNING</strong>: these be dangerous waters ye treadith in, should ye treadeth. There’s a lot of variation in results here
+<p><strong>WARNING</strong>: There’s a lot of variation in results here
 depending on your individual configuration. A few points:</p>
 
 <ul>
@@ -376,7 +377,7 @@ take another 30 minutes.</li>
       </div>
     </div>
 
-    <a class="u-url" href="/log/finally-a-vim-global-find-that-doesn't-hurt/" hidden></a>
+    <a class="u-url" href="/log/finally-a-vim-global-find-replace-that-doesn-t-hurt/" hidden></a>
   </div>
 </article>
 <aside class="more-posts cta-full-width row">
