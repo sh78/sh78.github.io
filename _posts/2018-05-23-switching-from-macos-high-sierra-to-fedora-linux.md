@@ -94,9 +94,7 @@ sudo dnf -y system-upgrade download --refresh --releasever=28
 sudo dnf system-upgrade reboot
 ```
 
-<a href="#reboot">I'll wait.</a>
-
-![An IT person with title "have you tried forcing an unexpected reboot?](https://media.giphy.com/media/10lBhcF4eTJZWU/giphy.gif)
+![An IT person with title "have you tried forcing an unexpected reboot?"](https://media.giphy.com/media/10lBhcF4eTJZWU/giphy.gif)
 
 Ah, you're back. Now let's do the equivalent of `xcode-select --install` on macOS:
 

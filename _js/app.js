@@ -62,7 +62,7 @@
       const sessionTheme = sessionStorage.getItem('theme');
       if(sessionTheme) {
         theme.set(sessionTheme);
-      } else if(savedTheme) {
+      } else if(savedTheme && savedTheme != 'auto') {
         theme.set(savedTheme);
       } else {
         theme.autoLoad();
@@ -120,6 +120,16 @@
           theme.saveTheme(desiredTheme);
           theme.updateUI();
         }
+      });
+
+      // handle auto mode
+      const themeAuto = document.querySelector('.theme-auto');
+      themeAuto.addEventListener('click', function(e) {
+        e.preventDefault();
+        const desiredTheme = e.target.dataset.theme;
+        theme.saveTheme(desiredTheme);
+        theme.autoLoad(desiredTheme);
+        theme.updateUI();
       });
     }
   };
