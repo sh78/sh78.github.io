@@ -56,7 +56,7 @@ per-cup basis; this is going to take awhile.
 
 Ah, you're back. Ok, so now why didn't we get a list of results? It just showed
 off the first result, told us to press enter, and took us there. Well, you have
-to open the [quickfix window](), silly!
+to open the [quickfix window](http://vimdoc.sourceforge.net/htmldoc/quickfix.html), silly!
 
 ```vim
 :copen
