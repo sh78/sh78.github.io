@@ -4,6 +4,10 @@ date: 2014-07-11 14:26:00
 tags: [the cloud, backup]
 ---
 
+**UPDATE 2018-06-14**: This is quite out dated. I ended up having a lot of
+trouble with Mega, and have long since moved on to better things, among the
+likes of Dropbox and Google Drive. Perhaps a new post regarding the state of Cloud Storage is in order.
+
 About a year back, Dropbox decided to delete all the mp3s and miscellaneous parts of the project files inside my music production folder. Didn't notice until it was too late to restore. That caused me to (1) rethink a mostly cloud-based backup strategy and (2) cancel the 100GB Dropbox plan in favor of the free plan. Fortunately I had completed all the bonus space missions for my account, like referring a bunch of workstations in my college computer lab with bogus email addresses. My free account has 13.2GB instead of 2.
 
 Now days all dev work is mirrored on a couple git servers and I have multiple physical backups combined with Amazon Glacier for everything else; Dropbox only serves as a temporary stash/collaboration/app sync tool.
