@@ -52,7 +52,7 @@ Now hit enter, and get up to make some coffee. Hopefully you're a hipster and
 you have one of those [manual burr grinders](https://amzn.to/2Mug8XZ), and you grind your coffee on a
 per-cup basis; this is going to take awhile.
 
-![vim's response after running vim grep]()
+![vim's response after running vim grep](/assets/images/vimgrep-complete.png)
 
 Ah, you're back. Ok, so now why didn't we get a list of results? It just showed
 off the first result, told us to press enter, and took us there. Well, you have
