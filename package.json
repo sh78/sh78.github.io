@@ -16,7 +16,9 @@
     "libs": "npm run modernizr && bin/libs",
     "watch-js": "npm run es5 -- --watch",
     "modernizr": "npx modernizr --config modernizr.json --uglify --dest assets/js/modernizr.min.js",
-    "css-libs": "echo TODO"
+    "css-libs": "echo TODO",
+    "deploy": "npx run build && git add dist && git commit -m 'build' && git push origin `git subtree split --prefix dist`:master --force && cfcli purge https://sean.sh"
+
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
