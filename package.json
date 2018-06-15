@@ -17,7 +17,7 @@
     "watch-js": "npm run es5 -- --watch",
     "modernizr": "npx modernizr --config modernizr.json --uglify --dest assets/js/modernizr.min.js",
     "css-libs": "echo TODO",
-    "deploy": "npm run build && git add _site && git commit -m 'deploy' && git push origin && git subtree push --prefix _site origin master && cfcli purge https://sean.sh"
+    "deploy": "npm run build && git add _site && git commit -m 'deploy' && git push origin `git subtree split --prefix _site`:master --force && cfcli purge https://sean.sh"
 
   },
   "devDependencies": {
