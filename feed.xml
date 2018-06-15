@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2018-06-14T23:07:52-07:00</updated><id>/</id><title type="html">./sean</title><subtitle>Sean's web fun place. Come on inside, hang your hat friend.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2018-06-14T23:11:50-07:00</updated><id>/</id><title type="html">./sean</title><subtitle>Sean's web fun place. Come on inside, hang your hat friend.
 </subtitle><author><name>Sean Henderson</name></author><entry><title type="html">Finally, A Vim Global Find/Replace That Doesn’t Hurt</title><link href="/log/finally-a-vim-global-find-replace-that-doesn-t-hurt/" rel="alternate" type="text/html" title="Finally, A Vim Global Find/Replace That Doesn't Hurt" /><published>2018-06-13T10:35:00-07:00</published><updated>2018-06-13T10:35:00-07:00</updated><id>/log/finally-a-vim-global-find-replace-that-doesn-t-hurt</id><content type="html" xml:base="/log/finally-a-vim-global-find-replace-that-doesn-t-hurt/">&lt;p&gt;I’m a recent vim convert. 100% in it now. There has been literally one
 thing, and only one thing, I’ve missed from other editors (namely &lt;a href=&quot;https://sublimetext.com/&quot;&gt;Sublime Text&lt;/a&gt;) &lt;strong&gt;until today&lt;/strong&gt;: Global, or project-wide, find and replace.&lt;/p&gt;
 
@@ -768,57 +768,61 @@ Besides anything mentioned in the other sections, here are some growing pains I 
 
 &lt;p&gt;On macOS, there is &lt;code class=&quot;highlighter-rouge&quot;&gt;defaults write&lt;/code&gt;, and &lt;code class=&quot;highlighter-rouge&quot;&gt;defaults export&lt;/code&gt;/&lt;code class=&quot;highlighter-rouge&quot;&gt;import&lt;/code&gt;. So this is Linux, can we automate Fedora’s preferences in such a fashion?&lt;/p&gt;
 
-&lt;p&gt;Well it doesn’t matter, because here comes i3wm.&lt;/p&gt;
+&lt;p&gt;Well, not going to bother, because here comes &lt;a href=&quot;https://i3wm.org/&quot;&gt;i3wm&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h1 id=&quot;i3wm-a-tiling-window-manager&quot;&gt;i3wm: A Tiling Window Manager&lt;/h1&gt;
+&lt;h1 id=&quot;to-be-continued&quot;&gt;To Be Continued&lt;/h1&gt;
+&lt;!--
+# i3wm: A Tiling Window Manager
 
-&lt;p&gt;&lt;a href=&quot;https://i3wm.org/&quot;&gt;i3wm&lt;/a&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;to-gap-or-not-to-gap&quot;&gt;To Gap Or Not To Gap&lt;/h2&gt;
+## To Gap Or Not To Gap
 
-&lt;p&gt;&lt;a href=&quot;https://github.com/Airblader/i3&quot;&gt;i3-gaps&lt;/a&gt;&lt;/p&gt;
+[i3-gaps](https://github.com/Airblader/i3)
 
-&lt;h2 id=&quot;the-key-shortcuts&quot;&gt;The Key Shortcuts&lt;/h2&gt;
+## The Key Shortcuts
 
-&lt;h2 id=&quot;fixing-display-resolution-for-retina-screens&quot;&gt;Fixing Display Resolution For Retina Screens&lt;/h2&gt;
+## Fixing Display Resolution For Retina Screens
 
-&lt;h2 id=&quot;config-file-structure&quot;&gt;Config File Structure&lt;/h2&gt;
+## Config File Structure
 
-&lt;p&gt;&lt;a href=&quot;https://github.com/PotatoesMaster/i3-vim-syntax&quot;&gt;Syntax highlighting in vim&lt;/a&gt;&lt;/p&gt;
+[Syntax highlighting in vim](https://github.com/PotatoesMaster/i3-vim-syntax)
 
-&lt;h2 id=&quot;a-better-lock-screen&quot;&gt;A Better Lock Screen&lt;/h2&gt;
+## A Better Lock Screen
 
-&lt;h2 id=&quot;launcher&quot;&gt;Launcher&lt;/h2&gt;
+## Launcher
 
-&lt;h2 id=&quot;status-bar&quot;&gt;Status Bar&lt;/h2&gt;
+## Status Bar
 
-&lt;h2 id=&quot;fonts&quot;&gt;Fonts&lt;/h2&gt;
+## Fonts
 
-&lt;h2 id=&quot;fanciness&quot;&gt;Fanciness&lt;/h2&gt;
+## Fanciness
 
-&lt;p&gt;Compton
-lxappearance&lt;/p&gt;
+Compton
+lxappearance
 
-&lt;h1 id=&quot;odds-and-ends&quot;&gt;Odds And Ends&lt;/h1&gt;
+# Odds And Ends
 
-&lt;h2 id=&quot;screenshots&quot;&gt;Screenshots&lt;/h2&gt;
+## Screenshots
 
-&lt;p&gt;&lt;a href=&quot;https://fedoramagazine.org/take-screenshots-on-fedora/&quot;&gt;Here’s a guide on screenshots is Fedora&lt;/a&gt;. Apparently this &lt;a href=&quot;https://erikdubois.be/two-different-ways-make-screenshot-i3/&quot;&gt;also works in i3&lt;/a&gt;.&lt;/p&gt;
+[Here's a guide on screenshots is Fedora](https://fedoramagazine.org/take-screenshots-on-fedora/). Apparently this [also works in i3](https://erikdubois.be/two-different-ways-make-screenshot-i3/).
 
-&lt;h2 id=&quot;how-to-insert-special-characterssymbols-and-emoji&quot;&gt;How To Insert Special Characters/Symbols And Emoji&lt;/h2&gt;
+## How To Insert Special Characters/Symbols And Emoji
 
-&lt;p&gt;I use Command+Control+Space on the Mac to insert Emoji and whatnot. Fedora has a similar menu but you have to &lt;a href=&quot;https//fedoramagazine.org/using-favorite-emoji-fedora-25/&quot;&gt;enable it first&lt;/a&gt;.&lt;/p&gt;
+I use Command+Control+Space on the Mac to insert Emoji and whatnot. Fedora has a similar menu but you have to [enable it first](https//fedoramagazine.org/using-favorite-emoji-fedora-25/).
 
-&lt;p&gt;For i3, […]&lt;/p&gt;
+For i3, [...]
 
-&lt;h2 id=&quot;webcam-microphone&quot;&gt;Webcam, Microphone&lt;/h2&gt;
+## Webcam, Microphone
 
-&lt;p&gt;The microphone worked straight away. Making calls on Hangouts and Messenger via
-Chrome was smooth sailing.&lt;/p&gt;
+The microphone worked straight away. Making calls on Hangouts and Messenger via
+Chrome was smooth sailing.
 
-&lt;p&gt;The camera, however, took some convincing. […]&lt;/p&gt;
+The camera, however, took some convincing. [...]
 
-&lt;h2 id=&quot;working-the-night-shift&quot;&gt;Working The Night Shift&lt;/h2&gt;</content><author><name>Sean Henderson</name></author><category term="Linux" /><category term="macOS" /><category term="Fedora" /><category term="hardware" /><category term="shell" /><category term="vim" /><category term="dotfiles" /><summary type="html">This is a tale of two operating systems. A tale of liberation and discov- OK, sorry. Got carried away. Reset.</summary></entry><entry><title type="html">The Free Mega-Weight Dropbox Alternative</title><link href="/log/the-free-mega-weight-dropbox-alternative/" rel="alternate" type="text/html" title="The Free Mega-Weight Dropbox Alternative" /><published>2014-07-11T07:26:00-07:00</published><updated>2014-07-11T07:26:00-07:00</updated><id>/log/the-free-mega-weight-dropbox-alternative</id><content type="html" xml:base="/log/the-free-mega-weight-dropbox-alternative/">&lt;p&gt;&lt;strong&gt;UPDATE 2018-06-14&lt;/strong&gt;: This is quite out dated. I ended up having a lot of
+
+## Working The Night Shift
+
+--&gt;</content><author><name>Sean Henderson</name></author><category term="Linux" /><category term="macOS" /><category term="Fedora" /><category term="hardware" /><category term="shell" /><category term="vim" /><category term="dotfiles" /><summary type="html">This is a tale of two operating systems. A tale of liberation and discov- OK, sorry. Got carried away. Reset.</summary></entry><entry><title type="html">The Free Mega-Weight Dropbox Alternative</title><link href="/log/the-free-mega-weight-dropbox-alternative/" rel="alternate" type="text/html" title="The Free Mega-Weight Dropbox Alternative" /><published>2014-07-11T07:26:00-07:00</published><updated>2014-07-11T07:26:00-07:00</updated><id>/log/the-free-mega-weight-dropbox-alternative</id><content type="html" xml:base="/log/the-free-mega-weight-dropbox-alternative/">&lt;p&gt;&lt;strong&gt;UPDATE 2018-06-14&lt;/strong&gt;: This is quite out dated. I ended up having a lot of
 trouble with Mega, and have long since moved on to better things, among the
 likes of Dropbox and Google Drive. Perhaps a new post regarding the state of Cloud Storage is in order.&lt;/p&gt;
 
