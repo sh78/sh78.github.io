@@ -6,6 +6,22 @@ img {
 	max-width: 100%;
 }
 
+// materialize main nav dropdown
+.nav-main {
+	#dropdown-more {
+	position: relative;
+	left: -1rem !important;
+	top: 0.5rem !important;
+
+		li {
+			width: 250px;
+			left: -14rem;
+			top: 70px;
+			height: auto;
+		}
+	}
+}
+
 // Touch up the main post listing layout
 .post-listing {
   .row {
