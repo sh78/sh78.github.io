@@ -1,7 +1,7 @@
 ---
 title: A Testament To My 2010 MacBook Pro
 date: 2018-06-15 16:21:00
-tags: [apple, backup, hardware, sentiments]
+tags: [apple, backup, hardware, sentiments, frugality]
 ---
 
 I spilled water on my main computer. It's currently sitting in a plastic drawer
@@ -11,9 +11,8 @@ Back in 2010, I bought my first Apple computer. Say what you will about the
 Apple ecosystem and its retention policies, but this thing is a beast. I'm
 typing on it right now. It booted macOS High Sierra from a teeny little Samsung
 T5 external SSD that I got recently, and decided to [Carbon Copy
-Clone](https://bombich.com/) my main system's macOS image onto (into {...
-onto?}) as part of my regularly scheduled backups. Pics or it didn't happen, you
-say?
+Clone](https://bombich.com/) my main system's macOS image into as part of my
+regularly scheduled backups. Pics or it didn't happen, you say?
 
 ![The "About this Mac" window on my 2010 MacBook
 Pro](/assets/images/hesap-about.jpg)
@@ -32,7 +31,7 @@ then yeah: it's some good math. Second best purchase I ever made, next to a
 plane ticket.
 
 "Ok, internet stranger> what's so special about this?" you might be thinking.
-"Great, you took good care of an expensive laptop and had it sitting around for
+"You took good care of an expensive laptop and had it sitting around for
 a few years and it works. Great!" I can hear you sarcastically projecting. Here
 are some highlights from the checkered biography of this "laptop", as you call
 it.
@@ -43,8 +42,8 @@ it.
    faulty M key that Apple fought me on replacing (and lost). Pristine condition
    at this point. I kept it in a case and everything.
 2. **<time datetime="2012-07-14">July, 2012</time>** Hesap is purring right
-   along as my daily driver.  ![Hesap at a cafe, next to a Guinness and an
-   espresso, with CSS open on screen in Sublime
+   along as my daily driver (note the aforementioned case).  ![Hesap at a cafe,
+   next to a Guinness and an espresso, with CSS open on screen in Sublime
    Text.](/assets/images/hesap-guinness-espresso.jpg)
 2. **<time datetime="2013-01">January, 2013</time>** For reasons that are
    outside of the scope of this post, hesap was **slammed into a wall at least 4
@@ -65,8 +64,8 @@ it.
 2. **<time datetime="2013-04-17">April, 2013</time>** Here's hesap helping to
    write a site survey and advance for a (fictional) week-long visit by a meat
    industry executive with some unknown enemies (sideways!). No issues 2 and a
-   half years in with a shiny new display.  ![Hesap on a table with scattered
-   papers and a radio, with markdown on the
+   half years in with a shiny new display.  
+   ![Hesap on a table with scattered papers and a radio, with markdown on the
    screen.](/assets/images/hesap-bodyguard-school.jpg)
 5. **<time datetime="2014">2014</time>** Throughout most of 2014, I was the
    director of computation for a startup that did video production in Kathmandu,

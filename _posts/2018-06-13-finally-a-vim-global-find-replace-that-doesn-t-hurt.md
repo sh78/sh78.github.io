@@ -43,7 +43,7 @@ This prevents vim from searching through node modules for nine hours. Also, be s
 So, to replicate the default behavior of something like Sublime, we now do:
 
 ```vim
-:vimgrep id\\=\\"my-id **/*
+:vimgrep id\=\"my\-id **/*
 ```
 
 Do note the backslashes; this is vim and we must escape all the things. The `**/*` is a standard [Unix pattern format](https://git-scm.com/docs/gitignore#_pattern_format) that's like saying "look at any/all directories and any/all contents".
@@ -169,7 +169,7 @@ Let's try this out. Going back to the CSS class example, we have:
 :Rg \\.old-and-busted
 " For reasons I do not care to explore, escaping the `.` requires two backslashes. 
 " then run cfdo and pass in a substitute command just like we use in a file
-:cfdo %s/\.old-and-busted/.new-hotness/g | update
+:cfdo %s/\.old\-and\-busted/\.new\-hotness/g | update
 ```
 
 Splendid, it works well. And it requires a bunch of really awkward typing. We
