@@ -8,17 +8,16 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "build": "npm run es5 && jekyll build && npm run uglify-js",
     "dev": "concurrently \"npm run watch-js\" \"jekyll serve\"",
+    "build": "npm run libs && npm run es5 && jekyll build && npm run uglify-js",
+    "deploy": "npm run build && cd _site && git add --all && git commit -m 'build for GitHub Pages' && git push origin master && cfcli purge https://sean.sh",
     "es5": "npx babel --presets env _js/jquery-ias.min.js _js/app.js --source-maps --out-file assets/js/app.es5.js",
     "uglify-js": "cat assets/js/app.es5.js | npx uglifyjs > _site/assets/js/app.es5.js",
     "preuglify-js": "npm run es5",
     "libs": "npm run modernizr && bin/libs",
     "watch-js": "npm run es5 -- --watch",
     "modernizr": "npx modernizr --config modernizr.json --uglify --dest assets/js/modernizr.min.js",
-    "css-libs": "echo TODO",
-    "deploy": "npm run build && git add _site && git commit -m 'deploy' && git push origin `git subtree split --prefix _site`:master --force && cfcli purge https://sean.sh"
-
+    "css-libs": "echo TODO"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
