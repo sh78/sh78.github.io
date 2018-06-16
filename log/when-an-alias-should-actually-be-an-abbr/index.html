@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>When An Alias Should Actually Be An Abbr | ./sean</title>
+<meta name="generator" content="Jekyll v3.8.3" />
+<meta property="og:title" content="When An Alias Should Actually Be An Abbr" />
+<meta name="author" content="Sean Henderson" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="I really appreciate tmuxinator handles completion and aliasing from a fish shell. You type mux, and when you hit space it expands into tmuxintor. From there you can hit tab to see the options at each step of the way." />
+<meta property="og:description" content="I really appreciate tmuxinator handles completion and aliasing from a fish shell. You type mux, and when you hit space it expands into tmuxintor. From there you can hit tab to see the options at each step of the way." />
+<meta property="og:site_name" content="./sean" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-06-15T07:15:00-07:00" />
+<script type="application/ld+json">
+{"url":"/log/when-an-alias-should-actually-be-an-abbr/","author":{"@type":"Person","name":"Sean Henderson"},"description":"I really appreciate tmuxinator handles completion and aliasing from a fish shell. You type mux, and when you hit space it expands into tmuxintor. From there you can hit tab to see the options at each step of the way.","headline":"When An Alias Should Actually Be An Abbr","dateModified":"2018-06-15T07:15:00-07:00","datePublished":"2018-06-15T07:15:00-07:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"/log/when-an-alias-should-actually-be-an-abbr/"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link class="theme-variant" rel="stylesheet" href="/assets/themes/materialized-dark.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  <script src="/assets/js/modernizr.min.js"></script><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="./sean" /><style>
+/* fade in on loaded */
+html.js .no-fouc {
+  opacity: 0;
+}
+
+html.loaded .no-fouc {
+  opacity: 1;
+  transition: opacity .5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+/* loading animation */
+.loaded .loading-ring.page {
+  display: none;
+}
+
+.loading-ring {
+  display: block;
+  width: 100px;
+  height: 100px;
+  position: relative;
+}
+
+.loading-ring.page {
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+.loading-ring.blog {
+  margin: 0 auto;
+}
+
+.loading-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 51px;
+  height: 51px;
+  margin: 6px;
+  border: 6px solid #fff;
+  border-radius: 50%;
+  animation: loading-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #d33682 transparent transparent transparent;
+}
+.loading-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.loading-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.loading-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+
+@keyframes loading-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+</style>
+</head>
+<body>
+    <div class="no-fouc"><header class="page-header" role="banner"><!-- Dropdown Structure -->
+  <ul id="dropdown-more" class="dropdown-content">
+    <li><a class="theme-timed" href="#!"><i class="fas fa-moon"></i><span>Night</span> Mode</a></li>
+    <li><a class="theme-auto" data-theme="auto" href="#!"><i class="fas fa-clock"></i>Automatic</a></li>
+    <li><a class="theme-select" data-theme="high-contrast" href="#!"><i class="fas fa-adjust"></i>High Contast</a></li>
+    <!--<li><a href="#!">three</a></li>-->
+    <!--li class="divider" tabindex="-1"></li>-->
+  </ul>
+  <div class="navbar-fixed">
+    <nav class="nav-main">
+      <div class="nav-wrapper container">
+        <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="fas fa-bars"><span class="sr-only">menu</span></i></a>
+        <div class="brand-logo center">
+          <a href="/">./sean</a><a href="/log">/log</a><a href="#">/post</a>
+        </div>
+        <ul class="left hide-on-large-and-down" id="nav-large"><li><a class="page-link" href="/"><i class="fas fa-user"></i>About
+  </a></li><li><a class="page-link" href="/log/"><i class="fas fa-pencil-alt"></i>log
+  </a></li></ul>
+        <ul class="right">
+          <li>
+            <a class="dropdown-trigger" href="#!" data-target="dropdown-more">
+              <i class="fas fa-ellipsis-v right"><span class="sr-only">more</span></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+  <ul class="sidenav" id="nav-mobile"><li><a class="page-link" href="/"><i class="fas fa-user"></i>About
+  </a></li><li><a class="page-link" href="/log/"><i class="fas fa-pencil-alt"></i>log
+  </a></li></ul></header>
+<main class="page-content" aria-label="Content">
+        <article class="post h-entry container" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="post-main">
+    <header class="post-header">
+      <h1 class="post-title p-name" itemprop="name headline">When An Alias Should Actually Be An Abbr</h1>
+      <p class="post-meta">
+        {
+        <br>
+        <span class="indent">
+          date: <time class="dt-published" datetime="2018-06-15T07:15:00-07:00" itemprop="datePublished">2018-06-15 07:15:00 -0700</time>,<br>
+            author: "<span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">Sean Henderson</span></span>",<br>
+          <span class="tags">
+            tags: [
+            
+              <a href="/log/tag/shell/">shell</a>,
+            
+              <a href="/log/tag/fish/">fish</a>,
+            
+              <a href="/log/tag/workflow/">workflow</a>,
+            
+            ]
+          </span>
+        </span>
+        }
+      </p>
+    </header>
+
+    <div class="post-content e-content" itemprop="articleBody">
+      <div class="toc-container"></div>
+      <div class="post-content-inner">
+        <p>I really appreciate <code class="highlighter-rouge">tmuxinator</code> handles completion and aliasing from a fish
+shell. You type <code class="highlighter-rouge">mux</code>, and when you hit space it expands into <code class="highlighter-rouge">tmuxintor</code>. From
+there you can hit tab to see the options at each step of the way.</p>
+
+<div class="frame-responsive">
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/IWIlZir97l0?modestbranding=1&amp;showinfo=0&amp;rel=0&amp;color=white" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen=""></iframe>
+</div>
+
+<p>I like it so much that I poked around in <a href="https://github.com/tmuxinator/tmuxinator/blob/master/completion/tmuxinator.fish">their
+completion</a>
+script hoping to crib some methods and do the same thing with tmux itself. Well,
+there are some custom methods, but the main feature I want turns out to be
+<a href="https://fishshell.com/docs/current/commands.html">already built in to fish</a>.
+It’s called <code class="highlighter-rouge">abbr</code>.</p>
+
+<h2 id="why-another-alias">Why another alias?</h2>
+
+<p>It’s mostly personal preference, but there are a couple points where <code class="highlighter-rouge">abbr</code> is
+nicer than <code class="highlighter-rouge">alias</code>:</p>
+
+<ul>
+  <li><a href="https://github.com/fish-shell/fish-shell/issues/828">Slow
+startup time</a>. This becomes
+noticeable after a couple hundred or so.</li>
+  <li>Clean history. Using <code class="highlighter-rouge">abbr</code> means other developers can understand your
+terminal history. So posting an issue to GitHub doesn’t require manual
+substitution of your aliases, and another developer won’t have trouble
+deciphering history on a remote that you worked on with your dotfiles in place.</li>
+  <li>Easy to use a shortcut that’s close to what you want and edit it.</li>
+  <li>If your shortcut conflicts with another executable that you want to run, you
+can just use the arrow keys to edit the expanded text in a pinch, before fixing
+it in your dotfiles.</li>
+</ul>
+
+<p>And one (?) where it’s not:</p>
+
+<ul>
+  <li>You can’t just type the shortcut and hit return; it will only expand after a
+space or semicolon.</li>
+</ul>
+
+<h2 id="a-logical-system-take-1">A Logical System, Take 1</h2>
+
+<p>With the addition of <code class="highlighter-rouge">abbr</code>, we now have three distinct types of functions to
+choose from while programming our programming shortcuts–what? Why, yes, I do like
+programming - where did you hear this?</p>
+
+<h3 id="the-three-types">The three types</h3>
+
+<ol>
+  <li><code class="highlighter-rouge">abbr</code>: Type <code class="highlighter-rouge">something</code> and have it expanded into <code class="highlighter-rouge">something else</code> after
+pressing space or semicolon (but not return). The new hotness.</li>
+  <li><code class="highlighter-rouge">alias</code>: Make a <code class="highlighter-rouge">something</code> functionally equivalent to something else. This
+holds true if you press return, chain things together, pipe, redirect, and
+such. In recent versions of fish, context aware tab completion will work here
+too.</li>
+  <li><code class="highlighter-rouge">function</code>: Make <code class="highlighter-rouge">something</code> functionally equivalent to one or more <code class="highlighter-rouge">something
+else</code>s, and optionally permute data that are being worked with (<code class="highlighter-rouge">argv</code>).</li>
+</ol>
+
+<p>Strictly speaking, <code class="highlighter-rouge">alias</code> is itself just an alias for a <code class="highlighter-rouge">function</code> that blindly
+accepts <code class="highlighter-rouge">argv</code> and tacks them to the end of its <code class="highlighter-rouge">something else</code>. But this
+pattern is so prolific that it got its own name, so we will consider it unique
+for today.</p>
+
+<h3 id="choosing-the-right-one">Choosing the right one</h3>
+
+<p>Here is how I picture the use cases:</p>
+
+<ol>
+  <li><code class="highlighter-rouge">abbr</code> will employed to shorten phrases that will certainly have additional
+arguments but don’t need to do anything special with those arguments.</li>
+  <li><code class="highlighter-rouge">alias</code> is for any phrase that is self-sufficient - it can be run as is, or
+optionally with arguments.</li>
+  <li><code class="highlighter-rouge">function</code> is for everything else, and when an alias is complex/abstract
+enough to warrant a description.</li>
+</ol>
+
+<h4 id="performance-notes">performance notes</h4>
+
+<p>Fish has a mechanism in place for
+<a href="http://fishshell.com/docs/current/tutorial.html#tut_autoload">lazily-autoloading</a>
+custom function definitions. This can have a noticeable performance impact over
+<code class="highlighter-rouge">alias</code> when you get into the hundreds.</p>
+
+<p>Also, <a href="https://github.com/fish-shell/fish-shell/issues/828#issuecomment-18584856">I heard on the
+net</a>
+(yes, a pun) that using the fish-style <code class="highlighter-rouge">alias</code> syntax is more performant than using the <code class="highlighter-rouge">=</code> assignment operator due to an extra <code class="highlighter-rouge">sed</code> call; this was, however, back in 2013. I didn’t notice
+much of a difference here, but it’s an easy change and using a default syntax is
+always preferred in my book. (Someday maybe: make or find a fish-&gt;bash
+transpiler.)</p>
+
+<p>Let’s agree to write aliases like this:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">alias </span>short <span class="s1">'long-form -l'</span>
+</code></pre></div></div>
+
+<p>Furthermore, let’s try use <code class="highlighter-rouge">abbr</code> or <code class="highlighter-rouge">function</code> instead of <code class="highlighter-rouge">alias</code>, unless it’s
+really convenient. Last but not least, let us also use the default method for
+defining out custom functions:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> <span class="nb">cat</span> ~/.config/fish/functions/ll.fish
+<span class="k">function </span>ll
+    <span class="nb">ls</span> <span class="nt">-lh</span> <span class="nv">$argv</span>
+end
+</code></pre></div></div>
+
+<p>Note: Not practicing what I’m preaching yet. I’m currently using a monolithic <a href="https://github.com/sh78/dotfiles/blob/f173673d40a4275615dd92e70f1ea01601ada107/.config/omf/aliases.load#L1">aliases.load</a> file with over 500 lines of
+aliases and functions. This will have to change soon.</p>
+
+<h3 id="practical-examples">Practical Examples</h3>
+
+<p>First up - simple and obvious choice: <code class="highlighter-rouge">git</code>.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>abbr <span class="nt">--add</span> g <span class="s1">'git'</span>
+</code></pre></div></div>
+
+<p>Type <code class="highlighter-rouge">g&lt;space&gt;</code> and witness the magic.</p>
+
+<p>Now, what if you want to replace a program with another program. I recently
+switched to <a href="https://github.com/neovim/neovim">neovim</a>, but for some reason it felt wrong not to type <code class="highlighter-rouge">vim</code>. An
+alias will do well here:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">alias </span>vim <span class="s1">'nvim'</span>
+</code></pre></div></div>
+
+<p>Then, if you want some shortcut-ception:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>abbr <span class="nt">--add</span> v <span class="s1">'vim'</span> <span class="c"># which is now `nvim`</span>
+</code></pre></div></div>
+
+<p>If at some point you decide to ditch <code class="highlighter-rouge">nvim</code> as the default <code class="highlighter-rouge">vim</code>, your <code class="highlighter-rouge">v</code>
+shortcut doesn’t need to be touched.</p>
+
+<p>What about setting default flags for programs that don’t allow such
+configuration? Let’s say we want to default to the long-form <code class="highlighter-rouge">ls</code>, with
+classification indicators, but hide user and group info:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> <span class="nt">-Fog</span>
+</code></pre></div></div>
+
+<p>Well, <code class="highlighter-rouge">ls</code> can have both zero and more than zero arguments. So it will be nice
+to not have to press another key to <code class="highlighter-rouge">ls -Fog</code> the current directory. <code class="highlighter-rouge">alias</code> it
+is.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">alias ls</span> <span class="s1">'ls -Fog'</span>
+</code></pre></div></div>
+
+<p>Well, hold up; then again, it might be nice to stick with the default ls, and hit
+<code class="highlighter-rouge">&lt;space&gt;</code> to get our preferred flags. In effect, this is like aliasing <code class="highlighter-rouge">ls&lt;space&gt;</code>
+to our tricked out command. If we do want a default <code class="highlighter-rouge">ls</code> for whatever reason, we
+don’t have to jump through any hoops to get it back. <code class="highlighter-rouge">abbr</code> it is.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>abbr <span class="nt">--add</span> <span class="nb">ls</span> <span class="s1">'ls -Fog'</span>
+</code></pre></div></div>
+
+<p>And now, something more useful. Yes, it’s function time.</p>
+
+<p><img src="https://media.giphy.com/media/Jg41tM6Bk71te/giphy.gif" alt="Four construction workers hitting a pole with sledgehammers in a staggered rhythm" /></p>
+
+<p>Normally naming things is the second most difficult part of computer science
+(next to caching), but this was really easy to name:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function </span>take
+  <span class="nb">mkdir</span> <span class="nt">-p</span> <span class="nv">$argv</span><span class="p">;</span> 
+  <span class="nb">cd</span> <span class="nv">$argv</span>
+end
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">take</code> is an amalgamation of <code class="highlighter-rouge">touch</code> and <code class="highlighter-rouge">mk</code> (make). It creates a directory and
+changes into it.</p>
+
+<p>The use case for functions basically starts here. There are multiple
+non-sequential calls to <code class="highlighter-rouge">argv</code> from multiple commands.</p>
+
+<p>Here is a more worthy example:</p>
+
+<pre><code class="language-bobthefish">function wait --description "Run a command after some time: wait &lt;minutes&gt; &lt;command args&gt;"
+  set minutes $argv[1]
+  set time_in_seconds (math "$minutes*60")
+  sleep $time_in_seconds; and eval "$argv[2..-1]"
+end
+</code></pre>
+
+
+      </div>
+    </div>
+
+    <a class="u-url" href="/log/when-an-alias-should-actually-be-an-abbr/" hidden></a>
+  </div>
+</article>
+<aside class="more-posts cta-full-width row">
+  <div class="col s5">
+    
+      <a class="prev" href="/log/finally-a-vim-global-find-replace-that-doesn-t-hurt/"><i class="fas fa-fast-backward"><span class="sr-only">Previous Post</span></i> Finally, A Vim Global Find/Replace That Doesn't Hurt</a>
+    
+  </div>
+  <div class="col s2"></div>
+  <div class="col s5">
+    
+      <a class="next" href="/log/a-testament-to-my-2010-macbook-pro/">A Testament To My 2010 MacBook Pro <i class="fas fa-fast-forward"><span class="sr-only">Next Post</span></i></a>
+    
+  </div></aside>
+
+      </main><footer class="page-footer">
+  <data class="u-url" href="/"></data>
+
+  <div class="container">
+    <div class="row">
+      <div class="col m6 s12"><div class="avatar" data-cycle="sean">
+          <p>
+            <a href="/assets/images/sean.jpg" title="view image">
+              <img data-src="/assets/images/sean.jpg" alt="photo of Sean Henderson">
+            </a>
+            Sean Henderson<br>
+          </p>
+        </div></div>
+      <div class="col m5 offset-m1 s12"><ul class="social-media-list"><li>
+      <a href="mailto:mail@sean.sh">
+        <i class="fas fa-envelope fa-fw"><span class="sr-only">Email</span></i>
+        <span class="u-email">mail@sean.sh</span>
+      </a>
+    </li><li><a href="https://github.com/sh78">
+        <i class="fab fa-github fa-fw"><span class="sr-only">GitHub</span></i>
+        <span class="username">sh78</span>
+      </a><a href="https://gitlab.com/sh78">
+        <i class="fab fa-gitlab fa-fw"><span class="sr-only">GitLab</span></i>
+        <span class="username">sh78</span>
+      </a></li><li>
+      <a href="https://stackoverflow.com/users%2F2537500%2Fsh78">
+        <i class="fab fa-stack-overflow fa-fw"><span class="sr-only">StackOverflow</span></i>
+        
+        <span class="username">sh78</span>
+      </a>
+    </li><li>
+      <a href="https://twitter.com/seanmh78">
+        <i class="fab fa-twitter fa-fw"><span class="sr-only">Twitter</span></i>
+        <span class="username">seanmh78</span>
+      </a>
+    </li><li>
+      <a href="https://www.linkedin.com/in/seanmhenderson">
+        <i class="fab fa-linkedin fa-fw"><span class="sr-only">linkedin</span></i>
+        <span class="username">seanmhenderson</span>
+      </a>
+    </li><li>
+      <a href="https://www.facebook.com/seanmhenderson">
+        <i class="fab fa-facebook fa-fw"><span class="sr-only">facebook</span></i>
+        <span class="username">seanmhenderson</span>
+      </a>
+    </li><li>
+      <a href="https://www.youtube.com/SeanHenderson7">
+        <i class="fab fa-youtube fa-fw"><span class="sr-only">youtube</span></i>
+        <span class="username">SeanHenderson7</span>
+      </a>
+    </li><li>
+      <a href="/feed.xml">
+        <i class="fas fa-rss fa-fw"><span class="sr-only">rss</span></i>
+        <span>rss</span>
+      </a>
+    </li></ul>
+</div>
+    </div>
+  </div>
+  <div class="footer-copyright">
+    <div class="container">
+      <p class="left">&copy; <code>nil</code></p>
+      <p class="right">Made In California with <i class="fab fa-linux"><span class="sr-only">Linux</span></i> &amp; <i class="fas fa-beer"><span class="sr-only">beer</span></i></p>
+    </div>
+  </div>
+
+</footer>
+</div><div class="loading-ring page">
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
+<script src="/assets/js/libs.js"></script>
+    <script src="/assets/js/app.es5.js"></script>
+
+  </body>
+
+</html>

@@ -191,7 +191,7 @@ project, be sure to set a <code class="highlighter-rouge">wildignore</code> such
 
 <p>So, to replicate the default behavior of something like Sublime, we now do:</p>
 
-<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">:</span><span class="k">vimgrep</span> id\\<span class="p">=</span>\\"my<span class="p">-</span>id **/*
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">:</span><span class="k">vimgrep</span> id\<span class="p">=</span>\"my\<span class="p">-</span>id **/*
 </code></pre></div></div>
 
 <p>Do note the backslashes; this is vim and we must escape all the things. The <code class="highlighter-rouge">**/*</code> is a standard <a href="https://git-scm.com/docs/gitignore#_pattern_format">Unix pattern format</a> that’s like saying “look at any/all directories and any/all contents”.</p>
@@ -320,7 +320,7 @@ out</a>:</p>
 <span class="p">:</span>Rg \\<span class="p">.</span><span class="k">old</span><span class="p">-</span>and<span class="p">-</span>busted
 <span class="c">" For reasons I do not care to explore, escaping the `.` requires two backslashes. </span>
 <span class="c">" then run cfdo and pass in a substitute command just like we use in a file</span>
-<span class="p">:</span><span class="k">cfdo</span> %s<span class="sr">/\.old-and-busted/</span><span class="p">.</span><span class="k">new</span><span class="p">-</span>hotness/<span class="k">g</span> <span class="p">|</span> <span class="k">update</span>
+<span class="p">:</span><span class="k">cfdo</span> %s<span class="sr">/\.old\-and\-busted/</span>\<span class="p">.</span><span class="k">new</span>\<span class="p">-</span>hotness/<span class="k">g</span> <span class="p">|</span> <span class="k">update</span>
 </code></pre></div></div>
 
 <p>Splendid, it works well. And it requires a bunch of really awkward typing. We
@@ -388,6 +388,8 @@ take another 30 minutes.</li>
   </div>
   <div class="col s2"></div>
   <div class="col s5">
+    
+      <a class="next" href="/log/when-an-alias-should-actually-be-an-abbr/">When An Alias Should Actually Be An Abbr <i class="fas fa-fast-forward"><span class="sr-only">Next Post</span></i></a>
     
   </div></aside>
 
