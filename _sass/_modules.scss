@@ -18,8 +18,9 @@
 
 .cta-full-width {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   background: $supplement-color;
   position: relative;
   top: 30px;
@@ -29,6 +30,19 @@
   a {
     display: flex;
     align-items: center;
+
+    &:first-child {
+      margin-bottom: 2em;
+    }
+
+    @media #{$medium-and-up} {
+      width: 45%;
+
+      &:first-child {
+        margin-bottom: 0;
+      }
+    }
+
     &:hover {
       text-decoration: underline;
     }
