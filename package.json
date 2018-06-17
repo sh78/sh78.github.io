@@ -1,7 +1,7 @@
 {
   "name": "sh78.github.io",
   "version": "1.0.0",
-  "description": "Personal website/blog",
+  "description": "Personal website/weblog/webtoy",
   "main": "index.js",
   "repository": "git@github.com:sh78/sh78.github.io.git",
   "author": "Sean Henderson <mail@sean.sh>",
@@ -11,7 +11,7 @@
     "dev": "concurrently \"npm run watch-js\" \"jekyll serve\"",
     "build": "npm run libs && npm run es5 && jekyll build && npm run uglify-js",
     "deploy": "npm run build && cd _site && git add --all && git commit -m 'build for GitHub Pages' && git push origin master && cfcli purge https://sean.sh",
-    "es5": "npx babel --presets env _js/jquery-ias.min.js _js/app.js --source-maps --out-file assets/js/app.es5.js",
+    "es5": "npx babel --presets env _js/app.js --source-maps --out-file assets/js/app.es5.js",
     "uglify-js": "cat assets/js/app.es5.js | npx uglifyjs > _site/assets/js/app.es5.js",
     "preuglify-js": "npm run es5",
     "libs": "npm run modernizr && bin/libs",
@@ -20,6 +20,7 @@
     "css-libs": "echo TODO"
   },
   "devDependencies": {
+    "anchor-js": "^4.1.0",
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "concurrently": "^3.5.1",
