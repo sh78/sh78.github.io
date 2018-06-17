@@ -49,8 +49,9 @@ So, to replicate the default behavior of something like Sublime, we now do:
 Do note the backslashes; this is vim and we must escape all the things. The `**/*` is a standard [Unix pattern format](https://git-scm.com/docs/gitignore#_pattern_format) that's like saying "look at any/all directories and any/all contents".
 
 Now hit enter, and get up to make some coffee. Hopefully you're a hipster and
-you have one of those [manual burr grinders](https://amzn.to/2Mug8XZ), and you grind your coffee on a
-per-cup basis; this is going to take awhile.
+you have one of those [manual burr
+grinders](https://www.amazon.com/gp/product/B004QWMAII/), and you grind your
+coffee on a per-cup basis; this is going to take awhile.
 
 ![vim's response after running vim grep](/assets/images/vimgrep-complete.png)
 

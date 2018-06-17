@@ -37,13 +37,14 @@ So, without further adieu, here is the play-by-play migration of approximately 1
 
 ## The Host Machine
 
-Everything you see here (and more :wink) was done using an early 2015 Retina MacBook Pro 13". I'm quite happy with how well Fedora worked out of the box. Immediately on boot the hidpi display looked stellar, the WiFi worked (suck it Arch users), and ducking **volume/brightness keys worked**. It really is 2018. 🦆
+Everything you see here (and more :wink) was done using an early 2015 Retina MacBook Pro 13". I'm quite happy with how well Fedora worked out of the box. Immediately on boot the hidpi display looked stellar, the WiFi worked (suck it Arch users), and the ducking **volume/brightness keys worked**. It really is 2018. 🦆
 
 ## Portability, Speed, and Redundancy With A Bootable External Drive
 
-One thing I've always wanted to do is have my entire environment on a
-microSD card. This isn't very practical to use as a daily driver, but I did find
-the next best thing: [A tiny portable USB3 SSD that is really fast](https://amzn.to/2JBAz7D).
+One thing I've always wanted to do is have my entire environment on a microSD
+card. This isn't very practical to use as a daily driver, but I did find the
+next best thing: [A tiny portable USB3 SSD that is really
+fast](https://www.amazon.com/gp/product/B073H552FK/).
 
 I'm still locked in to using macOS for work, I made two partitions on this
 drive. One is a bootable macOS that I [Carbon Copy

@@ -190,3 +190,6 @@ function wait --description "Run a command after some time: wait <minutes> <comm
 end
 ```
 
+## Keeping it DRY
+
+[loop over subcommands to create abbrs]
