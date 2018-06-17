@@ -73,6 +73,10 @@
 // anchorjs header permalinks
 .anchorjs-link {
   transition: all .25s linear;
+
+  &:hover {
+    text-decoration: none;
+  }
 }
 
 *:hover > .anchorjs-link {
