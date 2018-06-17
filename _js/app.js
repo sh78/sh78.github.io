@@ -157,6 +157,13 @@
     ariaLabel: 'permalink to this section'
   });
   paragraphAnchors.add('.page-content p');
+  console.log(headlineAnchors.elements, paragraphAnchors.elements);
+  // build an array of all anchored elements
+  const anchorElements = document.querySelectorAll('.anchorjs-link');
+  anchorElements.forEach(function(element) {
+    // prevent screen readers from reading an anchor at every paragraph/headline
+    element.setAttribute('aria-hidden', 'true');
+  });
   // / auto hover anchors
 
   // ready, set
