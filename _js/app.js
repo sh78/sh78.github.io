@@ -277,25 +277,6 @@
       const tocContainer = document.querySelector('.toc-container');
       tocContainer.innerHTML = tocContainer.innerHTML + tocTemplate;
     }
-
-    // materialize pushpin
-    const pushpinElems = document.querySelectorAll('.post-toc');
-    const pageHeight = $(document.body).height();
-    const tocHeight = $('.post-toc').length ? $('.post-toc').height() : 0;
-    const footerOffset = $('.page-footer').first().length ?
-			$('.page-footer')
-				.first()
-				.offset().top
-			: 0;
-    const bottomOffset = footerOffset - tocHeight;
-    const offsetFromTop = $('.post-toc').length > 0 ? $('.post-toc').offset().top : 0;
-    // console.log(tocHeight, footerOffset, bottomOffset, offsetFromTop );
-    // init pushpin
-    const pushpinInstances = M.Pushpin.init(pushpinElems, {
-      top: offsetFromTop + 40, // where to start fixed pos (from top)
-      bottom: bottomOffset,
-      offset: $('.nav-main').height() + 20 // height from top of window to fix it
-    });
     // / automatic ToC
   });
 })();

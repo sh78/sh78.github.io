@@ -93,6 +93,8 @@ img {
 
     .post-toc {
       width: 240px;
+      position: sticky;
+      top: 76px ; // magic: navbar height
 
       .post-toc-title {
         font-size: $h5-fontsize;
