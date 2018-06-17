@@ -1,16 +1,20 @@
 body {
+  background-color: $background-color;
+  color: $text-color;
   font-family: $body-font;
   font-size: $font-size;
-	background-color: $background-color;
-  color: $text-color;
 }
 
-h1, h2, h3, h4, h5 {
-  font-family: $headline-font;
+h1,
+h2,
+h3,
+h4,
+h5 {
   font-weight: 700;
+  font-family: $headline-font;
   color: $headline-color;
-  word-spacing: -0.3em;
   text-transform: capitalize;
+  word-spacing: -3em;
 }
 
 strong {
