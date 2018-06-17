@@ -157,7 +157,6 @@
     ariaLabel: 'permalink to this section'
   });
   paragraphAnchors.add('.page-content p');
-  console.log(headlineAnchors.elements, paragraphAnchors.elements);
   // build an array of all anchored elements
   const anchorElements = document.querySelectorAll('.anchorjs-link');
   anchorElements.forEach(function(element) {
