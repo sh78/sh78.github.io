@@ -142,27 +142,29 @@
   M.AutoInit();
 
   // auto hover anchors (permalinks)
-  const headlineAnchors = new AnchorJS({
-    placement: 'left',
-    visible: 'touch',
-    truncate: 32,
-    ariaLabel: 'permalink to this section'
-  });
-  headlineAnchors.add('h1, h2, h3, h4, h5');
-  const paragraphAnchors = new AnchorJS({
-    placement: 'left',
-    visible: 'touch',
-    truncate: 32,
-    icon: '¶',
-    ariaLabel: 'permalink to this section'
-  });
-  paragraphAnchors.add('.page-content p');
-  // build an array of all anchored elements
-  const anchorElements = document.querySelectorAll('.anchorjs-link');
-  anchorElements.forEach(function(element) {
-    // prevent screen readers from reading an anchor at every paragraph/headline
-    element.setAttribute('aria-hidden', 'true');
-  });
+  if (document.querySelectorAll('.anchorize').length > 0) {
+    const headlineAnchors = new AnchorJS({
+      placement: 'left',
+      visible: 'touch',
+      truncate: 32,
+      ariaLabel: 'permalink to this section'
+    });
+    headlineAnchors.add('h1, h2, h3, h4, h5');
+    const paragraphAnchors = new AnchorJS({
+      placement: 'left',
+      visible: 'touch',
+      truncate: 32,
+      icon: '¶',
+      ariaLabel: 'permalink to this section'
+    });
+    paragraphAnchors.add('.page-content p');
+    // build an array of all anchored elements
+    const anchorElements = document.querySelectorAll('.anchorjs-link');
+    anchorElements.forEach(function(element) {
+      // prevent screen readers from reading an anchor at every paragraph/headline
+      element.setAttribute('aria-hidden', 'true');
+    });
+  }
   // / auto hover anchors
 
   // ready, set
