@@ -43,7 +43,7 @@ Everything you see here (and more :wink) was done using an early 2015 Retina Mac
 
 One thing I've always wanted to do is have my entire environment on a microSD
 card. This isn't very practical to use as a daily driver, but I did find the
-next best thing: [A tiny portable USB3 SSD that is really
+next best thing: [A tiny portable USB 3 SSD that is really
 fast](https://www.amazon.com/gp/product/B073H552FK/).
 
 I'm still locked in to using macOS for work, I made two partitions on this
