@@ -115,3 +115,11 @@ img {
 .page-footer {
   position: relative;
 }
+
+.page-content {
+  // fix internal link (AchorJS) positioning
+  h1, h2, h3, h4, h5, p {
+    padding-top: 70px; // magic: fixed navbar height + 6px
+    margin-top: -70px; // magic: negative fixed navbar height +6px
+  }
+}

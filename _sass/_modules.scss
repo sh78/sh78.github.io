@@ -69,3 +69,12 @@
     font-size: 4rem;
   }
 }
+
+// anchorjs header permalinks
+.anchorjs-link {
+  transition: all .25s linear;
+}
+
+*:hover > .anchorjs-link {
+  margin-left: -1.125em !important;
+}

@@ -141,6 +141,24 @@
   // init materialize css
   M.AutoInit();
 
+  // auto hover anchors (permalinks)
+  const headlineAnchors = new AnchorJS({
+    placement: 'left',
+    visible: 'touch',
+    truncate: 32,
+    ariaLabel: 'permalink to this section'
+  });
+  headlineAnchors.add('h1, h2, h3, h4, h5');
+  const paragraphAnchors = new AnchorJS({
+    placement: 'left',
+    visible: 'touch',
+    truncate: 32,
+    icon: '¶',
+    ariaLabel: 'permalink to this section'
+  });
+  paragraphAnchors.add('.page-content p');
+  // / auto hover anchors
+
   // ready, set
   document.addEventListener('DOMContentLoaded', function() {
     // add class confirming dom is loaded
@@ -278,5 +296,6 @@
       tocContainer.innerHTML = tocContainer.innerHTML + tocTemplate;
     }
     // / automatic ToC
+
   });
 })();
