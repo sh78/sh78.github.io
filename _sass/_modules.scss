@@ -70,9 +70,14 @@
   }
 }
 
-// anchorjs header permalinks
+// anchorjs permalinks
 .anchorjs-link {
+  display: none;
   transition: all .25s linear;
+
+  @media #{$medium-and-up} {
+    display: block;
+  }
 
   &:hover {
     text-decoration: none;
@@ -82,3 +87,11 @@
 *:hover > .anchorjs-link {
   margin-left: -1.125em !important;
 }
+
+.post-meta {
+  .anchorjs-link {
+    display: none;
+  }
+}
+
+// / anchorjs permalinks

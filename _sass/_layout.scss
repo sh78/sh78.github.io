@@ -6,6 +6,13 @@ img {
 	max-width: 100%;
 }
 
+@media #{$medium-and-up} {
+  .container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
 // materialize main nav dropdown
 .nav-main {
 	#dropdown-more {
