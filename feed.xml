@@ -1,5 +1,221 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2018-06-16T13:06:25-07:00</updated><id>/</id><title type="html">./sean</title><subtitle>Sean's web fun place. Come on inside, hang your hat friend.
-</subtitle><author><name>Sean Henderson</name></author><entry><title type="html">A Testament To My 2010 MacBook Pro</title><link href="/log/a-testament-to-my-2010-macbook-pro/" rel="alternate" type="text/html" title="A Testament To My 2010 MacBook Pro" /><published>2018-06-15T09:21:00-07:00</published><updated>2018-06-15T09:21:00-07:00</updated><id>/log/a-testament-to-my-2010-macbook-pro</id><content type="html" xml:base="/log/a-testament-to-my-2010-macbook-pro/">&lt;p&gt;I spilled water on my main computer. It’s currently sitting in a plastic drawer
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2018-06-17T18:10:51-07:00</updated><id>/</id><title type="html">./sean</title><subtitle>Sean's web fun place. Come on inside, hang your hat friend.
+</subtitle><author><name>Sean Henderson</name></author><entry><title type="html">When An Alias Should Actually Be An Abbr</title><link href="/log/when-an-alias-should-actually-be-an-abbr/" rel="alternate" type="text/html" title="When An Alias Should Actually Be An Abbr" /><published>2018-06-17T07:15:00-07:00</published><updated>2018-06-17T07:15:00-07:00</updated><id>/log/when-an-alias-should-actually-be-an-abbr</id><content type="html" xml:base="/log/when-an-alias-should-actually-be-an-abbr/">&lt;p&gt;The short answer is: &lt;strong&gt;always&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;I really appreciate how &lt;code class=&quot;highlighter-rouge&quot;&gt;tmuxinator&lt;/code&gt; handles completion and aliasing from a fish
+shell. You type &lt;code class=&quot;highlighter-rouge&quot;&gt;mux&lt;/code&gt;, and when you hit space it expands into &lt;code class=&quot;highlighter-rouge&quot;&gt;tmuxintor&lt;/code&gt;. From
+there you can hit tab to see the options at each step of the way.&lt;/p&gt;
+
+&lt;div class=&quot;frame-responsive&quot;&gt;
+  &lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/IWIlZir97l0?modestbranding=1&amp;amp;showinfo=0&amp;amp;rel=0&amp;amp;color=white&quot; frameborder=&quot;0&quot; allow=&quot;autoplay; encrypted-media&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;p&gt;I like it so much that I poked around in &lt;a href=&quot;https://github.com/tmuxinator/tmuxinator/blob/master/completion/tmuxinator.fish&quot;&gt;their
+completion&lt;/a&gt;
+script hoping to crib some gnarly methods and do the same thing with tmux
+itself. Well, there are some custom methods therein, however the main feature I
+want turns out to be &lt;a href=&quot;https://fishshell.com/docs/current/commands.html&quot;&gt;built in to fish
+already&lt;/a&gt;. It’s called &lt;code class=&quot;highlighter-rouge&quot;&gt;abbr&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;why--alias&quot;&gt;Why &lt;code class=&quot;highlighter-rouge&quot;&gt;!&lt;/code&gt; alias?&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/fish-shell/fish-shell/issues/828&quot;&gt;Increased performance&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;This becomes
+noticeable after a couple hundred or so in my testing.&lt;/li&gt;
+  &lt;li&gt;Clean history. Using &lt;code class=&quot;highlighter-rouge&quot;&gt;abbr&lt;/code&gt; means other developers can understand your
+terminal history. So posting an issue to GitHub doesn’t require manual
+substitution of your aliases, and another developer won’t have trouble
+deciphering history on a remote that you worked on with your dotfiles in place.&lt;/li&gt;
+  &lt;li&gt;Easy to use a shortcut that’s close to what you want and edit it.&lt;/li&gt;
+  &lt;li&gt;If your shortcut conflicts with another executable that you want to run, you
+can use the arrow keys to edit the expanded text, before fixing
+it in your dotfiles.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/fish-shell/fish-shell/issues/731&quot;&gt;Here’s a four month long GitHub issue about how &lt;code class=&quot;highlighter-rouge&quot;&gt;abbr&lt;/code&gt; came to
+be.&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;a-logical-separation-of-concerns&quot;&gt;A Logical Separation of concerns&lt;/h2&gt;
+
+&lt;p&gt;With the addition of &lt;code class=&quot;highlighter-rouge&quot;&gt;abbr&lt;/code&gt;, we now have three distinct types of functions to
+choose from while programming our programming shortcuts–what? Why, yes, I do like
+programming - where did you hear this?&lt;/p&gt;
+
+&lt;h3 id=&quot;the-three-types&quot;&gt;The three types&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;alias&lt;/code&gt;: Make a &lt;code class=&quot;highlighter-rouge&quot;&gt;something&lt;/code&gt; functionally equivalent to &lt;code class=&quot;highlighter-rouge&quot;&gt;something else&lt;/code&gt;. This
+holds true if you press return, chain things together, pipe, redirect, and
+such. In recent versions of fish, context aware tab completion will work here
+too.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;abbr&lt;/code&gt;: Type &lt;code class=&quot;highlighter-rouge&quot;&gt;something&lt;/code&gt; and have it expanded into &lt;code class=&quot;highlighter-rouge&quot;&gt;something else&lt;/code&gt; after
+pressing space or semicolon (but not return). The new hotness.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;function&lt;/code&gt;: Make &lt;code class=&quot;highlighter-rouge&quot;&gt;something&lt;/code&gt; functionally equivalent to one or more &lt;code class=&quot;highlighter-rouge&quot;&gt;something
+else&lt;/code&gt;s, and optionally permute data that are being worked on with (&lt;code class=&quot;highlighter-rouge&quot;&gt;argv&lt;/code&gt;).&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Strictly speaking, &lt;code class=&quot;highlighter-rouge&quot;&gt;alias&lt;/code&gt; is itself just an alias for a &lt;code class=&quot;highlighter-rouge&quot;&gt;function&lt;/code&gt; that blindly
+accepts &lt;code class=&quot;highlighter-rouge&quot;&gt;argv&lt;/code&gt; and tacks them to the end of its &lt;code class=&quot;highlighter-rouge&quot;&gt;something else&lt;/code&gt;. But this
+pattern is so prolific that it got its own name, so we will consider it unique
+for today.&lt;/p&gt;
+
+&lt;h3 id=&quot;choosing-the-right-one&quot;&gt;Choosing the right one&lt;/h3&gt;
+
+&lt;p&gt;Here is how I picture the use cases:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;alias&lt;/code&gt; &lt;strong&gt;will not be used&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;abbr&lt;/code&gt; will be employed as the new &lt;code class=&quot;highlighter-rouge&quot;&gt;alias&lt;/code&gt;; it will shorten phrases where we
+don’t need to do anything special with &lt;code class=&quot;highlighter-rouge&quot;&gt;argv&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;function&lt;/code&gt; is for everything else; for when an &lt;code class=&quot;highlighter-rouge&quot;&gt;abbr&lt;/code&gt; permutes &lt;code class=&quot;highlighter-rouge&quot;&gt;argv&lt;/code&gt;
+and/or is complex/abstract enough to warrant a &lt;code class=&quot;highlighter-rouge&quot;&gt;--description&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;performance-notes&quot;&gt;performance notes&lt;/h4&gt;
+
+&lt;p&gt;Fish has a mechanism in place for
+&lt;a href=&quot;http://fishshell.com/docs/current/tutorial.html#tut_autoload&quot;&gt;lazily autoloading&lt;/a&gt;
+custom function definitions. This can have a noticeable performance impact over
+just defining them in your config.fish or init.fish or wherever. So it’s a good
+idea to keep each function in its own, self-title file in
+&lt;code class=&quot;highlighter-rouge&quot;&gt;~/.config/fish/functions/&lt;/code&gt; like so:&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# in ~/.config/fish/functions/ll.fish&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;ll
+    &lt;span class=&quot;nb&quot;&gt;ls&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-lh&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$argv&lt;/span&gt;
+end
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In case I’m missing something and there is still a use case for &lt;code class=&quot;highlighter-rouge&quot;&gt;alias&lt;/code&gt;,
+here’s a fun fact. &lt;a href=&quot;https://github.com/fish-shell/fish-shell/issues/828#issuecomment-18584856&quot;&gt;I heard on the
+net&lt;/a&gt;
+(yes, a pun) that using the fish-style &lt;code class=&quot;highlighter-rouge&quot;&gt;alias&lt;/code&gt; syntax is more performant than
+using the &lt;code class=&quot;highlighter-rouge&quot;&gt;=&lt;/code&gt; assignment operator due to an extra &lt;code class=&quot;highlighter-rouge&quot;&gt;sed&lt;/code&gt; call; this was, however,
+back in 2013. I didn’t notice much of a difference here, but it’s an easy change
+and using a default syntax is always preferred in my book. (Someday maybe: make
+or find a fish-&amp;gt;bash transpiler.)&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;alias &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'ls'&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# should be:&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;alias &lt;/span&gt;l &lt;span class=&quot;s1&quot;&gt;'ls'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;practical-examples&quot;&gt;Practical Examples&lt;/h3&gt;
+
+&lt;p&gt;Time for the straight dope. First up - simple and obvious choice: &lt;code class=&quot;highlighter-rouge&quot;&gt;git&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;abbr &lt;span class=&quot;nt&quot;&gt;--add&lt;/span&gt; g &lt;span class=&quot;s1&quot;&gt;'git'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Type &lt;code class=&quot;highlighter-rouge&quot;&gt;g&amp;lt;space&amp;gt;&lt;/code&gt; and witness the magic. I mean dope,&lt;/p&gt;
+
+&lt;p&gt;Now, what if you want to replace a program with another program. I recently
+switched to &lt;a href=&quot;https://github.com/neovim/neovim&quot;&gt;neovim&lt;/a&gt;, but for some reason it felt wrong not to type &lt;code class=&quot;highlighter-rouge&quot;&gt;vim&lt;/code&gt;. An
+alias will do well here:&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;abbr &lt;span class=&quot;nt&quot;&gt;--add&lt;/span&gt; vim &lt;span class=&quot;s1&quot;&gt;'nvim'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Note that &lt;strong&gt;abbr-ception will not work&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;abbr &lt;span class=&quot;nt&quot;&gt;--add&lt;/span&gt; v &lt;span class=&quot;s1&quot;&gt;'vim'&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# this will still be regular `vim`&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;What about setting default flags for programs that don’t allow such
+configuration? Let’s say we want to default to the long-form &lt;code class=&quot;highlighter-rouge&quot;&gt;ls&lt;/code&gt;, with
+classification indicators, but hide user and group info:&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;abbr &lt;span class=&quot;nb&quot;&gt;ls&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'ls -Fog'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The astute observer will note that I forgot to add the &lt;code class=&quot;highlighter-rouge&quot;&gt;--add&lt;/code&gt; here. Well, turns
+out &lt;a href=&quot;https://github.com/fish-shell/fish-shell/blob/2443ea92c3c31c26ec1b6c3681a3e3a643250705/share/functions/abbr.fish#L14&quot;&gt;we don’t need
+it&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;And now, on to something more useful. Yes, it’s function time.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://media.giphy.com/media/Jg41tM6Bk71te/giphy.gif&quot; alt=&quot;Four construction workers hitting a pole with sledgehammers in a staggered rhythm&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Normally naming things is the second most difficult part of computer science
+(next to cache invalidation), but this was rather easy to name:&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;take
+  &lt;span class=&quot;nb&quot;&gt;mkdir&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$argv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; 
+  &lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$argv&lt;/span&gt;
+end
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;take&lt;/code&gt; is an amalgamation of &lt;code class=&quot;highlighter-rouge&quot;&gt;touch&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;mk&lt;/code&gt; (make). It creates a directory and
+changes into it. As an added bonus it leverages the &lt;code class=&quot;highlighter-rouge&quot;&gt;-p&lt;/code&gt; flag, which forces the
+computer to create the entire path you pass it if it doesn’t exist.&lt;/p&gt;
+
+&lt;p&gt;The use case for functions basically starts here. There are multiple
+non-sequential calls to &lt;code class=&quot;highlighter-rouge&quot;&gt;argv&lt;/code&gt; from multiple commands.&lt;/p&gt;
+
+&lt;p&gt;Here is a more worthy example:&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;wait&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--description&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Run a command after some time: wait &amp;lt;minutes&amp;gt; &amp;lt;command args&amp;gt;&quot;&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;minutes &lt;span class=&quot;nv&quot;&gt;$argv&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;1]
+  &lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;time_in_seconds &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;math &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$minutes&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;*60&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;sleep&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$time_in_seconds&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; and &lt;span class=&quot;nb&quot;&gt;eval&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$argv&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;[2..-1]&quot;&lt;/span&gt;
+end
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;attempted-dryness-two-counts&quot;&gt;Attempted DRYness, two counts&lt;/h2&gt;
+
+&lt;p&gt;So I at this point, I now have a 261 line file full of &lt;code class=&quot;highlighter-rouge&quot;&gt;abbr --add 'what have
+you'&lt;/code&gt;. My DRY senses be tinglin’. Isn’t there a way to neither type, nor look
+at, a million &lt;code class=&quot;highlighter-rouge&quot;&gt;abbr&lt;/code&gt;s? Let’s find out.&lt;/p&gt;
+
+&lt;p&gt;Well, we can make a &lt;a href=&quot;https://github.com/sh78/dotfiles/blob/b06b1ca2c665b3badc0584d8a021a2e6cdf83394/.config/omf/aliases.load#L1&quot;&gt;temporary helper&lt;/a&gt; function to shorten the abbr –add syntax.&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;a
+  abbr &lt;span class=&quot;nt&quot;&gt;--add&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$argv&lt;/span&gt;
+end
+
+&lt;span class=&quot;c&quot;&gt;# do abbrs...&lt;/span&gt;
+a &lt;span class=&quot;nb&quot;&gt;alias&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'echo &quot;nope&quot;'&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# unset the function&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# unset helper function&lt;/span&gt;
+functions &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; a
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;That’s still repetition though, and it’s confusing for anyone else. What
+about a for loop? Fish doesn’t have hashes/dictionaries that I’m aware of, so I
+tried reading in lines of a file and passing each one to an &lt;code class=&quot;highlighter-rouge&quot;&gt;abbr&lt;/code&gt; call:&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;while &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;read&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-la&lt;/span&gt; line
+  &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$line&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+  abbr &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$line&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+end &amp;lt; &lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/.config/omf/aliases.load
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This way, we can maintain an abbreviations file that purely has:&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;name &lt;span class=&quot;s1&quot;&gt;'command here'&lt;/span&gt;
+another &lt;span class=&quot;s1&quot;&gt;'another command here'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Well, after 10 minutes of fish complaining “&lt;code class=&quot;highlighter-rouge&quot;&gt;abbr: abbreviation cannot have
+spaces in the key&lt;/code&gt;” despite my best efforts to escape and slice/join the string,
+I decided to cut my losses and stick with the default.&lt;/p&gt;
+
+&lt;p&gt;Someday I’ll learn to leave well enough alone. That will be a really boring day.
+The next day, I’ll start bothering well enough again.&lt;/p&gt;
+
+&lt;h2 id=&quot;what-have-we-leaned&quot;&gt;What have we leaned?&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Use &lt;code class=&quot;highlighter-rouge&quot;&gt;abbr&lt;/code&gt; instead of &lt;code class=&quot;highlighter-rouge&quot;&gt;alias&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;Use &lt;code class=&quot;highlighter-rouge&quot;&gt;function&lt;/code&gt; even more.&lt;/li&gt;
+  &lt;li&gt;Fish really is friendly. Unless you want to program a dictionary.&lt;/li&gt;
+  &lt;li&gt;Don’t stay awake until 1am attempting to bypass built-in functionality of you
+shell, unless someone is paying you.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/sh78/dotfiles/blob/d42cf1b86473e42ae123dffe38750eeaa31add99/.config/omf/aliases.load#L1&quot;&gt;Here are my shiny new
+abbreviations&lt;/a&gt;. And &lt;a href=&quot;https://github.com/sh78/dotfiles/tree/master/.config/fish/functions&quot;&gt;functions&lt;/a&gt;.&lt;/p&gt;</content><author><name>Sean Henderson</name></author><category term="shell" /><category term="fish" /><category term="workflow" /><summary type="html">The short answer is: always.</summary></entry><entry><title type="html">A Testament To My 2010 MacBook Pro</title><link href="/log/a-testament-to-my-2010-macbook-pro/" rel="alternate" type="text/html" title="A Testament To My 2010 MacBook Pro" /><published>2018-06-15T09:21:00-07:00</published><updated>2018-06-15T09:21:00-07:00</updated><id>/log/a-testament-to-my-2010-macbook-pro</id><content type="html" xml:base="/log/a-testament-to-my-2010-macbook-pro/">&lt;p&gt;I spilled water on my main computer. It’s currently sitting in a plastic drawer
 along with about 2 kilograms of Basmati rice. Let’s change the subject.&lt;/p&gt;
 
 &lt;p&gt;Back in 2010, I bought my first Apple computer. Say what you will about the
@@ -169,189 +385,7 @@ electrocute you. But no biggie, I placed a warning label on the bonnet:
 &lt;p&gt;It looks like hesap will continue its copious chronology of computation for
 countless years to come. Here’s to you, old chum. Pay no mind to the naysayers
 who proclaim you to be a superfluous, fancy, expensive thing; they look not far
-into the future.&lt;/p&gt;</content><author><name>Sean Henderson</name></author><category term="apple" /><category term="backup" /><category term="hardware" /><category term="sentiments" /><category term="frugality" /><summary type="html">I spilled water on my main computer. It’s currently sitting in a plastic drawer along with about 2 kilograms of Basmati rice. Let’s change the subject.</summary></entry><entry><title type="html">When An Alias Should Actually Be An Abbr</title><link href="/log/when-an-alias-should-actually-be-an-abbr/" rel="alternate" type="text/html" title="When An Alias Should Actually Be An Abbr" /><published>2018-06-15T07:15:00-07:00</published><updated>2018-06-15T07:15:00-07:00</updated><id>/log/when-an-alias-should-actually-be-an-abbr</id><content type="html" xml:base="/log/when-an-alias-should-actually-be-an-abbr/">&lt;p&gt;I really appreciate &lt;code class=&quot;highlighter-rouge&quot;&gt;tmuxinator&lt;/code&gt; handles completion and aliasing from a fish
-shell. You type &lt;code class=&quot;highlighter-rouge&quot;&gt;mux&lt;/code&gt;, and when you hit space it expands into &lt;code class=&quot;highlighter-rouge&quot;&gt;tmuxintor&lt;/code&gt;. From
-there you can hit tab to see the options at each step of the way.&lt;/p&gt;
-
-&lt;div class=&quot;frame-responsive&quot;&gt;
-  &lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/IWIlZir97l0?modestbranding=1&amp;amp;showinfo=0&amp;amp;rel=0&amp;amp;color=white&quot; frameborder=&quot;0&quot; allow=&quot;autoplay; encrypted-media&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
-&lt;/div&gt;
-
-&lt;p&gt;I like it so much that I poked around in &lt;a href=&quot;https://github.com/tmuxinator/tmuxinator/blob/master/completion/tmuxinator.fish&quot;&gt;their
-completion&lt;/a&gt;
-script hoping to crib some methods and do the same thing with tmux itself. Well,
-there are some custom methods, but the main feature I want turns out to be
-&lt;a href=&quot;https://fishshell.com/docs/current/commands.html&quot;&gt;already built in to fish&lt;/a&gt;.
-It’s called &lt;code class=&quot;highlighter-rouge&quot;&gt;abbr&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;why-another-alias&quot;&gt;Why another alias?&lt;/h2&gt;
-
-&lt;p&gt;It’s mostly personal preference, but there are a couple points where &lt;code class=&quot;highlighter-rouge&quot;&gt;abbr&lt;/code&gt; is
-nicer than &lt;code class=&quot;highlighter-rouge&quot;&gt;alias&lt;/code&gt;:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/fish-shell/fish-shell/issues/828&quot;&gt;Slow
-startup time&lt;/a&gt;. This becomes
-noticeable after a couple hundred or so.&lt;/li&gt;
-  &lt;li&gt;Clean history. Using &lt;code class=&quot;highlighter-rouge&quot;&gt;abbr&lt;/code&gt; means other developers can understand your
-terminal history. So posting an issue to GitHub doesn’t require manual
-substitution of your aliases, and another developer won’t have trouble
-deciphering history on a remote that you worked on with your dotfiles in place.&lt;/li&gt;
-  &lt;li&gt;Easy to use a shortcut that’s close to what you want and edit it.&lt;/li&gt;
-  &lt;li&gt;If your shortcut conflicts with another executable that you want to run, you
-can just use the arrow keys to edit the expanded text in a pinch, before fixing
-it in your dotfiles.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;And one (?) where it’s not:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;You can’t just type the shortcut and hit return; it will only expand after a
-space or semicolon.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;a-logical-system-take-1&quot;&gt;A Logical System, Take 1&lt;/h2&gt;
-
-&lt;p&gt;With the addition of &lt;code class=&quot;highlighter-rouge&quot;&gt;abbr&lt;/code&gt;, we now have three distinct types of functions to
-choose from while programming our programming shortcuts–what? Why, yes, I do like
-programming - where did you hear this?&lt;/p&gt;
-
-&lt;h3 id=&quot;the-three-types&quot;&gt;The three types&lt;/h3&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;abbr&lt;/code&gt;: Type &lt;code class=&quot;highlighter-rouge&quot;&gt;something&lt;/code&gt; and have it expanded into &lt;code class=&quot;highlighter-rouge&quot;&gt;something else&lt;/code&gt; after
-pressing space or semicolon (but not return). The new hotness.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;alias&lt;/code&gt;: Make a &lt;code class=&quot;highlighter-rouge&quot;&gt;something&lt;/code&gt; functionally equivalent to something else. This
-holds true if you press return, chain things together, pipe, redirect, and
-such. In recent versions of fish, context aware tab completion will work here
-too.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;function&lt;/code&gt;: Make &lt;code class=&quot;highlighter-rouge&quot;&gt;something&lt;/code&gt; functionally equivalent to one or more &lt;code class=&quot;highlighter-rouge&quot;&gt;something
-else&lt;/code&gt;s, and optionally permute data that are being worked with (&lt;code class=&quot;highlighter-rouge&quot;&gt;argv&lt;/code&gt;).&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Strictly speaking, &lt;code class=&quot;highlighter-rouge&quot;&gt;alias&lt;/code&gt; is itself just an alias for a &lt;code class=&quot;highlighter-rouge&quot;&gt;function&lt;/code&gt; that blindly
-accepts &lt;code class=&quot;highlighter-rouge&quot;&gt;argv&lt;/code&gt; and tacks them to the end of its &lt;code class=&quot;highlighter-rouge&quot;&gt;something else&lt;/code&gt;. But this
-pattern is so prolific that it got its own name, so we will consider it unique
-for today.&lt;/p&gt;
-
-&lt;h3 id=&quot;choosing-the-right-one&quot;&gt;Choosing the right one&lt;/h3&gt;
-
-&lt;p&gt;Here is how I picture the use cases:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;abbr&lt;/code&gt; will employed to shorten phrases that will certainly have additional
-arguments but don’t need to do anything special with those arguments.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;alias&lt;/code&gt; is for any phrase that is self-sufficient - it can be run as is, or
-optionally with arguments.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;function&lt;/code&gt; is for everything else, and when an alias is complex/abstract
-enough to warrant a description.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h4 id=&quot;performance-notes&quot;&gt;performance notes&lt;/h4&gt;
-
-&lt;p&gt;Fish has a mechanism in place for
-&lt;a href=&quot;http://fishshell.com/docs/current/tutorial.html#tut_autoload&quot;&gt;lazily-autoloading&lt;/a&gt;
-custom function definitions. This can have a noticeable performance impact over
-&lt;code class=&quot;highlighter-rouge&quot;&gt;alias&lt;/code&gt; when you get into the hundreds.&lt;/p&gt;
-
-&lt;p&gt;Also, &lt;a href=&quot;https://github.com/fish-shell/fish-shell/issues/828#issuecomment-18584856&quot;&gt;I heard on the
-net&lt;/a&gt;
-(yes, a pun) that using the fish-style &lt;code class=&quot;highlighter-rouge&quot;&gt;alias&lt;/code&gt; syntax is more performant than using the &lt;code class=&quot;highlighter-rouge&quot;&gt;=&lt;/code&gt; assignment operator due to an extra &lt;code class=&quot;highlighter-rouge&quot;&gt;sed&lt;/code&gt; call; this was, however, back in 2013. I didn’t notice
-much of a difference here, but it’s an easy change and using a default syntax is
-always preferred in my book. (Someday maybe: make or find a fish-&amp;gt;bash
-transpiler.)&lt;/p&gt;
-
-&lt;p&gt;Let’s agree to write aliases like this:&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;alias &lt;/span&gt;short &lt;span class=&quot;s1&quot;&gt;'long-form -l'&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Furthermore, let’s try use &lt;code class=&quot;highlighter-rouge&quot;&gt;abbr&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;function&lt;/code&gt; instead of &lt;code class=&quot;highlighter-rouge&quot;&gt;alias&lt;/code&gt;, unless it’s
-really convenient. Last but not least, let us also use the default method for
-defining out custom functions:&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; ~/.config/fish/functions/ll.fish
-&lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;ll
-    &lt;span class=&quot;nb&quot;&gt;ls&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-lh&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$argv&lt;/span&gt;
-end
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Note: Not practicing what I’m preaching yet. I’m currently using a monolithic &lt;a href=&quot;https://github.com/sh78/dotfiles/blob/f173673d40a4275615dd92e70f1ea01601ada107/.config/omf/aliases.load#L1&quot;&gt;aliases.load&lt;/a&gt; file with over 500 lines of
-aliases and functions. This will have to change soon.&lt;/p&gt;
-
-&lt;h3 id=&quot;practical-examples&quot;&gt;Practical Examples&lt;/h3&gt;
-
-&lt;p&gt;First up - simple and obvious choice: &lt;code class=&quot;highlighter-rouge&quot;&gt;git&lt;/code&gt;.&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;abbr &lt;span class=&quot;nt&quot;&gt;--add&lt;/span&gt; g &lt;span class=&quot;s1&quot;&gt;'git'&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Type &lt;code class=&quot;highlighter-rouge&quot;&gt;g&amp;lt;space&amp;gt;&lt;/code&gt; and witness the magic.&lt;/p&gt;
-
-&lt;p&gt;Now, what if you want to replace a program with another program. I recently
-switched to &lt;a href=&quot;https://github.com/neovim/neovim&quot;&gt;neovim&lt;/a&gt;, but for some reason it felt wrong not to type &lt;code class=&quot;highlighter-rouge&quot;&gt;vim&lt;/code&gt;. An
-alias will do well here:&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;alias &lt;/span&gt;vim &lt;span class=&quot;s1&quot;&gt;'nvim'&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Then, if you want some shortcut-ception:&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;abbr &lt;span class=&quot;nt&quot;&gt;--add&lt;/span&gt; v &lt;span class=&quot;s1&quot;&gt;'vim'&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# which is now `nvim`&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;If at some point you decide to ditch &lt;code class=&quot;highlighter-rouge&quot;&gt;nvim&lt;/code&gt; as the default &lt;code class=&quot;highlighter-rouge&quot;&gt;vim&lt;/code&gt;, your &lt;code class=&quot;highlighter-rouge&quot;&gt;v&lt;/code&gt;
-shortcut doesn’t need to be touched.&lt;/p&gt;
-
-&lt;p&gt;What about setting default flags for programs that don’t allow such
-configuration? Let’s say we want to default to the long-form &lt;code class=&quot;highlighter-rouge&quot;&gt;ls&lt;/code&gt;, with
-classification indicators, but hide user and group info:&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;ls&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Fog&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Well, &lt;code class=&quot;highlighter-rouge&quot;&gt;ls&lt;/code&gt; can have both zero and more than zero arguments. So it will be nice
-to not have to press another key to &lt;code class=&quot;highlighter-rouge&quot;&gt;ls -Fog&lt;/code&gt; the current directory. &lt;code class=&quot;highlighter-rouge&quot;&gt;alias&lt;/code&gt; it
-is.&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;alias ls&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'ls -Fog'&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Well, hold up; then again, it might be nice to stick with the default ls, and hit
-&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;space&amp;gt;&lt;/code&gt; to get our preferred flags. In effect, this is like aliasing &lt;code class=&quot;highlighter-rouge&quot;&gt;ls&amp;lt;space&amp;gt;&lt;/code&gt;
-to our tricked out command. If we do want a default &lt;code class=&quot;highlighter-rouge&quot;&gt;ls&lt;/code&gt; for whatever reason, we
-don’t have to jump through any hoops to get it back. &lt;code class=&quot;highlighter-rouge&quot;&gt;abbr&lt;/code&gt; it is.&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;abbr &lt;span class=&quot;nt&quot;&gt;--add&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;ls&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'ls -Fog'&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;And now, something more useful. Yes, it’s function time.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://media.giphy.com/media/Jg41tM6Bk71te/giphy.gif&quot; alt=&quot;Four construction workers hitting a pole with sledgehammers in a staggered rhythm&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Normally naming things is the second most difficult part of computer science
-(next to caching), but this was really easy to name:&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;take
-  &lt;span class=&quot;nb&quot;&gt;mkdir&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$argv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; 
-  &lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$argv&lt;/span&gt;
-end
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;take&lt;/code&gt; is an amalgamation of &lt;code class=&quot;highlighter-rouge&quot;&gt;touch&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;mk&lt;/code&gt; (make). It creates a directory and
-changes into it.&lt;/p&gt;
-
-&lt;p&gt;The use case for functions basically starts here. There are multiple
-non-sequential calls to &lt;code class=&quot;highlighter-rouge&quot;&gt;argv&lt;/code&gt; from multiple commands.&lt;/p&gt;
-
-&lt;p&gt;Here is a more worthy example:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-bobthefish&quot;&gt;function wait --description &quot;Run a command after some time: wait &amp;lt;minutes&amp;gt; &amp;lt;command args&amp;gt;&quot;
-  set minutes $argv[1]
-  set time_in_seconds (math &quot;$minutes*60&quot;)
-  sleep $time_in_seconds; and eval &quot;$argv[2..-1]&quot;
-end
-&lt;/code&gt;&lt;/pre&gt;</content><author><name>Sean Henderson</name></author><category term="shell" /><category term="fish" /><category term="workflow" /><summary type="html">I really appreciate tmuxinator handles completion and aliasing from a fish shell. You type mux, and when you hit space it expands into tmuxintor. From there you can hit tab to see the options at each step of the way.</summary></entry><entry><title type="html">Finally, A Vim Global Find/Replace That Doesn’t Hurt</title><link href="/log/finally-a-vim-global-find-replace-that-doesn-t-hurt/" rel="alternate" type="text/html" title="Finally, A Vim Global Find/Replace That Doesn't Hurt" /><published>2018-06-13T10:35:00-07:00</published><updated>2018-06-13T10:35:00-07:00</updated><id>/log/finally-a-vim-global-find-replace-that-doesn-t-hurt</id><content type="html" xml:base="/log/finally-a-vim-global-find-replace-that-doesn-t-hurt/">&lt;p&gt;I’m a recent vim convert. 100% in it now. There has been literally one
+into the future.&lt;/p&gt;</content><author><name>Sean Henderson</name></author><category term="apple" /><category term="backup" /><category term="hardware" /><category term="sentiments" /><category term="frugality" /><summary type="html">I spilled water on my main computer. It’s currently sitting in a plastic drawer along with about 2 kilograms of Basmati rice. Let’s change the subject.</summary></entry><entry><title type="html">Finally, A Vim Global Find/Replace That Doesn’t Hurt</title><link href="/log/finally-a-vim-global-find-replace-that-doesn-t-hurt/" rel="alternate" type="text/html" title="Finally, A Vim Global Find/Replace That Doesn't Hurt" /><published>2018-06-13T10:35:00-07:00</published><updated>2018-06-13T10:35:00-07:00</updated><id>/log/finally-a-vim-global-find-replace-that-doesn-t-hurt</id><content type="html" xml:base="/log/finally-a-vim-global-find-replace-that-doesn-t-hurt/">&lt;p&gt;I’m a recent vim convert. 100% in it now. There has been literally one
 thing, and only one thing, I’ve missed from other editors (namely &lt;a href=&quot;https://sublimetext.com/&quot;&gt;Sublime Text&lt;/a&gt;) &lt;strong&gt;until today&lt;/strong&gt;: Global, or project-wide, find and replace.&lt;/p&gt;
 
 &lt;p&gt;Allow me to illustrate:&lt;/p&gt;
@@ -394,8 +428,9 @@ project, be sure to set a &lt;code class=&quot;highlighter-rouge&quot;&gt;wildig
 &lt;p&gt;Do note the backslashes; this is vim and we must escape all the things. The &lt;code class=&quot;highlighter-rouge&quot;&gt;**/*&lt;/code&gt; is a standard &lt;a href=&quot;https://git-scm.com/docs/gitignore#_pattern_format&quot;&gt;Unix pattern format&lt;/a&gt; that’s like saying “look at any/all directories and any/all contents”.&lt;/p&gt;
 
 &lt;p&gt;Now hit enter, and get up to make some coffee. Hopefully you’re a hipster and
-you have one of those &lt;a href=&quot;https://amzn.to/2Mug8XZ&quot;&gt;manual burr grinders&lt;/a&gt;, and you grind your coffee on a
-per-cup basis; this is going to take awhile.&lt;/p&gt;
+you have one of those &lt;a href=&quot;https://www.amazon.com/gp/product/B004QWMAII/&quot;&gt;manual burr
+grinders&lt;/a&gt;, and you grind your
+coffee on a per-cup basis; this is going to take awhile.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/vimgrep-complete.png&quot; alt=&quot;vim's response after running vim grep&quot; /&gt;&lt;/p&gt;
 
@@ -603,13 +638,14 @@ take another 30 minutes.&lt;/li&gt;
 
 &lt;h2 id=&quot;the-host-machine&quot;&gt;The Host Machine&lt;/h2&gt;
 
-&lt;p&gt;Everything you see here (and more :wink) was done using an early 2015 Retina MacBook Pro 13”. I’m quite happy with how well Fedora worked out of the box. Immediately on boot the hidpi display looked stellar, the WiFi worked (suck it Arch users), and ducking &lt;strong&gt;volume/brightness keys worked&lt;/strong&gt;. It really is 2018. 🦆&lt;/p&gt;
+&lt;p&gt;Everything you see here (and more :wink) was done using an early 2015 Retina MacBook Pro 13”. I’m quite happy with how well Fedora worked out of the box. Immediately on boot the hidpi display looked stellar, the WiFi worked (suck it Arch users), and the ducking &lt;strong&gt;volume/brightness keys worked&lt;/strong&gt;. It really is 2018. 🦆&lt;/p&gt;
 
 &lt;h2 id=&quot;portability-speed-and-redundancy-with-a-bootable-external-drive&quot;&gt;Portability, Speed, and Redundancy With A Bootable External Drive&lt;/h2&gt;
 
-&lt;p&gt;One thing I’ve always wanted to do is have my entire environment on a
-microSD card. This isn’t very practical to use as a daily driver, but I did find
-the next best thing: &lt;a href=&quot;https://amzn.to/2JBAz7D&quot;&gt;A tiny portable USB3 SSD that is really fast&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;One thing I’ve always wanted to do is have my entire environment on a microSD
+card. This isn’t very practical to use as a daily driver, but I did find the
+next best thing: &lt;a href=&quot;https://www.amazon.com/gp/product/B073H552FK/&quot;&gt;A tiny portable USB 3 SSD that is really
+fast&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;I’m still locked in to using macOS for work, I made two partitions on this
 drive. One is a bootable macOS that I &lt;a href=&quot;https://bombich.com/&quot;&gt;Carbon Copy

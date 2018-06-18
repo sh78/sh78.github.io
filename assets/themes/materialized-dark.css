@@ -5625,7 +5625,8 @@ pre.highlight, .gist {
   padding-bottom: 56.25%;
   /* 16:9 */
   padding-top: 25px;
-  height: 0; }
+  height: 0;
+  margin-bottom: 1em; }
   .frame-responsive iframe {
     position: absolute;
     top: 0;
@@ -5693,7 +5694,9 @@ img {
     order: 1;
     padding-left: 10%; }
     .toc-container .post-toc {
-      width: 240px; }
+      width: 240px;
+      position: sticky;
+      top: 76px; }
       .toc-container .post-toc .post-toc-title {
         font-size: 1.15rem; }
 
@@ -5704,6 +5707,21 @@ img {
 
 .page-footer {
   position: relative; }
+
+.anchorize h1,
+.anchorize h2,
+.anchorize h3,
+.anchorize h4,
+.anchorize h5,
+.anchorize p {
+  margin-top: -70px;
+  padding-top: 70px; }
+.anchorize h1,
+.anchorize h2,
+.anchorize h3,
+.anchorize h4,
+.anchorize h5 {
+  margin-top: -2.053333rem; }
 
 /* single post/page */
 .post.h-entry {
@@ -5719,8 +5737,9 @@ img {
     background: transparent; } }
 .cta-full-width {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   background: #2aa198;
   position: relative;
   top: 30px;
@@ -5729,6 +5748,13 @@ img {
   .cta-full-width a {
     display: flex;
     align-items: center; }
+    .cta-full-width a:first-child {
+      margin-bottom: 2em; }
+    @media only screen and (min-width: 601px) {
+      .cta-full-width a {
+        width: 45%; }
+        .cta-full-width a:first-child {
+          margin-bottom: 0; } }
     .cta-full-width a:hover {
       text-decoration: underline; }
     .cta-full-width a i {
@@ -5741,6 +5767,14 @@ img {
       padding-left: 2rem; }
   .cta-full-width i {
     font-size: 4rem; }
+
+.anchorjs-link {
+  transition: all .25s linear; }
+  .anchorjs-link:hover {
+    text-decoration: none; }
+
+*:hover > .anchorjs-link {
+  margin-left: -1.125em !important; }
 
 body .gist .gist-file, body .gist .gist-data {
   border: 0;
@@ -6146,16 +6180,21 @@ body .gist .pl-ii {
   background: rgba(64, 0, 0, 0.5); }
 
 body {
-  font-family: "Work Sans", "Segoe UI", Tahoma, sans-serif;
-  font-size: 1.3rem;
   background-color: #073642;
-  color: #aeb9b9; }
+  color: #aeb9b9;
+  font-family: "Work Sans", "Segoe UI", Tahoma, sans-serif;
+  font-size: 1.3rem; }
 
-h1, h2, h3, h4, h5 {
-  font-family: "Space Mono", "Fira Code", "Source Code Pro", monospace;
+h1,
+h2,
+h3,
+h4,
+h5 {
   font-weight: 700;
+  font-family: "Space Mono", "Fira Code", "Source Code Pro", monospace;
   color: #FFFFFF;
-  word-spacing: -0.3em; }
+  text-transform: capitalize;
+  word-spacing: -.3em; }
 
 strong {
   font-weight: 700;
