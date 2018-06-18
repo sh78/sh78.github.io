@@ -17,6 +17,7 @@
     "libs": "npm run modernizr && bin/libs",
     "watch-js": "npm run es5 -- --watch",
     "modernizr": "npx modernizr --config modernizr.json --uglify --dest assets/js/modernizr.min.js",
+    "purify-css": "npx purifycss -im _site/assets/themes/*.css ./_site/assets/js/*.js _site/**/*.html -i -o _site/assets/dist.css",
     "css-libs": "echo TODO"
   },
   "devDependencies": {
@@ -28,6 +29,7 @@
     "jquery-ias": "^2.3.1",
     "materialize-css": "^1.0.0-rc.1",
     "modernizr": "^3.6.0",
+    "purify-css": "^1.2.5",
     "typed.js": "^2.0.7",
     "uglify-js": "^3.4.0"
   },
