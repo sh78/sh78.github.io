@@ -5,11 +5,12 @@
   // set theme per local storage
   const theme = {
     availableThemes: {},
-    dayTheme: 'materialized-light',
-    nightTheme: 'materialized-dark',
+    dayTheme: 'Materialized Light',
+    nightTheme: 'Materialized Dark',
     get: function() {
-      const themeElement = document.querySelector('.theme-variant');
-      const themeCurrent = themeElement.href.split('/').pop().split('.')[0];
+      // order of attribute values matters, for now
+      const themeElement = document.querySelector('.theme-variant[rel^=stylesheet]');
+      const themeCurrent = themeElement.title;
       return themeCurrent;
     },
     set: function(themeName) {
@@ -17,11 +18,14 @@
       const page = document.querySelector('html');
       page.style.opacity = 0;
 
-      // switch the link's href
-      const themeElement = document.querySelector('.theme-variant');
-      const themeCurrent = themeElement.href.split('/').pop();
-      const themePath = themeElement.href.split('/').slice(0, -1).join('/') + '/';
-      themeElement.href = themePath + themeName + ".css";
+      // switch the links' `rel` vals
+      const allThemes = document.querySelectorAll('.theme-variant');
+      const themeCurrent = document.querySelector(`.theme-variant[title="${ theme.get() }"`);
+      const themeNext = document.querySelector(`.theme-variant[title="${ themeName }"]`);
+      allThemes.forEach(function(e) {
+        e.setAttribute('rel', 'alternate stylesheet');
+      });
+      themeNext.setAttribute('rel', 'stylesheet');
       console.info('Theme set to \'' + themeName + '\'');
 
       // restore loaded state
@@ -85,7 +89,6 @@
       let result;
       if (session) {
         result = session;
-        console.log(sessionStorage);
       } else {
         if(hour > 5 && hour < 19) {
           result = theme.dayTheme;
