@@ -1,12 +1,12 @@
 ---
 Title: When An `alias` Should Actually Be An `abbr`
-date: 2018-06-15 14:15:00
+date: 2018-06-17 14:15:00
 tags: [shell, fish, workflow]
 ---
 
 The short answer is: **always**.
 
-I really appreciate `tmuxinator` handles completion and aliasing from a fish
+I really appreciate how `tmuxinator` handles completion and aliasing from a fish
 shell. You type `mux`, and when you hit space it expands into `tmuxintor`. From
 there you can hit tab to see the options at each step of the way. 
 
@@ -45,14 +45,14 @@ programming - where did you hear this?
 
 ### The three types 
 
-1. `alias`: Make a `something` functionally equivalent to something else. This
+1. `alias`: Make a `something` functionally equivalent to `something else`. This
    holds true if you press return, chain things together, pipe, redirect, and
    such. In recent versions of fish, context aware tab completion will work here
    too.
 2. `abbr`: Type `something` and have it expanded into `something else` after
    pressing space or semicolon (but not return). The new hotness.
 3. `function`: Make `something` functionally equivalent to one or more `something
-   else`s, and optionally permute data that are being worked with (`argv`).
+   else`s, and optionally permute data that are being worked on with (`argv`).
 
 Strictly speaking, `alias` is itself just an alias for a `function` that blindly
 accepts `argv` and tacks them to the end of its `something else`. But this
@@ -66,7 +66,7 @@ Here is how I picture the use cases:
 1. `alias` **will not be used**.
 2. `abbr` will be employed as the new `alias`; it will shorten phrases where we
    don't need to do anything special with `argv`.
-3. `function` is for everything else; for when an `abbr` is permutes `argv`
+3. `function` is for everything else; for when an `abbr` permutes `argv`
    and/or is complex/abstract enough to warrant a `--description`.
 
 #### performance notes
@@ -84,9 +84,8 @@ function ll
     ls -lh $argv
 end
 ```
-John is very unique, I doses declare.
 
-Just in case I'm missing something and there is still a use case for `alias`,
+In case I'm missing something and there is still a use case for `alias`,
 here's a fun fact. [I heard on the
 net](https://github.com/fish-shell/fish-shell/issues/828#issuecomment-18584856)
 (yes, a pun) that using the fish-style `alias` syntax is more performant than
@@ -94,6 +93,12 @@ using the `=` assignment operator due to an extra `sed` call; this was, however,
 back in 2013. I didn't notice much of a difference here, but it's an easy change
 and using a default syntax is always preferred in my book. (Someday maybe: make
 or find a fish->bash transpiler.) 
+
+```shell
+alias l='ls'
+# should be:
+alias l 'ls'
+```
 
 ### Practical Examples
 
@@ -113,7 +118,7 @@ alias will do well here:
 abbr --add vim 'nvim'
 ```
 
-Note that abbr-ception will not work:
+Note that **abbr-ception will not work**:
 
 ```shell
 abbr --add v 'vim' # this will still be regular `vim`
@@ -124,15 +129,19 @@ configuration? Let's say we want to default to the long-form `ls`, with
 classification indicators, but hide user and group info:
 
 ```shell
-abbr --add ls 'ls -Fog'
+abbr ls 'ls -Fog'
 ```
 
-And now, something more useful. Yes, it's function time.
+The astute observer will note that I forgot to add the `--add` here. Well, turns
+out [we don't need
+it](https://github.com/fish-shell/fish-shell/blob/2443ea92c3c31c26ec1b6c3681a3e3a643250705/share/functions/abbr.fish#L14).
+
+And now, on to something more useful. Yes, it's function time.
 
 ![Four construction workers hitting a pole with sledgehammers in a staggered rhythm](https://media.giphy.com/media/Jg41tM6Bk71te/giphy.gif)
 
 Normally naming things is the second most difficult part of computer science
-(next to caching), but this was really easy to name:
+(next to cache invalidation), but this was rather easy to name:
 
 ```shell
 function take
@@ -142,7 +151,8 @@ end
 ```
 
 `take` is an amalgamation of `touch` and `mk` (make). It creates a directory and
-changes into it.
+changes into it. As an added bonus it leverages the `-p` flag, which forces the
+computer to create the entire path you pass it if it doesn't exist.
 
 The use case for functions basically starts here. There are multiple
 non-sequential calls to `argv` from multiple commands. 
@@ -157,19 +167,59 @@ function wait --description "Run a command after some time: wait <minutes> <comm
 end
 ```
 
-## Keeping it DRY
+## Attempted DRYness, two counts
 
 So I at this point, I now have a 261 line file full of `abbr --add 'what have
 you'`. My DRY senses be tinglin'. Isn't there a way to neither type, nor look
 at, a million `abbr`s? Let's find out.
 
-Well, at the very least, we can make a temporary helper function to shorten the
-abbr --add syntax.
+Well, we can make a [temporary helper](https://github.com/sh78/dotfiles/blob/b06b1ca2c665b3badc0584d8a021a2e6cdf83394/.config/omf/aliases.load#L1) function to shorten the abbr --add syntax.
 
-[aliases.load](https://github.com/sh78/dotfiles/blob/b06b1ca2c665b3badc0584d8a021a2e6cdf83394/.config/omf/aliases.load#L1).
+```shell
+function a
+  abbr --add $argv
+end
 
-That's still repetition, but at least it's only repeating one character. What
-about a for loop? Fish doesn't have hashes/dictionaries that I'm aware of, so
-it's a but fishy:
+# do abbrs...
+a alias='echo "nope"'
 
+# unset the function
+# unset helper function
+functions -e a
+```
 
+That's still repetition though, and it's confusing for anyone else. What
+about a for loop? Fish doesn't have hashes/dictionaries that I'm aware of, so I
+tried reading in lines of a file and passing each one to an `abbr` call:
+
+```shell
+while read -la line
+  echo "$line"
+  abbr "$line"
+end < $HOME/.config/omf/aliases.load
+```
+
+This way, we can maintain an abbreviations file that purely has:
+
+```shell
+name 'command here'
+another 'another command here'
+```
+
+Well, after 10 minutes of fish complaining "`abbr: abbreviation cannot have
+spaces in the key`" despite my best efforts to escape and slice/join the string,
+I decided to cut my losses and stick with the default. 
+
+Someday I'll learn to leave well enough alone. That will be a really boring day.
+The next day, I'll start bothering well enough again.
+
+## What have we leaned?
+
+1. Use `abbr` instead of `alias`. 
+2. Use `function` even more.
+3. Fish really is friendly. Unless you want to program a dictionary.
+4. Don't stay awake until 1am attempting to bypass built-in functionality of you
+   shell, unless someone is paying you.
+
+[Here are my shiny new
+abbreviations](https://github.com/sh78/dotfiles/blob/d42cf1b86473e42ae123dffe38750eeaa31add99/.config/omf/aliases.load#L1). And [functions](https://github.com/sh78/dotfiles/tree/master/.config/fish/functions).
