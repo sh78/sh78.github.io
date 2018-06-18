@@ -14,13 +14,12 @@ T5 external SSD that I got recently, and decided to [Carbon Copy
 Clone](https://bombich.com/) my main system's macOS image into as part of my
 regularly scheduled backups. Pics or it didn't happen, you say?
 
-![The "About this Mac" window on my 2010 MacBook
-Pro](/assets/images/hesap-about.jpg)
+{% include image.html alt='The About this Mac window on my 2010 MacBook Pro' src='/assets/images/hesap-about.jpg' %}
 
 *An aside to the meticulous folks at Bombich*: Nice touch on making Carbon Copy Cloner aware of its own inception!
 
-![Carbon Copy Cloner alerting the user that it paused the automated task that
-created it.](/assets/images/hesap-ccc-is-nice.png)
+{% include image.html alt='Carbon Copy Cloner alerting the user that it paused the automated task that
+created it.' src='/assets/images/hesap-ccc-is-nice.png' %}
 
 I like to name my computers. Like `hostname NAME` name them. I named this
 computer hesap back in 2012, which is Turkish for "calculation" or "bill/check".
@@ -35,16 +34,14 @@ plane ticket.
 a few years and it works. Great!" I can hear you sarcastically projecting. Here
 are some highlights from the checkered biography of this "laptop", as you call
 it.
-
 ## A Brief History of Hesap
 
 1. **<time datetime="2010">2010</time>** Purchased in the spring. It had a
    faulty M key that Apple fought me on replacing (and lost). Pristine condition
    at this point. I kept it in a case and everything.
 2. **<time datetime="2012-07-14">July, 2012</time>** Hesap is purring right
-   along as my daily driver (note the aforementioned case).  ![Hesap at a cafe,
-   next to a Guinness and an espresso, with CSS open on screen in Sublime
-   Text.](/assets/images/hesap-guinness-espresso.jpg)
+   along as my daily driver (note the aforementioned case).
+   {% include image.html alt='Hesap at a cafe, next to a Guinness and an espresso, with CSS open on screen in Sublime Text.' src='/assets/images/hesap-guinness-espresso.jpg' %} 
 2. **<time datetime="2013-01">January, 2013</time>** For reasons that are
    outside of the scope of this post, hesap was **slammed into a wall at least 4
    or 5 times** (while open and running) and literally **ripped in half** with
@@ -65,8 +62,8 @@ it.
    write a site survey and advance for a (fictional) week-long visit by a meat
    industry executive with some unknown enemies (sideways!). No issues 2 and a
    half years in with a shiny new display.  
-   ![Hesap on a table with scattered papers and a radio, with markdown on the
-   screen.](/assets/images/hesap-bodyguard-school.jpg)
+   {% include image.html alt='Hesap on a table with scattered papers and a radio, with markdown on the
+   screen.' src='/assets/images/hesap-bodyguard-school.jpg' %} 
 5. **<time datetime="2014">2014</time>** Throughout most of 2014, I was the
    director of computation for a startup that did video production in Kathmandu,
    Nepal. We had a Mac Mini as our office server, running VPN, AFP, Bit Torrent
@@ -76,9 +73,8 @@ it.
    backups. Hesap acted as a fill-in server when the Mac Mini had a problem or
    when the power was out for so long that the APC died. Even when it wasn't
    serving, I was working about 27 hours per day at that time, so it **basically
-   was not powered down for a little over a year**.  ![Hesap (left) at the
-   office next to it's minions (other
-   MacBooks).](/assets/images/hesap-goes-to-kathmandu.jpg)
+   was not powered down for a little over a year**.  
+   {% include image.html alt='Hesap (left) at the office next to it\'s minions (other MacBooks).' src='/assets/images/hesap-goes-to-kathmandu.jpg' %}
 5. **<time datetime="2014">Summer, 2014</time>** - First water damage I remember
    it like it was yesterday. I was at a cafe near Kupondole in Lalitpur taking a
    break from the office to write an enormous bash script to automate
@@ -165,7 +161,7 @@ actually see pixels.
 - USB 3 makes everything else feel tortoise-esque. 
 - It's not much of a *lap*top now, because if you're wearing shorts it will
 electrocute you. But no biggie, I placed a warning label on the bonnet:
-  ![hesap with a sticker saying "yüksek gerilim", Turkish for "high voltage".](/assets/images/hesap-yuksek-gerilim.jpg)
+  {% include image.html alt='hesap with a sticker saying yüksek gerilim, Turkish for high voltage.' src='/assets/images/hesap-yuksek-gerilim.jpg' %}
 
 ## 🍻
 

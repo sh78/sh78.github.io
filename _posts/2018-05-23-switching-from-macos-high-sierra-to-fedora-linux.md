@@ -63,7 +63,7 @@ I've installed Ubuntu several times in my life, so I assumed that the live USB w
 
 Not much else to fret over here. I picked a time zone, configured the partition scheme with 100GB for the macOS image and the rest for Fedora, and clicked "Sail off into the sunset."
 
-![The Fedora hot dog, inspiring confidence from the start.](https://pbs.twimg.com/media/DdxtLScVAAET6Lc.jpg)
+{% include image.html alt='The Fedora hot dog, inspiring confidence from the start.' src='https://pbs.twimg.com/media/DdxtLScVAAET6Lc.jpg' %}
 
 # First Run
 
@@ -95,7 +95,7 @@ sudo dnf -y system-upgrade download --refresh --releasever=28
 sudo dnf system-upgrade reboot
 ```
 
-![An IT person with title "have you tried forcing an unexpected reboot?"](https://media.giphy.com/media/10lBhcF4eTJZWU/giphy.gif)
+{% include image.html alt='An IT person with title "have you tried forcing an unexpected reboot?"' src='https://media.giphy.com/media/10lBhcF4eTJZWU/giphy.gif' %}
 
 Ah, you're back. Now let's do the equivalent of `xcode-select --install` on macOS:
 
@@ -146,7 +146,7 @@ Having [cvim](https://chrome.google.com/webstore/detail/cvim/ihlenndgcmojhcghmfj
 
 [Getting the local .cvimrc loaded was a bit on tricky on macOS](https://github.com/1995eaton/chromium-vim/issues/312#issuecomment-156189327), I recall. Also be sure to "allow access to file URLs" from the chrome://extensions/settings:
 
-![cvim settings](https://i.imgur.com/jnH8YmH.png)
+{% include image.html alt='cvim settings' src='https://i.imgur.com/jnH8YmH.png' %}
 
 ### Alternative
 
@@ -252,7 +252,7 @@ Moving on....
 
 ### InSync
 
-![The boy band sensation 'NSync](https://media.giphy.com/media/e9i8NXW1GSqAg/giphy.gif)
+{% include image.html alt='The boy band sensation NSync' src='https://media.giphy.com/media/e9i8NXW1GSqAg/giphy.gif' %}
 
 [InSync](https://www.insynchq.com/) looks promising, but at $30 does not conform to the Tao of Linux. 🤮
 
@@ -306,7 +306,7 @@ So, at this point there's still nothing in my ~/Drive dir that I choose.... In t
 
 Well, it turns out that just running `insync show` brings the window back. From there I was able to check the boxes for folders to sync and actually start the process.
 
-![the InSync application's main window](https://i.imgur.com/f9XGm2x.png)
+{% include image.html alt='the InSync application\'s main window' src='https://i.imgur.com/f9XGm2x.png' %}
 
 While these issues are really annoying for a $30 Linux app, the bottom line is it works for my needs and blows away the competition.
 
@@ -334,7 +334,7 @@ yes | mackup restore
 # mackup confirms a lot, so yes just auto-answers mackup's questions
 ```
 
-![`~` sweet `~`](https://i.imgur.com/vx9VLYd.png)
+{% include image.html alt='\`~\` sweet \`~\`' src='https://i.imgur.com/vx9VLYd.png' %}
 
 
 ## Vim
@@ -356,7 +356,7 @@ dnf -y install python2-neovim python3-neovim
 
 There was surprisingly little to debug here. On launch my auto-magical Vundle script installed all my plugins, and there were no warnings/incompatibilities with other stuff in my [vimrc](https://github.com/sh78/dotfiles/blob/aabba49702344b4cc2468763b5cd16df75c65529/.vimrc#L1). The main issue was a whacked out color scheme (from using Solarized palette in iTerm) and weird characters in the [airline]() status line.
 
-![My accidental rave style color scheme in vim](https://i.imgur.com/cAYDEuA.png)
+{% include image.html alt='My accidental rave style color scheme in vim' src='https://i.imgur.com/cAYDEuA.png' %}
 
 Now let's pick a new terminal, and figure out about installing fonts to tidy up that status line.
 
@@ -385,9 +385,9 @@ sudo dnf -y install qt5-qtbase qt5-qtbase-devel qt5-qtdeclarative qt5-qtdeclarat
 sudo dnf -y install cool-retro-term
 ```
 
-![cool retro terminal running on my MacBook](https://i.imgur.com/rSQA4gc.jpg)
+{% include image.html alt='cool retro terminal running on my MacBook' src='https://i.imgur.com/rSQA4gc.jpg' %}
 
-![cool retro terminal with text "hellow der"](https://i.imgur.com/uFn4rGf.jpg)
+{% include image.html alt='cool retro terminal with text hellow der' src='https://i.imgur.com/uFn4rGf.jpg' %}
 
 ## Setting Custom Fonts
 
@@ -526,7 +526,7 @@ VirtualBox
 
 Pics or it didn't happen O.o
 
-![VirtualBox running in Fedora](https://i.imgur.com/LqeuS1Y.png)
+{% include image.html alt='VirtualBox running in Fedora' src='https://i.imgur.com/LqeuS1Y.png' %}
 
 There's also [another wonderful guide from ifnottruethenfalse](https://www.if-not-true-then-false.com/2010/install-virtualbox-guest-additions-on-fedora-centos-red-hat-rhel/) on how to get Guest Additions set up.
 
@@ -597,59 +597,6 @@ sudo hostnamectl set-hostname sapka
 ## Automation Is King
 
 On macOS, there is `defaults write`, and `defaults export`/`import`. So this is Linux, can we automate Fedora's preferences in such a fashion?
+Well, not going to bother, because here comes [i3wm](https://i3wm.org/)...
 
-Well, not going to bother, because here comes [i3wm](https://i3wm.org/).
-
-# To Be Continued
-<!--
-# i3wm: A Tiling Window Manager
-
-
-## To Gap Or Not To Gap
-
-[i3-gaps](https://github.com/Airblader/i3)
-
-## The Key Shortcuts
-
-## Fixing Display Resolution For Retina Screens
-
-## Config File Structure
-
-[Syntax highlighting in vim](https://github.com/PotatoesMaster/i3-vim-syntax)
-
-## A Better Lock Screen
-
-## Launcher
-
-## Status Bar
-
-## Fonts
-
-## Fanciness
-
-Compton
-lxappearance
-
-# Odds And Ends
-
-## Screenshots
-
-[Here's a guide on screenshots is Fedora](https://fedoramagazine.org/take-screenshots-on-fedora/). Apparently this [also works in i3](https://erikdubois.be/two-different-ways-make-screenshot-i3/).
-
-## How To Insert Special Characters/Symbols And Emoji
-
-I use Command+Control+Space on the Mac to insert Emoji and whatnot. Fedora has a similar menu but you have to [enable it first](https//fedoramagazine.org/using-favorite-emoji-fedora-25/).
-
-For i3, [...]
-
-## Webcam, Microphone
-
-The microphone worked straight away. Making calls on Hangouts and Messenger via
-Chrome was smooth sailing.
-
-The camera, however, took some convincing. [...]
-
-
-## Working The Night Shift
-
--->
+... in another post. Stay tuned!

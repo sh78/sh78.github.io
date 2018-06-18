@@ -11,8 +11,7 @@ Allow me to illustrate:
 
 ## Global Find/Replace in Sublime Text and the like
 
-![The global find/replace drawer in sublime
-text.](/assets/images/sublime-find-replace.png)
+{% include image.html alt='The global find/replace drawer in sublime text.' src='/assets/images/sublime-find-replace.png' %}
 
 Use case: you have a massive project with tons partials/includes and so forth.
 You want to jump to a specific markup node to add a new feature/bug. So instead
@@ -23,7 +22,7 @@ occurrences are listed, and you can open one up and start working.
 Later, you change a class and need to update 17,342 css files to replace the old
 class name with the new one. So:
 
-![Replacing a class name in Sublime Text](/assets/images/sublime-find-replace-class.png)
+{% include image.html alt='Replacing a class name in Sublime Text' src='/assets/images/sublime-find-replace-class.png' %}
 
 So vim must have this built in right?
 
@@ -53,7 +52,7 @@ you have one of those [manual burr
 grinders](https://www.amazon.com/gp/product/B004QWMAII/), and you grind your
 coffee on a per-cup basis; this is going to take awhile.
 
-![vim's response after running vim grep](/assets/images/vimgrep-complete.png)
+{% include image.html alt='vim\'s response after running vim grep' src='/assets/images/vimgrep-complete.png' %}
 
 Ah, you're back. Ok, so now why didn't we get a list of results? It just showed
 off the first result, told us to press enter, and took us there. Well, you have
