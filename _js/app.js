@@ -4,7 +4,6 @@
 
   // set theme per local storage
   const theme = {
-    availableThemes: {},
     dayTheme: 'Materialized Light',
     nightTheme: 'Materialized Dark',
     get: function() {
@@ -18,23 +17,23 @@
       const themeCurrent = document.querySelector(`.theme-variant[title="${ theme.get() }"`);
       const themeNext = document.querySelector(`.theme-variant[title="${ themeName }"]`);
 
-      if (themeCurrent != themeNext) {  
+      if (themeCurrent != themeNext) {
         // unset loaded state, in case the css takes a long time
         const page = document.querySelector('html');
         page.style.opacity = 0;
+        // TODO: fix FOUC due to the order in whichh `disabled` in set/unset
+        // the opacity effect works on debugger pause, but not on a normal load
 
-        // switch the links' `rel` vals
+        // hot swap the links' `rel` and `disabled` vals
+        // `disabled being toggled is what triggers repaint in the browser
         allThemes.forEach(function(e) {
           e.setAttribute('rel', 'alternate stylesheet');
+          e.setAttribute('disabled', 'true');
+          if (e.title === themeNext.title) {
+            themeNext.setAttribute('rel', 'stylesheet');
+            themeNext.removeAttribute('disabled');
+          }
         });
-        themeNext.setAttribute('rel', 'stylesheet');
-        // build dom to reload the css
-        allThemes.forEach(function(e) {
-          console.log(e.title, e.rel);
-          // TODO: reload only non-alt stylesheet
-        });
-        
-
         console.info('Theme set to \'' + themeName + '\'');
 
         // restore loaded state
