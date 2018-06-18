@@ -74,13 +74,14 @@ code, kbd, samp {
 }
 
 main {
-	p, li {
-		code {
-			padding: 0 0.3em;
-			background-color: $primary-color;
-			@extend .z-depth-1;
-		}
-	}
+  p,
+  li {
+    code {
+      @extend .z-depth-1;
+      background-color: $primary-color;
+      padding: 0 .3em;
+    }
+  }
 }
 
 .nav-main {
