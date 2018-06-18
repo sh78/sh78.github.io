@@ -3,30 +3,33 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
-<title>Switching From macOS High Sierra to Fedora Linux | ./sean</title>
+<title>Switching From macOS High Sierra to Fedora Linux | sean henderson</title>
 <meta name="generator" content="Jekyll v3.8.3" />
 <meta property="og:title" content="Switching From macOS High Sierra to Fedora Linux" />
 <meta name="author" content="Sean Henderson" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="This is a tale of two operating systems. A tale of liberation and discov- OK, sorry. Got carried away. Reset." />
 <meta property="og:description" content="This is a tale of two operating systems. A tale of liberation and discov- OK, sorry. Got carried away. Reset." />
-<meta property="og:site_name" content="./sean" />
+<meta property="og:site_name" content="sean henderson" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2018-05-23T01:46:00-07:00" />
 <script type="application/ld+json">
 {"url":"/log/switching-from-macos-high-sierra-to-fedora-linux/","author":{"@type":"Person","name":"Sean Henderson"},"description":"This is a tale of two operating systems. A tale of liberation and discov- OK, sorry. Got carried away. Reset.","headline":"Switching From macOS High Sierra to Fedora Linux","dateModified":"2018-05-23T01:46:00-07:00","datePublished":"2018-05-23T01:46:00-07:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"/log/switching-from-macos-high-sierra-to-fedora-linux/"},"@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
-<link class="theme-variant" rel="stylesheet" href="/assets/themes/materialized-dark.css">
+<script>
+    // this is reversed in app.js. transition in inline styles
+    document.querySelector('html').style.opacity = 0;
+  </script>
+  <link class="theme-variant" rel="stylesheet" href="/assets/themes/materialized-dark.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-  <script src="/assets/js/modernizr.min.js"></script><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="./sean" /><style>
+  <script src="/assets/js/modernizr.min.js"></script><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="sean henderson" /><style>
 /* fade in on loaded */
-html.js .no-fouc {
-  opacity: 0;
+html.loaded {
+  transition: opacity .5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 
-html.loaded .no-fouc {
+html.loaded {
   opacity: 1;
-  transition: opacity .5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 
 /* loading animation */
@@ -34,7 +37,7 @@ html.loaded .no-fouc {
   display: none;
 }
 
-.loading-ring {
+.loading-ring.page {
   display: block;
   width: 100px;
   height: 100px;
@@ -51,6 +54,7 @@ html.loaded .no-fouc {
 }
 .loading-ring.blog {
   margin: 0 auto;
+  width: 54px;
 }
 
 .loading-ring div {
@@ -88,8 +92,7 @@ html.loaded .no-fouc {
 
 </style>
 </head>
-<body>
-    <div class="no-fouc"><header class="page-header" role="banner"><!-- Dropdown Structure -->
+<body><header class="page-header" role="banner"><!-- Dropdown Structure -->
   <ul id="dropdown-more" class="dropdown-content">
     <li><a class="theme-timed" href="#!"><i class="fas fa-moon"></i><span>Night</span> Mode</a></li>
     <li><a class="theme-auto" data-theme="auto" href="#!"><i class="fas fa-clock"></i>Automatic</a></li>
@@ -102,7 +105,7 @@ html.loaded .no-fouc {
       <div class="nav-wrapper container">
         <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="fas fa-bars"><span class="sr-only">menu</span></i></a>
         <div class="brand-logo center">
-          <a href="/">./sean</a><a href="/log">/log</a><a href="#">/post</a>
+          <a href="/">./sean</a><span class="hide-on-small-only"><a href="/log">/log</a><a href="#">/post</a></span>
         </div>
         <ul class="left hide-on-large-and-down" id="nav-large"><li><a class="page-link" href="/"><i class="fas fa-user"></i>About
   </a></li><li><a class="page-link" href="/log/"><i class="fas fa-pencil-alt"></i>log
@@ -121,7 +124,7 @@ html.loaded .no-fouc {
   </a></li><li><a class="page-link" href="/log/"><i class="fas fa-pencil-alt"></i>log
   </a></li></ul></header>
 <main class="page-content" aria-label="Content">
-        <article class="post h-entry container anchorize" itemscope itemtype="http://schema.org/BlogPosting">
+      <article class="post h-entry container anchorize" itemscope itemtype="http://schema.org/BlogPosting">
   <div class="post-main">
     <header class="post-header">
       <h1 class="post-title p-name" itemprop="name headline">Switching From macOS High Sierra to Fedora Linux</h1>
@@ -218,7 +221,7 @@ originally. I run my mac from the external drive and clone it to the internal as
 
 <p>Not much else to fret over here. I picked a time zone, configured the partition scheme with 100GB for the macOS image and the rest for Fedora, and clicked “Sail off into the sunset.”</p>
 
-<p><img src="https://pbs.twimg.com/media/DdxtLScVAAET6Lc.jpg" alt="The Fedora hot dog, inspiring confidence from the start." /></p>
+<p><img src="" data-src="https://pbs.twimg.com/media/DdxtLScVAAET6Lc.jpg" alt="The Fedora hot dog, inspiring confidence from the start." /></p>
 
 <h1 id="first-run">First Run</h1>
 
@@ -248,7 +251,7 @@ originally. I run my mac from the external drive and clone it to the internal as
 <span class="nb">sudo </span>dnf system-upgrade reboot
 </code></pre></div></div>
 
-<p><img src="https://media.giphy.com/media/10lBhcF4eTJZWU/giphy.gif" alt="An IT person with title &quot;have you tried forcing an unexpected reboot?&quot;" /></p>
+<p>&lt;img src=”” data-src=”https://media.giphy.com/media/10lBhcF4eTJZWU/giphy.gif” alt=”An IT person with title “have you tried forcing an unexpected reboot?””&gt;</p>
 
 <p>Ah, you’re back. Now let’s do the equivalent of <code class="highlighter-rouge">xcode-select --install</code> on macOS:</p>
 
@@ -298,7 +301,7 @@ originally. I run my mac from the external drive and clone it to the internal as
 
 <p><a href="https://github.com/1995eaton/chromium-vim/issues/312#issuecomment-156189327">Getting the local .cvimrc loaded was a bit on tricky on macOS</a>, I recall. Also be sure to “allow access to file URLs” from the chrome://extensions/settings:</p>
 
-<p><img src="https://i.imgur.com/jnH8YmH.png" alt="cvim settings" /></p>
+<p><img src="" data-src="https://i.imgur.com/jnH8YmH.png" alt="cvim settings" /></p>
 
 <h3 id="alternative">Alternative</h3>
 
@@ -394,7 +397,7 @@ end
 
 <h3 id="insync">InSync</h3>
 
-<p><img src="https://media.giphy.com/media/e9i8NXW1GSqAg/giphy.gif" alt="The boy band sensation 'NSync" /></p>
+<p><img src="" data-src="https://media.giphy.com/media/e9i8NXW1GSqAg/giphy.gif" alt="The boy band sensation NSync" /></p>
 
 <p><a href="https://www.insynchq.com/">InSync</a> looks promising, but at $30 does not conform to the Tao of Linux. 🤮</p>
 
@@ -445,7 +448,7 @@ xdg-open <span class="o">[</span>https://www.insynchq.com/downloads]<span class=
 
 <p>Well, it turns out that just running <code class="highlighter-rouge">insync show</code> brings the window back. From there I was able to check the boxes for folders to sync and actually start the process.</p>
 
-<p><img src="https://i.imgur.com/f9XGm2x.png" alt="the InSync application's main window" /></p>
+<p><img src="" data-src="https://i.imgur.com/f9XGm2x.png" alt="the InSync application's main window" /></p>
 
 <p>While these issues are really annoying for a $30 Linux app, the bottom line is it works for my needs and blows away the competition.</p>
 
@@ -471,7 +474,7 @@ and zsh (and likely sh, too).</p>
 <span class="c"># mackup confirms a lot, so yes just auto-answers mackup's questions</span>
 </code></pre></div></div>
 
-<p><img src="https://i.imgur.com/vx9VLYd.png" alt="`~` sweet `~`" /></p>
+<p><img src="" data-src="https://i.imgur.com/vx9VLYd.png" alt="\`~\` sweet \`~\`" /></p>
 
 <h2 id="vim">Vim</h2>
 
@@ -490,7 +493,7 @@ dnf <span class="nt">-y</span> <span class="nb">install </span>python2-neovim py
 
 <p>There was surprisingly little to debug here. On launch my auto-magical Vundle script installed all my plugins, and there were no warnings/incompatibilities with other stuff in my <a href="https://github.com/sh78/dotfiles/blob/aabba49702344b4cc2468763b5cd16df75c65529/.vimrc#L1">vimrc</a>. The main issue was a whacked out color scheme (from using Solarized palette in iTerm) and weird characters in the <a href="">airline</a> status line.</p>
 
-<p><img src="https://i.imgur.com/cAYDEuA.png" alt="My accidental rave style color scheme in vim" /></p>
+<p><img src="" data-src="https://i.imgur.com/cAYDEuA.png" alt="My accidental rave style color scheme in vim" /></p>
 
 <p>Now let’s pick a new terminal, and figure out about installing fonts to tidy up that status line.</p>
 
@@ -517,9 +520,9 @@ xdg-open hyper-2.0.0.x86_64.rpm
 <span class="nb">sudo </span>dnf <span class="nt">-y</span> <span class="nb">install </span>cool-retro-term
 </code></pre></div></div>
 
-<p><img src="https://i.imgur.com/rSQA4gc.jpg" alt="cool retro terminal running on my MacBook" /></p>
+<p><img src="" data-src="https://i.imgur.com/rSQA4gc.jpg" alt="cool retro terminal running on my MacBook" /></p>
 
-<p><img src="https://i.imgur.com/uFn4rGf.jpg" alt="cool retro terminal with text &quot;hellow der&quot;" /></p>
+<p><img src="" data-src="https://i.imgur.com/uFn4rGf.jpg" alt="cool retro terminal with text hellow der" /></p>
 
 <h2 id="setting-custom-fonts">Setting Custom Fonts</h2>
 
@@ -646,7 +649,7 @@ VirtualBox
 
 <p>Pics or it didn’t happen O.o</p>
 
-<p><img src="https://i.imgur.com/LqeuS1Y.png" alt="VirtualBox running in Fedora" /></p>
+<p><img src="" data-src="https://i.imgur.com/LqeuS1Y.png" alt="VirtualBox running in Fedora" /></p>
 
 <p>There’s also <a href="https://www.if-not-true-then-false.com/2010/install-virtualbox-guest-additions-on-fedora-centos-red-hat-rhel/">another wonderful guide from ifnottruethenfalse</a> on how to get Guest Additions set up.</p>
 
@@ -708,63 +711,10 @@ Besides anything mentioned in the other sections, here are some growing pains I 
 
 <h2 id="automation-is-king">Automation Is King</h2>
 
-<p>On macOS, there is <code class="highlighter-rouge">defaults write</code>, and <code class="highlighter-rouge">defaults export</code>/<code class="highlighter-rouge">import</code>. So this is Linux, can we automate Fedora’s preferences in such a fashion?</p>
+<p>On macOS, there is <code class="highlighter-rouge">defaults write</code>, and <code class="highlighter-rouge">defaults export</code>/<code class="highlighter-rouge">import</code>. So this is Linux, can we automate Fedora’s preferences in such a fashion?
+Well, not going to bother, because here comes <a href="https://i3wm.org/">i3wm</a>…</p>
 
-<p>Well, not going to bother, because here comes <a href="https://i3wm.org/">i3wm</a>.</p>
-
-<h1 id="to-be-continued">To Be Continued</h1>
-<!--
-# i3wm: A Tiling Window Manager
-
-
-## To Gap Or Not To Gap
-
-[i3-gaps](https://github.com/Airblader/i3)
-
-## The Key Shortcuts
-
-## Fixing Display Resolution For Retina Screens
-
-## Config File Structure
-
-[Syntax highlighting in vim](https://github.com/PotatoesMaster/i3-vim-syntax)
-
-## A Better Lock Screen
-
-## Launcher
-
-## Status Bar
-
-## Fonts
-
-## Fanciness
-
-Compton
-lxappearance
-
-# Odds And Ends
-
-## Screenshots
-
-[Here's a guide on screenshots is Fedora](https://fedoramagazine.org/take-screenshots-on-fedora/). Apparently this [also works in i3](https://erikdubois.be/two-different-ways-make-screenshot-i3/).
-
-## How To Insert Special Characters/Symbols And Emoji
-
-I use Command+Control+Space on the Mac to insert Emoji and whatnot. Fedora has a similar menu but you have to [enable it first](https//fedoramagazine.org/using-favorite-emoji-fedora-25/).
-
-For i3, [...]
-
-## Webcam, Microphone
-
-The microphone worked straight away. Making calls on Hangouts and Messenger via
-Chrome was smooth sailing.
-
-The camera, however, took some convincing. [...]
-
-
-## Working The Night Shift
-
--->
+<p>… in another post. Stay tuned!</p>
 
       </div>
     </div>
@@ -792,19 +742,21 @@ The camera, however, took some convincing. [...]
 </aside>
 <aside class="comments"></aside>
 
-      </main><footer class="page-footer">
+    </main><footer class="page-footer">
   <data class="u-url" href="/"></data>
 
   <div class="container">
     <div class="row">
-      <div class="col m6 s12"><div class="avatar" data-cycle="sean">
-          <p>
-            <a href="/assets/images/sean.jpg" title="view image">
-              <img data-src="/assets/images/sean.jpg" alt="photo of Sean Henderson">
-            </a>
-            Sean Henderson<br>
-          </p>
-        </div></div>
+      <div class="col m6 s12">
+        <div class="avatar" data-cycle="sean">
+  <p>
+    <a href="/assets/images/sean.jpg" title="view image">
+      <img data-src="/assets/images/sean.jpg" alt="photo of Sean Henderson">
+    </a>
+    Sean Henderson<br>
+  </p>
+</div>
+      </div>
       <div class="col m5 offset-m1 s12"><ul class="social-media-list"><li>
       <a href="mailto:mail@sean.sh">
         <i class="fas fa-envelope fa-fw"><span class="sr-only">Email</span></i>
@@ -859,7 +811,7 @@ The camera, however, took some convincing. [...]
   </div>
 
 </footer>
-</div><div class="loading-ring page">
+<div class="loading-ring page">
   <div></div>
   <div></div>
   <div></div>

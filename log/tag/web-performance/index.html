@@ -3,28 +3,31 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
-<title>./sean | Sean’s web fun place. Come on inside, hang your hat friend.</title>
+<title>sean henderson | Sean’s website/weblog/web development happy place. Come on inside, hang your hat friend.</title>
 <meta name="generator" content="Jekyll v3.8.3" />
-<meta property="og:title" content="./sean" />
+<meta property="og:title" content="sean henderson" />
 <meta name="author" content="Sean Henderson" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Sean’s web fun place. Come on inside, hang your hat friend." />
-<meta property="og:description" content="Sean’s web fun place. Come on inside, hang your hat friend." />
-<meta property="og:site_name" content="./sean" />
+<meta name="description" content="Sean’s website/weblog/web development happy place. Come on inside, hang your hat friend." />
+<meta property="og:description" content="Sean’s website/weblog/web development happy place. Come on inside, hang your hat friend." />
+<meta property="og:site_name" content="sean henderson" />
 <script type="application/ld+json">
-{"url":"/log/tag/web-performance/","author":{"@type":"Person","name":"Sean Henderson"},"description":"Sean’s web fun place. Come on inside, hang your hat friend.","headline":"./sean","@type":"WebPage","@context":"http://schema.org"}</script>
+{"url":"/log/tag/web-performance/","author":{"@type":"Person","name":"Sean Henderson"},"description":"Sean’s website/weblog/web development happy place. Come on inside, hang your hat friend.","headline":"sean henderson","@type":"WebPage","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
-<link class="theme-variant" rel="stylesheet" href="/assets/themes/materialized-dark.css">
+<script>
+    // this is reversed in app.js. transition in inline styles
+    document.querySelector('html').style.opacity = 0;
+  </script>
+  <link class="theme-variant" rel="stylesheet" href="/assets/themes/materialized-dark.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-  <script src="/assets/js/modernizr.min.js"></script><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="./sean" /><style>
+  <script src="/assets/js/modernizr.min.js"></script><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="sean henderson" /><style>
 /* fade in on loaded */
-html.js .no-fouc {
-  opacity: 0;
+html.loaded {
+  transition: opacity .5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 
-html.loaded .no-fouc {
+html.loaded {
   opacity: 1;
-  transition: opacity .5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 
 /* loading animation */
@@ -32,7 +35,7 @@ html.loaded .no-fouc {
   display: none;
 }
 
-.loading-ring {
+.loading-ring.page {
   display: block;
   width: 100px;
   height: 100px;
@@ -49,6 +52,7 @@ html.loaded .no-fouc {
 }
 .loading-ring.blog {
   margin: 0 auto;
+  width: 54px;
 }
 
 .loading-ring div {
@@ -86,8 +90,7 @@ html.loaded .no-fouc {
 
 </style>
 </head>
-<body>
-    <div class="no-fouc"><header class="page-header" role="banner"><!-- Dropdown Structure -->
+<body><header class="page-header" role="banner"><!-- Dropdown Structure -->
   <ul id="dropdown-more" class="dropdown-content">
     <li><a class="theme-timed" href="#!"><i class="fas fa-moon"></i><span>Night</span> Mode</a></li>
     <li><a class="theme-auto" data-theme="auto" href="#!"><i class="fas fa-clock"></i>Automatic</a></li>
@@ -100,7 +103,7 @@ html.loaded .no-fouc {
       <div class="nav-wrapper container">
         <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="fas fa-bars"><span class="sr-only">menu</span></i></a>
         <div class="brand-logo center">
-          <a href="/">./sean</a><a href="/log">/log</a>
+          <a href="/">./sean</a><span class="hide-on-small-only"><a href="/log">/log</a></span>
         </div>
         <ul class="left hide-on-large-and-down" id="nav-large"><li><a class="page-link" href="/"><i class="fas fa-user"></i>About
   </a></li><li><a class="page-link" href="/log/"><i class="fas fa-pencil-alt"></i>log
@@ -119,7 +122,7 @@ html.loaded .no-fouc {
   </a></li><li><a class="page-link" href="/log/"><i class="fas fa-pencil-alt"></i>log
   </a></li></ul></header>
 <main class="page-content" aria-label="Content">
-        <div class="blog container">
+      <div class="blog container">
 
   
   
@@ -148,19 +151,21 @@ html.loaded .no-fouc {
 
 </div>
 
-      </main><footer class="page-footer">
+    </main><footer class="page-footer">
   <data class="u-url" href="/"></data>
 
   <div class="container">
     <div class="row">
-      <div class="col m6 s12"><div class="avatar" data-cycle="sean">
-          <p>
-            <a href="/assets/images/sean.jpg" title="view image">
-              <img data-src="/assets/images/sean.jpg" alt="photo of Sean Henderson">
-            </a>
-            Sean Henderson<br>
-          </p>
-        </div></div>
+      <div class="col m6 s12">
+        <div class="avatar" data-cycle="sean">
+  <p>
+    <a href="/assets/images/sean.jpg" title="view image">
+      <img data-src="/assets/images/sean.jpg" alt="photo of Sean Henderson">
+    </a>
+    Sean Henderson<br>
+  </p>
+</div>
+      </div>
       <div class="col m5 offset-m1 s12"><ul class="social-media-list"><li>
       <a href="mailto:mail@sean.sh">
         <i class="fas fa-envelope fa-fw"><span class="sr-only">Email</span></i>
@@ -215,7 +220,7 @@ html.loaded .no-fouc {
   </div>
 
 </footer>
-</div><div class="loading-ring page">
+<div class="loading-ring page">
   <div></div>
   <div></div>
   <div></div>

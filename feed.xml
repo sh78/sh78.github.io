@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2018-06-17T18:21:39-07:00</updated><id>/</id><title type="html">./sean</title><subtitle>Sean's web fun place. Come on inside, hang your hat friend.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2018-06-18T15:02:04-07:00</updated><id>/</id><title type="html">sean henderson</title><subtitle>Sean's website/weblog/web development happy place. Come on inside, hang your hat friend.
 </subtitle><author><name>Sean Henderson</name></author><entry><title type="html">When An Alias Should Actually Be An Abbr</title><link href="/log/when-an-alias-should-actually-be-an-abbr/" rel="alternate" type="text/html" title="When An Alias Should Actually Be An Abbr" /><published>2018-06-17T07:15:00-07:00</published><updated>2018-06-17T07:15:00-07:00</updated><id>/log/when-an-alias-should-actually-be-an-abbr</id><content type="html" xml:base="/log/when-an-alias-should-actually-be-an-abbr/">&lt;p&gt;The short answer is: &lt;strong&gt;always&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p&gt;I really appreciate how &lt;code class=&quot;highlighter-rouge&quot;&gt;tmuxinator&lt;/code&gt; handles completion and aliasing from a fish
@@ -225,13 +225,11 @@ T5 external SSD that I got recently, and decided to &lt;a href=&quot;https://bom
 Clone&lt;/a&gt; my main system’s macOS image into as part of my
 regularly scheduled backups. Pics or it didn’t happen, you say?&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/hesap-about.jpg&quot; alt=&quot;The &amp;quot;About this Mac&amp;quot; window on my 2010 MacBook
-Pro&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;&quot; data-src=&quot;/assets/images/hesap-about.jpg&quot; alt=&quot;The About this Mac window on my 2010 MacBook Pro&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;An aside to the meticulous folks at Bombich&lt;/em&gt;: Nice touch on making Carbon Copy Cloner aware of its own inception!&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/hesap-ccc-is-nice.png&quot; alt=&quot;Carbon Copy Cloner alerting the user that it paused the automated task that
-created it.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;&quot; data-src=&quot;/assets/images/hesap-ccc-is-nice.png&quot; alt=&quot;Carbon Copy Cloner alerting the user that it paused the automated task that created it.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;I like to name my computers. Like &lt;code class=&quot;highlighter-rouge&quot;&gt;hostname NAME&lt;/code&gt; name them. I named this
 computer hesap back in 2012, which is Turkish for “calculation” or “bill/check”.
@@ -245,17 +243,17 @@ plane ticket.&lt;/p&gt;
 a few years and it works. Great!” I can hear you sarcastically projecting. Here
 are some highlights from the checkered biography of this “laptop”, as you call
 it.&lt;/p&gt;
-
 &lt;h2 id=&quot;a-brief-history-of-hesap&quot;&gt;A Brief History of Hesap&lt;/h2&gt;
 
 &lt;ol&gt;
   &lt;li&gt;&lt;strong&gt;&lt;time datetime=&quot;2010&quot;&gt;2010&lt;/time&gt;&lt;/strong&gt; Purchased in the spring. It had a
 faulty M key that Apple fought me on replacing (and lost). Pristine condition
 at this point. I kept it in a case and everything.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;&lt;time datetime=&quot;2012-07-14&quot;&gt;July, 2012&lt;/time&gt;&lt;/strong&gt; Hesap is purring right
-along as my daily driver (note the aforementioned case).  &lt;img src=&quot;/assets/images/hesap-guinness-espresso.jpg&quot; alt=&quot;Hesap at a cafe,
-next to a Guinness and an espresso, with CSS open on screen in Sublime
-Text.&quot; /&gt;&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;&lt;time datetime=&quot;2012-07-14&quot;&gt;July, 2012&lt;/time&gt;&lt;/strong&gt; Hesap is purring right
+along as my daily driver (note the aforementioned case).
+&lt;img src=&quot;&quot; data-src=&quot;/assets/images/hesap-guinness-espresso.jpg&quot; alt=&quot;Hesap at a cafe, next to a Guinness and an espresso, with CSS open on screen in Sublime Text.&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;&lt;time datetime=&quot;2013-01&quot;&gt;January, 2013&lt;/time&gt;&lt;/strong&gt; For reasons that are
 outside of the scope of this post, hesap was &lt;strong&gt;slammed into a wall at least 4
 or 5 times&lt;/strong&gt; (while open and running) and literally &lt;strong&gt;ripped in half&lt;/strong&gt; with
@@ -272,13 +270,15 @@ alive. I plugged it into an external monitor, and it ran without hindrance.&lt;/
 the local PC repair shop to see what they thought.  Approximately $350 and
 several weeks later, I had a built-in screen again (albeit without the little
 plastic cover that hides the hinge).&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;&lt;time datetime=&quot;2013-04-17&quot;&gt;April, 2013&lt;/time&gt;&lt;/strong&gt; Here’s hesap helping to
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;&lt;time datetime=&quot;2013-04-17&quot;&gt;April, 2013&lt;/time&gt;&lt;/strong&gt; Here’s hesap helping to
 write a site survey and advance for a (fictional) week-long visit by a meat
 industry executive with some unknown enemies (sideways!). No issues 2 and a
 half years in with a shiny new display.&lt;br /&gt;
-&lt;img src=&quot;/assets/images/hesap-bodyguard-school.jpg&quot; alt=&quot;Hesap on a table with scattered papers and a radio, with markdown on the
-screen.&quot; /&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;&lt;time datetime=&quot;2014&quot;&gt;2014&lt;/time&gt;&lt;/strong&gt; Throughout most of 2014, I was the
+&lt;img src=&quot;&quot; data-src=&quot;/assets/images/hesap-bodyguard-school.jpg&quot; alt=&quot;Hesap on a table with scattered papers and a radio, with markdown on the screen.&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;&lt;time datetime=&quot;2014&quot;&gt;2014&lt;/time&gt;&lt;/strong&gt; Throughout most of 2014, I was the
 director of computation for a startup that did video production in Kathmandu,
 Nepal. We had a Mac Mini as our office server, running VPN, AFP, Bit Torrent
 Sync and Dropbox, and network login facilities for a team of 5 editors. 100’s
@@ -287,9 +287,9 @@ with immense load shedding and slow internet, we had to have backups for the
 backups. Hesap acted as a fill-in server when the Mac Mini had a problem or
 when the power was out for so long that the APC died. Even when it wasn’t
 serving, I was working about 27 hours per day at that time, so it &lt;strong&gt;basically
-was not powered down for a little over a year&lt;/strong&gt;.  &lt;img src=&quot;/assets/images/hesap-goes-to-kathmandu.jpg&quot; alt=&quot;Hesap (left) at the
-office next to it's minions (other
-MacBooks).&quot; /&gt;&lt;/li&gt;
+was not powered down for a little over a year&lt;/strong&gt;.&lt;br /&gt;
+&lt;img src=&quot;&quot; data-src=&quot;/assets/images/hesap-goes-to-kathmandu.jpg&quot; alt=&quot;Hesap (left) at the office next to it's minions (other MacBooks).&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;&lt;time datetime=&quot;2014&quot;&gt;Summer, 2014&lt;/time&gt;&lt;/strong&gt; - First water damage I remember
 it like it was yesterday. I was at a cafe near Kupondole in Lalitpur taking a
 break from the office to write an enormous bash script to automate
@@ -377,7 +377,7 @@ actually see pixels.&lt;/li&gt;
   &lt;li&gt;USB 3 makes everything else feel tortoise-esque.&lt;/li&gt;
   &lt;li&gt;It’s not much of a &lt;em&gt;lap&lt;/em&gt;top now, because if you’re wearing shorts it will
 electrocute you. But no biggie, I placed a warning label on the bonnet:
-&lt;img src=&quot;/assets/images/hesap-yuksek-gerilim.jpg&quot; alt=&quot;hesap with a sticker saying &amp;quot;yüksek gerilim&amp;quot;, Turkish for &amp;quot;high voltage&amp;quot;.&quot; /&gt;&lt;/li&gt;
+&lt;img src=&quot;&quot; data-src=&quot;/assets/images/hesap-yuksek-gerilim.jpg&quot; alt=&quot;hesap with a sticker saying yüksek gerilim, Turkish for high voltage.&quot; /&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2&gt;🍻&lt;/h2&gt;
@@ -392,8 +392,7 @@ thing, and only one thing, I’ve missed from other editors (namely &lt;a href=&
 
 &lt;h2 id=&quot;global-findreplace-in-sublime-text-and-the-like&quot;&gt;Global Find/Replace in Sublime Text and the like&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/sublime-find-replace.png&quot; alt=&quot;The global find/replace drawer in sublime
-text.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;&quot; data-src=&quot;/assets/images/sublime-find-replace.png&quot; alt=&quot;The global find/replace drawer in sublime text.&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Use case: you have a massive project with tons partials/includes and so forth.
 You want to jump to a specific markup node to add a new feature/bug. So instead
@@ -404,7 +403,7 @@ occurrences are listed, and you can open one up and start working.&lt;/p&gt;
 &lt;p&gt;Later, you change a class and need to update 17,342 css files to replace the old
 class name with the new one. So:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/sublime-find-replace-class.png&quot; alt=&quot;Replacing a class name in Sublime Text&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;&quot; data-src=&quot;/assets/images/sublime-find-replace-class.png&quot; alt=&quot;Replacing a class name in Sublime Text&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;So vim must have this built in right?&lt;/p&gt;
 
@@ -432,7 +431,7 @@ you have one of those &lt;a href=&quot;https://www.amazon.com/gp/product/B004QWM
 grinders&lt;/a&gt;, and you grind your
 coffee on a per-cup basis; this is going to take awhile.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/vimgrep-complete.png&quot; alt=&quot;vim's response after running vim grep&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;&quot; data-src=&quot;/assets/images/vimgrep-complete.png&quot; alt=&quot;vim's response after running vim grep&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Ah, you’re back. Ok, so now why didn’t we get a list of results? It just showed
 off the first result, told us to press enter, and took us there. Well, you have
@@ -664,7 +663,7 @@ originally. I run my mac from the external drive and clone it to the internal as
 
 &lt;p&gt;Not much else to fret over here. I picked a time zone, configured the partition scheme with 100GB for the macOS image and the rest for Fedora, and clicked “Sail off into the sunset.”&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://pbs.twimg.com/media/DdxtLScVAAET6Lc.jpg&quot; alt=&quot;The Fedora hot dog, inspiring confidence from the start.&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;&quot; data-src=&quot;https://pbs.twimg.com/media/DdxtLScVAAET6Lc.jpg&quot; alt=&quot;The Fedora hot dog, inspiring confidence from the start.&quot; /&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;first-run&quot;&gt;First Run&lt;/h1&gt;
 
@@ -694,7 +693,7 @@ originally. I run my mac from the external drive and clone it to the internal as
 &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;dnf system-upgrade reboot
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://media.giphy.com/media/10lBhcF4eTJZWU/giphy.gif&quot; alt=&quot;An IT person with title &amp;quot;have you tried forcing an unexpected reboot?&amp;quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&amp;lt;img src=”” data-src=”https://media.giphy.com/media/10lBhcF4eTJZWU/giphy.gif” alt=”An IT person with title “have you tried forcing an unexpected reboot?””&amp;gt;&lt;/p&gt;
 
 &lt;p&gt;Ah, you’re back. Now let’s do the equivalent of &lt;code class=&quot;highlighter-rouge&quot;&gt;xcode-select --install&lt;/code&gt; on macOS:&lt;/p&gt;
 
@@ -744,7 +743,7 @@ originally. I run my mac from the external drive and clone it to the internal as
 
 &lt;p&gt;&lt;a href=&quot;https://github.com/1995eaton/chromium-vim/issues/312#issuecomment-156189327&quot;&gt;Getting the local .cvimrc loaded was a bit on tricky on macOS&lt;/a&gt;, I recall. Also be sure to “allow access to file URLs” from the chrome://extensions/settings:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/jnH8YmH.png&quot; alt=&quot;cvim settings&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;&quot; data-src=&quot;https://i.imgur.com/jnH8YmH.png&quot; alt=&quot;cvim settings&quot; /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;alternative&quot;&gt;Alternative&lt;/h3&gt;
 
@@ -840,7 +839,7 @@ end
 
 &lt;h3 id=&quot;insync&quot;&gt;InSync&lt;/h3&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://media.giphy.com/media/e9i8NXW1GSqAg/giphy.gif&quot; alt=&quot;The boy band sensation 'NSync&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;&quot; data-src=&quot;https://media.giphy.com/media/e9i8NXW1GSqAg/giphy.gif&quot; alt=&quot;The boy band sensation NSync&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://www.insynchq.com/&quot;&gt;InSync&lt;/a&gt; looks promising, but at $30 does not conform to the Tao of Linux. 🤮&lt;/p&gt;
 
@@ -891,7 +890,7 @@ xdg-open &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;https://www.insynchq.com/
 
 &lt;p&gt;Well, it turns out that just running &lt;code class=&quot;highlighter-rouge&quot;&gt;insync show&lt;/code&gt; brings the window back. From there I was able to check the boxes for folders to sync and actually start the process.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/f9XGm2x.png&quot; alt=&quot;the InSync application's main window&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;&quot; data-src=&quot;https://i.imgur.com/f9XGm2x.png&quot; alt=&quot;the InSync application's main window&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;While these issues are really annoying for a $30 Linux app, the bottom line is it works for my needs and blows away the competition.&lt;/p&gt;
 
@@ -917,7 +916,7 @@ and zsh (and likely sh, too).&lt;/p&gt;
 &lt;span class=&quot;c&quot;&gt;# mackup confirms a lot, so yes just auto-answers mackup's questions&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/vx9VLYd.png&quot; alt=&quot;`~` sweet `~`&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;&quot; data-src=&quot;https://i.imgur.com/vx9VLYd.png&quot; alt=&quot;\`~\` sweet \`~\`&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;vim&quot;&gt;Vim&lt;/h2&gt;
 
@@ -936,7 +935,7 @@ dnf &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quo
 
 &lt;p&gt;There was surprisingly little to debug here. On launch my auto-magical Vundle script installed all my plugins, and there were no warnings/incompatibilities with other stuff in my &lt;a href=&quot;https://github.com/sh78/dotfiles/blob/aabba49702344b4cc2468763b5cd16df75c65529/.vimrc#L1&quot;&gt;vimrc&lt;/a&gt;. The main issue was a whacked out color scheme (from using Solarized palette in iTerm) and weird characters in the &lt;a href=&quot;&quot;&gt;airline&lt;/a&gt; status line.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/cAYDEuA.png&quot; alt=&quot;My accidental rave style color scheme in vim&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;&quot; data-src=&quot;https://i.imgur.com/cAYDEuA.png&quot; alt=&quot;My accidental rave style color scheme in vim&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Now let’s pick a new terminal, and figure out about installing fonts to tidy up that status line.&lt;/p&gt;
 
@@ -963,9 +962,9 @@ xdg-open hyper-2.0.0.x86_64.rpm
 &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;dnf &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;cool-retro-term
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/rSQA4gc.jpg&quot; alt=&quot;cool retro terminal running on my MacBook&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;&quot; data-src=&quot;https://i.imgur.com/rSQA4gc.jpg&quot; alt=&quot;cool retro terminal running on my MacBook&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/uFn4rGf.jpg&quot; alt=&quot;cool retro terminal with text &amp;quot;hellow der&amp;quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;&quot; data-src=&quot;https://i.imgur.com/uFn4rGf.jpg&quot; alt=&quot;cool retro terminal with text hellow der&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;setting-custom-fonts&quot;&gt;Setting Custom Fonts&lt;/h2&gt;
 
@@ -1092,7 +1091,7 @@ VirtualBox
 
 &lt;p&gt;Pics or it didn’t happen O.o&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/LqeuS1Y.png&quot; alt=&quot;VirtualBox running in Fedora&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;&quot; data-src=&quot;https://i.imgur.com/LqeuS1Y.png&quot; alt=&quot;VirtualBox running in Fedora&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;There’s also &lt;a href=&quot;https://www.if-not-true-then-false.com/2010/install-virtualbox-guest-additions-on-fedora-centos-red-hat-rhel/&quot;&gt;another wonderful guide from ifnottruethenfalse&lt;/a&gt; on how to get Guest Additions set up.&lt;/p&gt;
 
@@ -1154,63 +1153,10 @@ Besides anything mentioned in the other sections, here are some growing pains I 
 
 &lt;h2 id=&quot;automation-is-king&quot;&gt;Automation Is King&lt;/h2&gt;
 
-&lt;p&gt;On macOS, there is &lt;code class=&quot;highlighter-rouge&quot;&gt;defaults write&lt;/code&gt;, and &lt;code class=&quot;highlighter-rouge&quot;&gt;defaults export&lt;/code&gt;/&lt;code class=&quot;highlighter-rouge&quot;&gt;import&lt;/code&gt;. So this is Linux, can we automate Fedora’s preferences in such a fashion?&lt;/p&gt;
+&lt;p&gt;On macOS, there is &lt;code class=&quot;highlighter-rouge&quot;&gt;defaults write&lt;/code&gt;, and &lt;code class=&quot;highlighter-rouge&quot;&gt;defaults export&lt;/code&gt;/&lt;code class=&quot;highlighter-rouge&quot;&gt;import&lt;/code&gt;. So this is Linux, can we automate Fedora’s preferences in such a fashion?
+Well, not going to bother, because here comes &lt;a href=&quot;https://i3wm.org/&quot;&gt;i3wm&lt;/a&gt;…&lt;/p&gt;
 
-&lt;p&gt;Well, not going to bother, because here comes &lt;a href=&quot;https://i3wm.org/&quot;&gt;i3wm&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h1 id=&quot;to-be-continued&quot;&gt;To Be Continued&lt;/h1&gt;
-&lt;!--
-# i3wm: A Tiling Window Manager
-
-
-## To Gap Or Not To Gap
-
-[i3-gaps](https://github.com/Airblader/i3)
-
-## The Key Shortcuts
-
-## Fixing Display Resolution For Retina Screens
-
-## Config File Structure
-
-[Syntax highlighting in vim](https://github.com/PotatoesMaster/i3-vim-syntax)
-
-## A Better Lock Screen
-
-## Launcher
-
-## Status Bar
-
-## Fonts
-
-## Fanciness
-
-Compton
-lxappearance
-
-# Odds And Ends
-
-## Screenshots
-
-[Here's a guide on screenshots is Fedora](https://fedoramagazine.org/take-screenshots-on-fedora/). Apparently this [also works in i3](https://erikdubois.be/two-different-ways-make-screenshot-i3/).
-
-## How To Insert Special Characters/Symbols And Emoji
-
-I use Command+Control+Space on the Mac to insert Emoji and whatnot. Fedora has a similar menu but you have to [enable it first](https//fedoramagazine.org/using-favorite-emoji-fedora-25/).
-
-For i3, [...]
-
-## Webcam, Microphone
-
-The microphone worked straight away. Making calls on Hangouts and Messenger via
-Chrome was smooth sailing.
-
-The camera, however, took some convincing. [...]
-
-
-## Working The Night Shift
-
---&gt;</content><author><name>Sean Henderson</name></author><category term="Linux" /><category term="macOS" /><category term="Fedora" /><category term="hardware" /><category term="shell" /><category term="vim" /><category term="dotfiles" /><summary type="html">This is a tale of two operating systems. A tale of liberation and discov- OK, sorry. Got carried away. Reset.</summary></entry><entry><title type="html">The Free Mega-Weight Dropbox Alternative</title><link href="/log/the-free-mega-weight-dropbox-alternative/" rel="alternate" type="text/html" title="The Free Mega-Weight Dropbox Alternative" /><published>2014-07-11T07:26:00-07:00</published><updated>2014-07-11T07:26:00-07:00</updated><id>/log/the-free-mega-weight-dropbox-alternative</id><content type="html" xml:base="/log/the-free-mega-weight-dropbox-alternative/">&lt;p&gt;&lt;strong&gt;UPDATE 2018-06-14&lt;/strong&gt;: This is quite out dated. I ended up having a lot of
+&lt;p&gt;… in another post. Stay tuned!&lt;/p&gt;</content><author><name>Sean Henderson</name></author><category term="Linux" /><category term="macOS" /><category term="Fedora" /><category term="hardware" /><category term="shell" /><category term="vim" /><category term="dotfiles" /><summary type="html">This is a tale of two operating systems. A tale of liberation and discov- OK, sorry. Got carried away. Reset.</summary></entry><entry><title type="html">The Free Mega-Weight Dropbox Alternative</title><link href="/log/the-free-mega-weight-dropbox-alternative/" rel="alternate" type="text/html" title="The Free Mega-Weight Dropbox Alternative" /><published>2014-07-11T07:26:00-07:00</published><updated>2014-07-11T07:26:00-07:00</updated><id>/log/the-free-mega-weight-dropbox-alternative</id><content type="html" xml:base="/log/the-free-mega-weight-dropbox-alternative/">&lt;p&gt;&lt;strong&gt;UPDATE 2018-06-14&lt;/strong&gt;: This is quite out dated. I ended up having a lot of
 trouble with Mega, and have long since moved on to better things, among the
 likes of Dropbox and Google Drive. Perhaps a new post regarding the state of Cloud Storage is in order.&lt;/p&gt;
 
@@ -1409,7 +1355,7 @@ rsync &lt;span class=&quot;nt&quot;&gt;-az&lt;/span&gt; &lt;span class=&quot;nt&
 
 &lt;p&gt;Here we keep the original global transition, but add the &lt;code class=&quot;highlighter-rouge&quot;&gt;:hover&lt;/code&gt; pseudo class as an adjacent group selector. Now hover effects of all elements receive matching transition animation. On first glance it may look like you painstakingly matched up dozens of lines of CSS animation to get all the timing and effects to match up. Probably even on second glance. Woot.&lt;/p&gt;</content><author><name>Sean Henderson</name></author><category term="sass" /><category term="design" /><category term="css" /><summary type="html">Here’s a magnificently eloquent compass mixin that will work CSS3 transition magic on all elements in one fell swoop:</summary></entry><entry><title type="html">iPhone 5 Home Screen</title><link href="/log/iphone-5-home-screen/" rel="alternate" type="text/html" title="iPhone 5 Home Screen" /><published>2013-06-06T18:13:00-07:00</published><updated>2013-06-06T18:13:00-07:00</updated><id>/log/iphone-5-home-screen</id><content type="html" xml:base="/log/iphone-5-home-screen/">&lt;p&gt;Picked up the 5 recently. Here’s what I did with the extra row of apps:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/2013-06-07-01.11.32.png&quot; alt=&quot;iphone-screenshot&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;&quot; data-src=&quot;/assets/images/2013-06-07-01.11.32.png&quot; alt=&quot;an iphone's home screen full of apps&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;The re-arrange game is great entertainment when you have 1 bar and a weak public wifi signal.&lt;/p&gt;</content><author><name>Sean Henderson</name></author><category term="iOS" /><category term="mobile" /><category term="home screens" /><summary type="html">Picked up the 5 recently. Here’s what I did with the extra row of apps:</summary></entry><entry><title type="html">The Desktop Text Editor You’ve Been Missing</title><link href="/log/paper-the-desktop-text-edit-you've-been-missing/" rel="alternate" type="text/html" title="The Desktop Text Editor You've Been Missing" /><published>2013-05-22T15:44:09-07:00</published><updated>2013-05-22T15:44:09-07:00</updated><id>/log/paper---the-desktop-text-edit-you've-been-missing</id><content type="html" xml:base="/log/paper-the-desktop-text-edit-you've-been-missing/">&lt;p&gt;Paper.&lt;/p&gt;
 

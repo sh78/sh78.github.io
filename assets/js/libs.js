@@ -22700,6 +22700,896 @@ $jscomp.polyfill = function (e, r, p, m) {
   Range.init($('input[type=range]'));
 })(cash, M.anime);
 /**
+ * IASCallbacks v2.3.1
+ * https://infiniteajaxscroll.com
+ *
+ * This file is part of the Infinite AJAX Scroll package
+ *
+ * Copyright 2014-2018 Webcreate (Jeroen Fiege)
+ */
+
+var IASCallbacks = function (aJquery) {
+  this.list = [];
+  this.fireStack = [];
+  this.isFiring = false;
+  this.isDisabled = false;
+  this.Deferred = aJquery.Deferred;
+
+  /**
+   * Calls all added callbacks
+   *
+   * @private
+   * @param args
+   */
+  this.fire = function (args) {
+    var context = args[0],
+        deferred = args[1],
+        callbackArguments = args[2];
+
+    this.isFiring = true;
+
+    for (var i = 0, l = this.list.length; i < l; i++) {
+      if (this.list[i] != undefined) {
+        if (false === this.list[i].fn.apply(context, callbackArguments)) {
+          deferred.reject();
+
+          break;
+        }
+      }
+    }
+
+    this.isFiring = false;
+
+    deferred.resolve();
+
+    if (this.fireStack.length) {
+      this.fire(this.fireStack.shift());
+    }
+  };
+
+  /**
+   * Returns index of the callback in the list in a similar way as
+   * the indexOf function.
+   *
+   * @param callback
+   * @param {number} index index to start the search from
+   * @returns {number}
+   */
+  this.inList = function (callback, index) {
+    index = index || 0;
+
+    for (var i = index, length = this.list.length; i < length; i++) {
+      if (this.list[i].fn === callback || (callback.guid && this.list[i].fn.guid && callback.guid === this.list[i].fn.guid)) {
+        return i;
+      }
+    }
+
+    return -1;
+  };
+
+  return this;
+};
+
+IASCallbacks.prototype = {
+  /**
+   * Adds a callback
+   *
+   * @param callback
+   * @returns {IASCallbacks}
+   * @param priority
+   */
+  add: function (callback, priority) {
+    var callbackObject = {fn: callback, priority: priority};
+
+    priority = priority || 0;
+
+    for (var i = 0, length = this.list.length; i < length; i++) {
+      if (priority > this.list[i].priority) {
+        this.list.splice(i, 0, callbackObject);
+
+        return this;
+      }
+    }
+
+    this.list.push(callbackObject);
+
+    return this;
+  },
+
+  /**
+   * Removes a callback
+   *
+   * @param callback
+   * @returns {IASCallbacks}
+   */
+  remove: function (callback) {
+    var index = 0;
+
+    while (( index = this.inList(callback, index) ) > -1) {
+      this.list.splice(index, 1);
+    }
+
+    return this;
+  },
+
+  /**
+   * Checks if callback is added
+   *
+   * @param callback
+   * @returns {*}
+   */
+  has: function (callback) {
+    return (this.inList(callback) > -1);
+  },
+
+
+  /**
+   * Calls callbacks with a context
+   *
+   * @param context
+   * @param args
+   * @returns {object|void}
+   */
+  fireWith: function (context, args) {
+    var deferred = this.Deferred();
+
+    if (this.isDisabled) {
+      return deferred.reject();
+    }
+
+    args = args || [];
+    args = [ context, deferred, args.slice ? args.slice() : args ];
+
+    if (this.isFiring) {
+      this.fireStack.push(args);
+    } else {
+      this.fire(args);
+    }
+
+    return deferred;
+  },
+
+  /**
+   * Disable firing of new events
+   */
+  disable: function () {
+    this.isDisabled = true;
+  },
+
+  /**
+   * Enable firing of new events
+   */
+  enable: function () {
+    this.isDisabled = false;
+  }
+};
+/**
+ * IAS History Extension
+ * An IAS extension to enable browser history
+ * https://infiniteajaxscroll.com
+ *
+ * This file is part of the Infinite AJAX Scroll package
+ *
+ * Copyright 2014-2018 Webcreate (Jeroen Fiege)
+ */
+
+var IASHistoryExtension = function (options) {
+  options = jQuery.extend({}, this.defaults, options);
+
+  this.ias = null;
+  this.prevSelector = options.prev;
+  this.prevUrl = null;
+  this.listeners = {
+    prev: new IASCallbacks(jQuery)
+  };
+
+  /**
+   * @private
+   * @param pageNum
+   * @param scrollOffset
+   * @param url
+   */
+  this.onPageChange = function (pageNum, scrollOffset, url) {
+    if (!window.history || !window.history.replaceState) {
+      return;
+    }
+    
+    var state = history.state;
+
+    history.replaceState(state, document.title, url);
+  };
+
+  /**
+   * @private
+   * @param currentScrollOffset
+   * @param scrollThreshold
+   */
+  this.onScroll = function (currentScrollOffset, scrollThreshold) {
+    var firstItemScrollThreshold = this.getScrollThresholdFirstItem();
+
+    if (!this.prevUrl) {
+      return;
+    }
+
+    currentScrollOffset -= this.ias.$scrollContainer.height();
+
+    if (currentScrollOffset <= firstItemScrollThreshold) {
+      this.prev();
+    }
+  };
+
+  this.onReady = function () {
+    var currentScrollOffset = this.ias.getCurrentScrollOffset(this.ias.$scrollContainer),
+        firstItemScrollThreshold = this.getScrollThresholdFirstItem();
+
+    currentScrollOffset -= this.ias.$scrollContainer.height();
+
+    if (currentScrollOffset <= firstItemScrollThreshold) {
+      this.prev();
+    }
+  };
+
+  /**
+   * Returns the url for the next page
+   *
+   * @private
+   */
+  this.getPrevUrl = function (container) {
+    if (!container) {
+      container = this.ias.$container;
+    }
+
+    // always take the last matching item
+    return jQuery(this.prevSelector, container).last().attr('href');
+  };
+
+  /**
+   * Returns scroll threshold. This threshold marks the line from where
+   * IAS should start loading the next page.
+   *
+   * @private
+   * @return {number}
+   */
+  this.getScrollThresholdFirstItem = function () {
+    var $firstElement;
+
+    $firstElement = this.ias.getFirstItem();
+
+    // if the don't have a first element, the DOM might not have been loaded,
+    // or the selector is invalid
+    if (0 === $firstElement.length) {
+      return -1;
+    }
+
+    return ($firstElement.offset().top);
+  };
+
+  /**
+   * Renders items
+   *
+   * @private
+   * @param items
+   * @param callback
+   */
+  this.renderBefore = function (items, callback) {
+    var ias = this.ias,
+        $firstItem = ias.getFirstItem(),
+        count = 0;
+
+    ias.fire('render', [items]);
+
+    jQuery(items).hide(); // at first, hide it so we can fade it in later
+
+    $firstItem.before(items);
+
+    jQuery(items).fadeIn(400, function () {
+      if (++count < items.length) {
+        return;
+      }
+
+      ias.fire('rendered', [items]);
+
+      if (callback) {
+        callback();
+      }
+    });
+  };
+
+  return this;
+};
+
+/**
+ * @public
+ */
+IASHistoryExtension.prototype.initialize = function (ias) {
+  var self = this;
+
+  this.ias = ias;
+
+  // expose the extensions listeners
+  jQuery.extend(ias.listeners, this.listeners);
+
+  // expose prev method
+  ias.prev = function() {
+    return self.prev();
+  };
+
+  this.prevUrl = this.getPrevUrl();
+};
+
+/**
+ * Bind to events
+ *
+ * @public
+ * @param ias
+ */
+IASHistoryExtension.prototype.bind = function (ias) {
+  ias.on('pageChange', jQuery.proxy(this.onPageChange, this));
+  ias.on('scroll', jQuery.proxy(this.onScroll, this));
+  ias.on('ready', jQuery.proxy(this.onReady, this));
+};
+
+/**
+ * @public
+ * @param {object} ias
+ */
+IASHistoryExtension.prototype.unbind = function(ias) {
+  ias.off('pageChange', this.onPageChange);
+  ias.off('scroll', this.onScroll);
+  ias.off('ready', this.onReady);
+};
+
+/**
+ * Load the prev page
+ *
+ * @public
+ */
+IASHistoryExtension.prototype.prev = function () {
+  var url = this.prevUrl,
+      self = this,
+      ias = this.ias;
+
+  if (!url) {
+    return false;
+  }
+
+  ias.pause();
+
+  var promise = ias.fire('prev', [url]);
+
+  promise.done(function () {
+    ias.load(url, function (data, items) {
+      self.renderBefore(items, function () {
+        self.prevUrl = self.getPrevUrl(data);
+
+        ias.resume();
+
+        if (self.prevUrl) {
+          self.prev();
+        }
+      });
+    });
+  });
+
+  promise.fail(function () {
+    ias.resume();
+  });
+
+  return true;
+};
+
+/**
+ * @public
+ */
+IASHistoryExtension.prototype.defaults = {
+  prev: ".prev"
+};
+/**
+ * IAS None Left Extension
+ * An IAS extension to show a message when there are no more pages te load
+ * https://infiniteajaxscroll.com
+ *
+ * This file is part of the Infinite AJAX Scroll package
+ *
+ * Copyright 2014-2018 Webcreate (Jeroen Fiege)
+ */
+
+var IASNoneLeftExtension = function(options) {
+  options = jQuery.extend({}, this.defaults, options);
+
+  this.ias = null;
+  this.uid = (new Date()).getTime();
+  this.html = (options.html).replace('{text}', options.text);
+
+  /**
+   * Shows none left message
+   */
+  this.showNoneLeft = function() {
+    var $element = jQuery(this.html).attr('id', 'ias_noneleft_' + this.uid),
+        $lastItem = this.ias.getLastItem();
+
+    $lastItem.after($element);
+    $element.fadeIn();
+  };
+
+  return this;
+};
+
+/**
+ * @public
+ */
+IASNoneLeftExtension.prototype.bind = function(ias) {
+  this.ias = ias;
+
+  ias.on('noneLeft', jQuery.proxy(this.showNoneLeft, this));
+};
+
+/**
+ * @public
+ * @param {object} ias
+ */
+IASNoneLeftExtension.prototype.unbind = function(ias) {
+  ias.off('noneLeft', this.showNoneLeft);
+};
+
+/**
+ * @public
+ */
+IASNoneLeftExtension.prototype.defaults = {
+  text: 'You reached the end.',
+  html: '<div class="ias-noneleft" style="text-align: center;">{text}</div>'
+};
+/**
+ * IAS Paging Extension
+ * An IAS extension providing additional events
+ * https://infiniteajaxscroll.com
+ *
+ * This file is part of the Infinite AJAX Scroll package
+ *
+ * Copyright 2014-2018 Webcreate (Jeroen Fiege)
+ */
+
+var IASPagingExtension = function() {
+  this.ias = null;
+  this.pagebreaks = [[0, document.location.toString()]];
+  this.lastPageNum = 1;
+  this.enabled = true;
+  this.listeners = {
+    pageChange: new IASCallbacks(jQuery)
+  };
+
+  /**
+   * Fires pageChange event
+   *
+   * @param currentScrollOffset
+   * @param scrollThreshold
+   */
+  this.onScroll = function(currentScrollOffset, scrollThreshold) {
+    if (!this.enabled) {
+      return;
+    }
+
+    var ias = this.ias,
+        currentPageNum = this.getCurrentPageNum(currentScrollOffset),
+        currentPagebreak = this.getCurrentPagebreak(currentScrollOffset),
+        urlPage;
+
+    if (this.lastPageNum !== currentPageNum) {
+      urlPage = currentPagebreak[1];
+
+      ias.fire('pageChange', [currentPageNum, currentScrollOffset, urlPage]);
+    }
+
+    this.lastPageNum = currentPageNum;
+  };
+
+  /**
+   * Keeps track of pagebreaks
+   *
+   * @param url
+   */
+  this.onNext = function(url) {
+    var currentScrollOffset = this.ias.getCurrentScrollOffset(this.ias.$scrollContainer);
+
+    this.pagebreaks.push([currentScrollOffset, url]);
+
+    // trigger pageChange and update lastPageNum
+    var currentPageNum = this.getCurrentPageNum(currentScrollOffset) + 1;
+
+    this.ias.fire('pageChange', [currentPageNum, currentScrollOffset, url]);
+
+    this.lastPageNum = currentPageNum;
+  };
+
+  /**
+   * Keeps track of pagebreaks
+   *
+   * @param url
+   */
+  this.onPrev = function(url) {
+    var self = this,
+        ias = self.ias,
+        currentScrollOffset = ias.getCurrentScrollOffset(ias.$scrollContainer),
+        prevCurrentScrollOffset = currentScrollOffset - ias.$scrollContainer.height(),
+        $firstItem = ias.getFirstItem();
+
+    this.enabled = false;
+
+    this.pagebreaks.unshift([0, url]);
+
+    ias.one('rendered', function() {
+      // update pagebreaks
+      for (var i = 1, l = self.pagebreaks.length; i < l; i++) {
+        self.pagebreaks[i][0] = self.pagebreaks[i][0] + $firstItem.offset().top;
+      }
+
+      // trigger pageChange and update lastPageNum
+      var currentPageNum = self.getCurrentPageNum(prevCurrentScrollOffset) + 1;
+
+      ias.fire('pageChange', [currentPageNum, prevCurrentScrollOffset, url]);
+
+      self.lastPageNum = currentPageNum;
+
+      self.enabled = true;
+    });
+  };
+
+  return this;
+};
+
+/**
+ * @public
+ */
+IASPagingExtension.prototype.initialize = function(ias) {
+  this.ias = ias;
+
+  // expose the extensions listeners
+  jQuery.extend(ias.listeners, this.listeners);
+};
+
+/**
+ * @public
+ */
+IASPagingExtension.prototype.bind = function(ias) {
+  try {
+    ias.on('prev', jQuery.proxy(this.onPrev, this), this.priority);
+  } catch (exception) {}
+
+  ias.on('next', jQuery.proxy(this.onNext, this), this.priority);
+  ias.on('scroll', jQuery.proxy(this.onScroll, this), this.priority);
+};
+
+/**
+ * @public
+ * @param {object} ias
+ */
+IASPagingExtension.prototype.unbind = function(ias) {
+  try {
+    ias.off('prev', this.onPrev);
+  } catch (exception) {}
+
+  ias.off('next', this.onNext);
+  ias.off('scroll', this.onScroll);
+};
+
+/**
+ * Returns current page number based on scroll offset
+ *
+ * @param {number} scrollOffset
+ * @returns {number}
+ */
+IASPagingExtension.prototype.getCurrentPageNum = function(scrollOffset) {
+  for (var i = (this.pagebreaks.length - 1); i > 0; i--) {
+    if (scrollOffset > this.pagebreaks[i][0]) {
+      return i + 1;
+    }
+  }
+
+  return 1;
+};
+
+/**
+ * Returns current pagebreak information based on scroll offset
+ *
+ * @param {number} scrollOffset
+ * @returns {number}|null
+ */
+IASPagingExtension.prototype.getCurrentPagebreak = function(scrollOffset) {
+  for (var i = (this.pagebreaks.length - 1); i >= 0; i--) {
+    if (scrollOffset > this.pagebreaks[i][0]) {
+      return this.pagebreaks[i];
+    }
+  }
+
+  return null;
+};
+
+/**
+ * @public
+ * @type {number}
+ */
+IASPagingExtension.prototype.priority = 500;
+/**
+ * IAS Spinner Extension
+ * An IAS extension to show a spinner when loading
+ * https://infiniteajaxscroll.com
+ *
+ * This file is part of the Infinite AJAX Scroll package
+ *
+ * Copyright 2014-2018 Webcreate (Jeroen Fiege)
+ */
+
+var IASSpinnerExtension = function(options) {
+  options = jQuery.extend({}, this.defaults, options);
+
+  this.ias = null;
+  this.uid = new Date().getTime();
+  this.src = options.src;
+  this.html = (options.html).replace('{src}', this.src);
+
+  /**
+   * Shows spinner
+   */
+  this.showSpinner = function() {
+    var $spinner = this.getSpinner() || this.createSpinner(),
+        $lastItem = this.ias.getLastItem();
+
+    $lastItem.after($spinner);
+    $spinner.fadeIn();
+  };
+
+  /**
+   * Shows spinner
+   */
+  this.showSpinnerBefore = function() {
+    var $spinner = this.getSpinner() || this.createSpinner(),
+        $firstItem = this.ias.getFirstItem();
+
+    $firstItem.before($spinner);
+    $spinner.fadeIn();
+  };
+
+  /**
+   * Removes spinner
+   */
+  this.removeSpinner = function() {
+    if (this.hasSpinner()) {
+      this.getSpinner().remove();
+    }
+  };
+
+  /**
+   * @returns {jQuery|boolean}
+   */
+  this.getSpinner = function() {
+    var $spinner = jQuery('#ias_spinner_' + this.uid);
+
+    if ($spinner.length > 0) {
+      return $spinner;
+    }
+
+    return false;
+  };
+
+  /**
+   * @returns {boolean}
+   */
+  this.hasSpinner = function() {
+    var $spinner = jQuery('#ias_spinner_' + this.uid);
+
+    return ($spinner.length > 0);
+  };
+
+  /**
+   * @returns {jQuery}
+   */
+  this.createSpinner = function() {
+    var $spinner = jQuery(this.html).attr('id', 'ias_spinner_' + this.uid);
+
+    $spinner.hide();
+
+    return $spinner;
+  };
+
+  return this;
+};
+
+/**
+ * @public
+ */
+IASSpinnerExtension.prototype.bind = function(ias) {
+  this.ias = ias;
+
+  ias.on('next', jQuery.proxy(this.showSpinner, this));
+  ias.on('render', jQuery.proxy(this.removeSpinner, this));
+
+  try {
+    ias.on('prev', jQuery.proxy(this.showSpinnerBefore, this));
+  } catch (exception) {}
+};
+
+/**
+ * @public
+ * @param {object} ias
+ */
+IASSpinnerExtension.prototype.unbind = function(ias) {
+  ias.off('next', this.showSpinner);
+  ias.off('render', this.removeSpinner);
+
+  try {
+    ias.off('prev', this.showSpinnerBefore);
+  } catch (exception) {}
+};
+
+/**
+ * @public
+ */
+IASSpinnerExtension.prototype.defaults = {
+  src: 'data:image/gif;base64,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',
+  html: '<div class="ias-spinner" style="text-align: center;"><img src="{src}"/></div>'
+};
+/**
+ * IAS Trigger Extension
+ * An IAS extension to show a trigger link to load the next page
+ * https://infiniteajaxscroll.com
+ *
+ * This file is part of the Infinite AJAX Scroll package
+ *
+ * Copyright 2014-2018 Webcreate (Jeroen Fiege)
+ */
+
+var IASTriggerExtension = function(options) {
+  options = jQuery.extend({}, this.defaults, options);
+
+  this.ias = null;
+  this.html = (options.html).replace('{text}', options.text);
+  this.htmlPrev = (options.htmlPrev).replace('{text}', options.textPrev);
+  this.enabled = true;
+  this.count = 0;
+  this.offset = options.offset;
+  this.$triggerNext = null;
+  this.$triggerPrev = null;
+
+  /**
+   * Shows trigger for next page
+   */
+  this.showTriggerNext = function() {
+    if (!this.enabled) {
+      return true;
+    }
+
+    if (false === this.offset || ++this.count < this.offset) {
+      return true;
+    }
+
+    var $trigger = this.$triggerNext || (this.$triggerNext = this.createTrigger(this.next, this.html));
+    var $lastItem = this.ias.getLastItem();
+
+    $lastItem.after($trigger);
+    $trigger.fadeIn();
+
+    return false;
+  };
+
+  /**
+   * Shows trigger for previous page
+   */
+  this.showTriggerPrev = function() {
+    if (!this.enabled) {
+      return true;
+    }
+
+    var $trigger = this.$triggerPrev || (this.$triggerPrev = this.createTrigger(this.prev, this.htmlPrev));
+    var $firstItem = this.ias.getFirstItem();
+
+    $firstItem.before($trigger);
+    $trigger.fadeIn();
+
+    return false;
+  };
+
+  this.onRendered = function() {
+    this.enabled = true;
+  };
+
+  /**
+   * @param clickCallback
+   * @returns {*|jQuery}
+   * @param {string} html
+   */
+  this.createTrigger = function(clickCallback, html) {
+    var uid = (new Date()).getTime(),
+        $trigger;
+
+    html = html || this.html;
+    $trigger = jQuery(html).attr('id', 'ias_trigger_' + uid);
+
+    $trigger.hide();
+    $trigger.on('click', jQuery.proxy(clickCallback, this));
+
+    return $trigger;
+  };
+
+  return this;
+};
+
+/**
+ * @public
+ * @param {object} ias
+ */
+IASTriggerExtension.prototype.bind = function(ias) {
+  var self = this;
+
+  this.ias = ias;
+
+  ias.on('next', jQuery.proxy(this.showTriggerNext, this), this.priority);
+  ias.on('rendered', jQuery.proxy(this.onRendered, this), this.priority);
+
+  try {
+    ias.on('prev', jQuery.proxy(this.showTriggerPrev, this), this.priority);
+  } catch (exception) {}
+};
+
+/**
+ * @public
+ * @param {object} ias
+ */
+IASTriggerExtension.prototype.unbind = function(ias) {
+  ias.off('next', this.showTriggerNext);
+  ias.off('rendered', this.onRendered);
+
+  try {
+    ias.off('prev', this.showTriggerPrev);
+  } catch (exception) {}
+};
+
+/**
+ * @public
+ */
+IASTriggerExtension.prototype.next = function() {
+  this.enabled = false;
+  this.ias.pause();
+
+  if (this.$triggerNext) {
+    this.$triggerNext.remove();
+    this.$triggerNext = null;
+  }
+
+  this.ias.next();
+};
+
+/**
+ * @public
+ */
+IASTriggerExtension.prototype.prev = function() {
+  this.enabled = false;
+  this.ias.pause();
+
+  if (this.$triggerPrev) {
+    this.$triggerPrev.remove();
+    this.$triggerPrev = null;
+  }
+
+  this.ias.prev();
+};
+
+/**
+ * @public
+ */
+IASTriggerExtension.prototype.defaults = {
+  text: 'Load more items',
+  html: '<div class="ias-trigger ias-trigger-next" style="text-align: center; cursor: pointer;"><a>{text}</a></div>',
+  textPrev: 'Load previous items',
+  htmlPrev: '<div class="ias-trigger ias-trigger-prev" style="text-align: center; cursor: pointer;"><a>{text}</a></div>',
+  offset: 0
+};
+
+/**
+ * @public
+ * @type {number}
+ */
+IASTriggerExtension.prototype.priority = 1000;
+/**
  * Infinite Ajax Scroll v2.3.1
  * A jQuery plugin for infinite scrolling
  * https://infiniteajaxscroll.com

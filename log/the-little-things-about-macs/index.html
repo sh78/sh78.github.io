@@ -3,30 +3,33 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
-<title>The Little Things (About Macs) | ./sean</title>
+<title>The Little Things (About Macs) | sean henderson</title>
 <meta name="generator" content="Jekyll v3.8.3" />
 <meta property="og:title" content="The Little Things (About Macs)" />
 <meta name="author" content="Sean Henderson" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="I’m really not big on the whole “Mac vs. PC” spectacle. It’s rather distracting and somewhat distasteful. I primarily used Windows PC’s through age 18, with the exception of a few Macs in computer lab at school. It wasn’t that I really chose Windows over Mac, it was something familiar and that dominated every computer store in existence other than the Apple Store. I thought Apple computers were more like expensive toys (purely based on looks and scarcity), plus I didn’t want to re-learn or adjust to anything new if it wasn’t absolutely necessary. Working on a new operating system can be crippling, even embarrassing at first. The first reaction for many is “this machine doesn’t do X,” or “where’s the Y button,” and other more profane sayings." />
 <meta property="og:description" content="I’m really not big on the whole “Mac vs. PC” spectacle. It’s rather distracting and somewhat distasteful. I primarily used Windows PC’s through age 18, with the exception of a few Macs in computer lab at school. It wasn’t that I really chose Windows over Mac, it was something familiar and that dominated every computer store in existence other than the Apple Store. I thought Apple computers were more like expensive toys (purely based on looks and scarcity), plus I didn’t want to re-learn or adjust to anything new if it wasn’t absolutely necessary. Working on a new operating system can be crippling, even embarrassing at first. The first reaction for many is “this machine doesn’t do X,” or “where’s the Y button,” and other more profane sayings." />
-<meta property="og:site_name" content="./sean" />
+<meta property="og:site_name" content="sean henderson" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2012-04-19T19:32:00-07:00" />
 <script type="application/ld+json">
 {"url":"/log/the-little-things-about-macs/","author":{"@type":"Person","name":"Sean Henderson"},"description":"I’m really not big on the whole “Mac vs. PC” spectacle. It’s rather distracting and somewhat distasteful. I primarily used Windows PC’s through age 18, with the exception of a few Macs in computer lab at school. It wasn’t that I really chose Windows over Mac, it was something familiar and that dominated every computer store in existence other than the Apple Store. I thought Apple computers were more like expensive toys (purely based on looks and scarcity), plus I didn’t want to re-learn or adjust to anything new if it wasn’t absolutely necessary. Working on a new operating system can be crippling, even embarrassing at first. The first reaction for many is “this machine doesn’t do X,” or “where’s the Y button,” and other more profane sayings.","headline":"The Little Things (About Macs)","dateModified":"2012-04-19T19:32:00-07:00","datePublished":"2012-04-19T19:32:00-07:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"/log/the-little-things-about-macs/"},"@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
-<link class="theme-variant" rel="stylesheet" href="/assets/themes/materialized-dark.css">
+<script>
+    // this is reversed in app.js. transition in inline styles
+    document.querySelector('html').style.opacity = 0;
+  </script>
+  <link class="theme-variant" rel="stylesheet" href="/assets/themes/materialized-dark.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-  <script src="/assets/js/modernizr.min.js"></script><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="./sean" /><style>
+  <script src="/assets/js/modernizr.min.js"></script><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="sean henderson" /><style>
 /* fade in on loaded */
-html.js .no-fouc {
-  opacity: 0;
+html.loaded {
+  transition: opacity .5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 
-html.loaded .no-fouc {
+html.loaded {
   opacity: 1;
-  transition: opacity .5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 
 /* loading animation */
@@ -34,7 +37,7 @@ html.loaded .no-fouc {
   display: none;
 }
 
-.loading-ring {
+.loading-ring.page {
   display: block;
   width: 100px;
   height: 100px;
@@ -51,6 +54,7 @@ html.loaded .no-fouc {
 }
 .loading-ring.blog {
   margin: 0 auto;
+  width: 54px;
 }
 
 .loading-ring div {
@@ -88,8 +92,7 @@ html.loaded .no-fouc {
 
 </style>
 </head>
-<body>
-    <div class="no-fouc"><header class="page-header" role="banner"><!-- Dropdown Structure -->
+<body><header class="page-header" role="banner"><!-- Dropdown Structure -->
   <ul id="dropdown-more" class="dropdown-content">
     <li><a class="theme-timed" href="#!"><i class="fas fa-moon"></i><span>Night</span> Mode</a></li>
     <li><a class="theme-auto" data-theme="auto" href="#!"><i class="fas fa-clock"></i>Automatic</a></li>
@@ -102,7 +105,7 @@ html.loaded .no-fouc {
       <div class="nav-wrapper container">
         <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="fas fa-bars"><span class="sr-only">menu</span></i></a>
         <div class="brand-logo center">
-          <a href="/">./sean</a><a href="/log">/log</a><a href="#">/post</a>
+          <a href="/">./sean</a><span class="hide-on-small-only"><a href="/log">/log</a><a href="#">/post</a></span>
         </div>
         <ul class="left hide-on-large-and-down" id="nav-large"><li><a class="page-link" href="/"><i class="fas fa-user"></i>About
   </a></li><li><a class="page-link" href="/log/"><i class="fas fa-pencil-alt"></i>log
@@ -121,7 +124,7 @@ html.loaded .no-fouc {
   </a></li><li><a class="page-link" href="/log/"><i class="fas fa-pencil-alt"></i>log
   </a></li></ul></header>
 <main class="page-content" aria-label="Content">
-        <article class="post h-entry container anchorize" itemscope itemtype="http://schema.org/BlogPosting">
+      <article class="post h-entry container anchorize" itemscope itemtype="http://schema.org/BlogPosting">
   <div class="post-main">
     <header class="post-header">
       <h1 class="post-title p-name" itemprop="name headline">The Little Things (About Macs)</h1>
@@ -148,76 +151,169 @@ html.loaded .no-fouc {
     <div class="post-content e-content" itemprop="articleBody">
       <div class="toc-container"></div>
       <div class="post-content-inner">
-        <p>I’m really not big on the whole “Mac vs. PC” spectacle. It’s rather distracting and somewhat distasteful. I primarily used Windows PC’s through age 18, with the exception of a few Macs in computer lab at school. It wasn’t that I really <em>chose</em> Windows over Mac, it was something familiar and that dominated every computer store in existence other than the Apple Store. I thought Apple computers were more like expensive toys (purely based on looks and scarcity), plus I didn’t want to re-learn or adjust to anything new if it wasn’t absolutely necessary. Working on a new operating system can be crippling, even embarrassing at first. The first reaction for many is “this machine doesn’t do X,” or “where’s the Y button,” and other more profane sayings.</p>
+        <p>I’m really not big on the whole “Mac vs. PC” spectacle. It’s rather distracting
+and somewhat distasteful. I primarily used Windows PC’s through age 18, with the
+exception of a few Macs in computer lab at school. It wasn’t that I really
+<em>chose</em> Windows over Mac, it was something familiar and that dominated every
+computer store in existence other than the Apple Store. I thought Apple
+computers were more like expensive toys (purely based on looks and scarcity),
+plus I didn’t want to re-learn or adjust to anything new if it wasn’t absolutely
+necessary. Working on a new operating system can be crippling, even embarrassing
+at first. The first reaction for many is “this machine doesn’t do X,” or
+“where’s the Y button,” and other more profane sayings.</p>
 
-<p>Personally, I was fortunate enough to have been exposed to mandatory use of Mac machines 6-12 hours a day, 5-7 days per week for about 2 years at my first “grown-up” job. I was 18, my mind still fresh, eager for new data, and open to learning new things (a.k.a I wanted money for rent, fuel and beer).</p>
+<p>Personally, I was fortunate enough to have been exposed to mandatory use of Mac
+machines 6-12 hours a day, 5-7 days per week for about 2 years at my first
+“grown-up” job. I was 18, my mind still fresh, eager for new data, and open to
+learning new things (a.k.a I wanted money for rent, fuel and beer).</p>
 
-<p>At first, using the iMac at the office sort of felt like training wheels. I was accustomed to zipping through the menus on my Windows machine, yet even though I didn’t know where everything was I got a friendly but slow-mo sort of vibe. In a demanding corporate environment, Sometimes you only need to do a lot of work, while other times you need to work faster than is actually possible, without any mistakes. I came to realize the importance of workflow more than ever. During the slower times, I began to pick up bits of knowledge pertaining to more efficient computing methods, including better ways to use Mac OS. Some of it came naturally, some accidentally (frantically slamming keyboard shortcuts and lines of code, no button was off-limits), and a lot came from Googling. Once I realized that both platforms could still perform the same essential tasks, and in theory generate identical results, it simply came down to preference and aesthetic.</p>
+<p>At first, using the iMac at the office sort of felt like training wheels. I was
+accustomed to zipping through the menus on my Windows machine, yet even though I
+didn’t know where everything was I got a friendly but slow-mo sort of vibe. In a
+demanding corporate environment, Sometimes you only need to do a lot of work,
+while other times you need to work faster than is actually possible, without any
+mistakes. I came to realize the importance of workflow more than ever. During
+the slower times, I began to pick up bits of knowledge pertaining to more
+efficient computing methods, including better ways to use Mac OS. Some of it
+came naturally, some accidentally (frantically slamming keyboard shortcuts and
+lines of code, no button was off-limits), and a lot came from Googling. Once I
+realized that both platforms could still perform the same essential tasks, and
+in theory generate identical results, it simply came down to preference and
+aesthetic.</p>
 
-<p>My next computer was a MacBook Pro, one of the best purchases I’ve ever made. I’ve it nearly every day for about three years now, and not gently, but it takes whatever I throw at it. Much of what’s nice about a Mac is purely aesthetic, which I’ve grown to realize makes a big difference when you need interface with a device for 8+ hours a day, before you go to sleep and first thing in the morning.</p>
+<p>My next computer was a MacBook Pro, one of the best purchases I’ve ever made.
+I’ve it nearly every day for about three years now, and not gently, but it takes
+whatever I throw at it. Much of what’s nice about a Mac is purely aesthetic,
+which I’ve grown to realize makes a big difference when you need interface with
+a device for 8+ hours a day, before you go to sleep and first thing in the
+morning.</p>
 
 <p>Here’s a simple collection of small Mac features that many might not know about.</p>
 
 <h2 id="1-single-tap-definitions">1. Single Tap Definitions</h2>
 
-<p>I can three-finger-double-tap any word on the screen and view the dictionary, thesaurus, and wikipedia results without switching windows. In any application.  And, if you don’t have a trackpad, it’s Control-Command-D.</p>
+<p>I can three-finger-double-tap any word on the screen and view the dictionary,
+thesaurus, and Wikipedia results without switching windows. In any application.
+And, if you don’t have a trackpad, it’s Control-Command-D.</p>
 
-<p><img src="/assets/images/define-screen-shot.png" alt="Screen Shot" /></p>
+<p><img src="" data-src="/assets/images/define-screen-shot.png" alt="a word definition in the OS X lookup pane" /></p>
 
 <h2 id="2-the-screen-grab-interface">2. The screen grab interface.</h2>
 
 <ul>
-  <li><strong>Command-Shift-3</strong>: Take a screenshot of the screen, and save it as a file on the desktop</li>
-  <li><strong>Command-Shift-4</strong>, then select an area: Take a screenshot of an area and save it as a file on the desktop</li>
-  <li><strong>Command-Shift-4</strong>, then space, then click a window: Take a screenshot of a window and save it as a file on the desktop</li>
-  <li><strong>Command-Control-Shift-3</strong>: Take a screenshot of the screen, and save it to the clipboard</li>
-  <li><strong>Command-Control-Shift-4</strong>, then select an area: Take a screenshot of an area and save it to the clipboard</li>
-  <li><strong>Command-Control-Shift-4</strong>, then space, then click a window: Take a screenshot of a window and save it to the clipboard</li>
+  <li><strong>Command-Shift-3</strong>: Take a screenshot of the screen, and save it as a file on</li>
+  <li>the desktop <strong>Command-Shift-4</strong>, then select an area: Take a screenshot of an</li>
+  <li>area and save it as a file on the desktop <strong>Command-Shift-4</strong>, then space,</li>
+  <li>then click a window: Take a screenshot of a window and save it as a file on</li>
+  <li>the desktop <strong>Command-Control-Shift-3</strong>: Take a screenshot of the screen, and</li>
+  <li>save it to the clipboard <strong>Command-Control-Shift-4</strong>, then select an area:</li>
+  <li>Take a screenshot of an area and save it to the clipboard</li>
+  <li><strong>Command-Control-Shift-4</strong>, then space, then click a window: Take a</li>
+  <li>screenshot of a window and save it to the clipboard</li>
 </ul>
 
-<p>In Leopard and later, the following keys can be held down while selecting an area (via Command-Shift-4 or Command-Control-Shift-4):</p>
+<p>In Leopard and later, the following keys can be held down while selecting an
+area (via Command-Shift-4 or Command-Control-Shift-4):</p>
 
 <ul>
-  <li>Space, to lock the size of the selected region and instead move it when the mouse moves</li>
-  <li>Shift, to resize only one edge of the selected region</li>
-  <li>Option, to resize the selected region with its center as the anchor point</li>
+  <li>Space, to lock the size of the selected region and instead move it when the</li>
+  <li>mouse moves Shift, to resize only one edge of the selected region Option, to</li>
+  <li>resize the selected region with its center as the anchor point</li>
 </ul>
 
 <h2 id="3-the-transformations-service">3. The Transformations service.</h2>
 
-<p>Change any editable text to uppercase, lowercase, or capitalized in any application.</p>
+<p>Change any editable text to uppercase, lowercase, or capitalized in any
+application.</p>
 
-<p><img src="/assets/images/transformations-screen-shot.png" alt="Transformations Screen Shot" /></p>
+<p><img src="" data-src="/assets/images/transformations-screen-shot.png" alt="the Transformations context menu in OS X" /></p>
 
 <h2 id="4-command-shift-">4. Command-Shift-?</h2>
 
-<p>I used to brag a lot about mouse-less menu navigation in Windows. All you have to do is look for the underlined letter in the menu item you want (like F in <u>F</u>ile, E in <u>E</u>fit, etc.), then hold down <code class="highlighter-rouge">Alt</code> to pull the corresponding drop-down. As an added bonus, all the options inside the drop down usually have underlined letters, so pressing the key for the command or sub-menu item desired lets you  churn out commands pretty fast. Just don’t slip up and press any of other keys in the sea of QWERTY, or if you do start praying to whomever that it’s <code class="highlighter-rouge">Ctrl-Z</code>-able.</p>
+<p>I used to brag a lot about mouse-less menu navigation in Windows. All you have
+to do is look for the underlined letter in the menu item you want (like F in
+<u>F</u>ile, E in <u>E</u>fit, etc.), then hold down <code class="highlighter-rouge">Alt</code> to pull the
+corresponding drop-down. As an added bonus, all the options inside the drop down
+usually have underlined letters, so pressing the key for the command or sub-menu
+item desired lets you  churn out commands pretty fast. Just don’t slip up and
+press any of other keys in the sea of QWERTY, or if you do start praying to
+whomever that it’s <code class="highlighter-rouge">Ctrl-Z</code>-able.</p>
 
-<p>Macs take a slightly different approach. In any application, press <code class="highlighter-rouge">Command-Shift-?</code> This invokes the Help menu of the current application and focuses on the input field for search. So what does this all mean? Start typing the name of a menu item, and presto - all menu items and help topics matching your search are displayed based on fuzzy find logic. The more you type, the narrower the results list. So instead of memorizing obscure letter combinations, you just need to know the <em>name of the actual operation</em> you want to perform. No more scanning up and down through multiple menus to find what you want. And no mouse required.</p>
+<p>Macs take a slightly different approach. In any application, press
+<code class="highlighter-rouge">Command-Shift-?</code> This invokes the Help menu of the current application and
+focuses on the input field for search. So what does this all mean? Start typing
+the name of a menu item, and presto - all menu items and help topics matching
+your search are displayed based on fuzzy find logic. The more you type, the
+narrower the results list. So instead of memorizing obscure letter combinations,
+you just need to know the <em>name of the actual operation</em> you want to perform. No
+more scanning up and down through multiple menus to find what you want. And no
+mouse required.</p>
 
-<p>Invoking the help search really comes through in applications with copious menu options, like Photoshop. Sometimes, I want to crop an image based on a selection. That requires the “Crop” operation, which inconveniently does not have a designated keyboard shortcut. Even if it did, I prefer to memorize the smallest amount of things possible, to leave room for more important things like what I’m actually working on at the time, names of new acquaintances, and so on. So instead programming my own custom shortcut, or giving in to temptation and grabbing the mouse, I just hit Command-Shift-? and type “crop”, then select the crop function I want and hit Return. Done. When a search result is highlighted, its actual position is revealed in the menu and marked by a huge arrow, which provides additional context and confirmation for what’s about to go down. Personally, this has significantly cut down on misfires and playing the “what operation did I just accidentally perform” game compared to my Windows days.</p>
+<p>Invoking the help search really comes through in applications with copious menu
+options, like Photoshop. Sometimes, I want to crop an image based on a
+selection. That requires the “Crop” operation, which inconveniently does not
+have a designated keyboard shortcut. Even if it did, I prefer to memorize the
+smallest amount of things possible, to leave room for more important things like
+what I’m actually working on at the time, names of new acquaintances, and so on.
+So instead programming my own custom shortcut, or giving in to temptation and
+grabbing the mouse, I just hit Command-Shift-? and type “crop”, then select the
+crop function I want and hit Return. Done. When a search result is highlighted,
+its actual position is revealed in the menu and marked by a huge arrow, which
+provides additional context and confirmation for what’s about to go down.
+Personally, this has significantly cut down on misfires and playing the “what
+operation did I just accidentally perform” game compared to my Windows days.</p>
 
-<p><img src="/assets/images/crop-screen-shot.png" alt="Crop Screen Shot" /></p>
+<p><img src="" data-src="/assets/images/crop-screen-shot.png" alt="crop in the Photoshop help menu" /></p>
 
-<p>So what if the name of the command is profusely long, and starts with a common group of letters, like “Transform Selection”? No problem. You don’t actually have to search for characters in the same order they appear in the command, so just narrow it down to a couple groups of letters that are unique to that menu item. To transform a selection, just query “tra sel” and your there. Neat.</p>
+<p>So what if the name of the command is profusely long, and starts with a common
+group of letters, like “Transform Selection”? No problem. You don’t actually
+have to search for characters in the same order they appear in the command, so
+just narrow it down to a couple groups of letters that are unique to that menu
+item. To transform a selection, just query “tra sel” and your there. Neat.</p>
 
-<p><img src="/assets/images/tra-sel-screen-shot.png" alt="tra sel Screen Shot" /></p>
+<p><img src="" data-src="/assets/images/tra-sel-screen-shot.png" alt="transform Selection appearing in the Photoshop help menu" /></p>
 
 <h2 id="5-âćçéñtś-and-special-characters--">5. Âćçéñtś and Special Characters,  √</h2>
 
-<p>I like being accurate, as long as it’s not to difficult. In some languages, an accent mark can be the difference between referring to someone as an inanimate object or a real live proper noun. Also, umlauts are just plain fun to try and pronounce for us westerners.</p>
+<p>I like being accurate, as long as it’s not to difficult. In some languages, an
+accent mark can be the difference between referring to someone as an inanimate
+object or a real live proper noun. Also, umlauts are just plain fun to try and
+pronounce for us westerners.</p>
 
-<p>On Mac OS 10.7 (Lion), accented characters are two keystrokes away. Say you want to ask your distant co-worker how the weather is in España. When you get to the tilde N, just hold down the N key and a pop-up menu displays all available accent options with numbers over them. Press the corresponding number on your keyboard (or click it if your mouse is getting dusty) and voilà - the accented character is now part of your prose.</p>
+<p>On Mac OS 10.7 (Lion), accented characters are two keystrokes away. Say you want
+to ask your distant co-worker how the weather is in España. When you get to the
+tilde N, just hold down the N key and a pop-up menu displays all available
+accent options with numbers over them. Press the corresponding number on your
+keyboard (or click it if your mouse is getting dusty) and voilà - the accented
+character is now part of your prose.</p>
 
-<p><img src="/assets/images/osx-accent-palette.png" alt="Mac OS Accent Palette Screen Shot" /></p>
+<p><img src="" data-src="/assets/images/osx-accent-palette.png" alt="OS X Accent pane with accented characters" /></p>
 
-<p>But wait, there’s more! Ever wanted to ™ something as you type? Or look smart and write math problems like ∆ƒ(n) ≈ √π˚ ≥ ø? Or reference a section of the penal code like §1234.4321? On a Mac, holding down the alt key changes the keys to various symbols. There’s no clear-cut way to guess which one you’ll get at first, but it’s actually fairly intuitive where possible, so remembering your favorites is not too difficult. For example, to enter a checkmark/square root symbol, press alt and V (vaguely reminiscent of a checkmark, no?). Or for a ≠, press alt and the regular equals symbol. Any other symbols will be on in the special characters palette, which is usually accessible by pressing command-alt-T in most applications.</p>
+<p>But wait, there’s more! Ever wanted to ™ something as you type? Or look smart
+and write math problems like ∆ƒ(n) ≈ √π˚ ≥ ø? Or reference a section of the
+penal code like §1234.4321? On a Mac, holding down the alt key changes the keys
+to various symbols. There’s no clear-cut way to guess which one you’ll get at
+first, but it’s actually fairly intuitive where possible, so remembering your
+favorites is not too difficult. For example, to enter a checkmark/square root
+symbol, press alt and V (vaguely reminiscent of a checkmark, no?). Or for a ≠,
+press alt and the regular equals symbol. Any other symbols will be on in the
+special characters palette, which is usually accessible by pressing
+command-alt-T in most applications.</p>
 
-<p>To be fair, it is possible to enter accented and other special characters from the keyboard on a Windows machine. If you have a numeric keypad on your keyboard, hold down alt and press a few numbers, then let go. I actually enjoyed quite a few hours of entertainment decoding these cryptic combinations as a child, before the family computer had an internet connection. These days I usually have other things to do though, so I enjoy the slightly more sane approach taken by the Mac.</p>
+<p>To be fair, it is possible to enter accented and other special characters from
+the keyboard on a Windows machine. If you have a numeric keypad on your
+keyboard, hold down alt and press a few numbers, then let go. I actually enjoyed
+quite a few hours of entertainment decoding these cryptic combinations as a
+child, before the family computer had an internet connection. These days I
+usually have other things to do though, so I enjoy the slightly more sane
+approach taken by the Mac.</p>
 
 <h2 id="6-dictation">6. Dictation</h2>
 
-<p>Computers were designed for us to tell them things, so they can reply back with important information in polite voices. OSX’s built in dictation is a step in the right direction. Double tap the Fn key, and say anything after the beep. Your words will be typed where the cursor was.</p>
+<p>Computers were designed for us to tell them things, so they can reply back with
+important information in polite voices. OSX’s built in dictation is a step in
+the right direction. Double tap the Fn key, and say anything after the beep.
+Your words will be typed where the cursor was.</p>
 
 
       </div>
@@ -239,19 +335,21 @@ html.loaded .no-fouc {
 </aside>
 <aside class="comments"></aside>
 
-      </main><footer class="page-footer">
+    </main><footer class="page-footer">
   <data class="u-url" href="/"></data>
 
   <div class="container">
     <div class="row">
-      <div class="col m6 s12"><div class="avatar" data-cycle="sean">
-          <p>
-            <a href="/assets/images/sean.jpg" title="view image">
-              <img data-src="/assets/images/sean.jpg" alt="photo of Sean Henderson">
-            </a>
-            Sean Henderson<br>
-          </p>
-        </div></div>
+      <div class="col m6 s12">
+        <div class="avatar" data-cycle="sean">
+  <p>
+    <a href="/assets/images/sean.jpg" title="view image">
+      <img data-src="/assets/images/sean.jpg" alt="photo of Sean Henderson">
+    </a>
+    Sean Henderson<br>
+  </p>
+</div>
+      </div>
       <div class="col m5 offset-m1 s12"><ul class="social-media-list"><li>
       <a href="mailto:mail@sean.sh">
         <i class="fas fa-envelope fa-fw"><span class="sr-only">Email</span></i>
@@ -306,7 +404,7 @@ html.loaded .no-fouc {
   </div>
 
 </footer>
-</div><div class="loading-ring page">
+<div class="loading-ring page">
   <div></div>
   <div></div>
   <div></div>
