@@ -14,10 +14,8 @@
     },
     set: function(themeName) {
       // unset loaded state, in case the css takes a long time
-      const page = document.querySelector('html.loaded');
-      if(page) {
-        page.classList.toggle('loaded');
-      }
+      const page = document.querySelector('html');
+      page.style.opacity = 0;
 
       // switch the link's href
       const themeElement = document.querySelector('.theme-variant');
@@ -27,9 +25,7 @@
       console.info('Theme set to \'' + themeName + '\'');
 
       // restore loaded state
-      if(page) {
-        page.classList.toggle('loaded');
-      }
+      page.style.opacity = 1;
     },
     saveTheme: function(themeName) {
       // you set it, we don't fagetit
@@ -136,7 +132,6 @@
   // /theme settings
 
   // set theme per session storage
-  theme.load();
 
   // init materialize css
   M.AutoInit();
@@ -167,9 +162,11 @@
   }
   // / auto hover anchors
 
-  // ready, set
+  // ready
   document.addEventListener('DOMContentLoaded', function() {
+    theme.load();
     // add class confirming dom is loaded
+    document.querySelector('html').style.opacity = 1;
     document.querySelector('html.js').classList.add('loaded');
 
     // initialize theme movers and shakers

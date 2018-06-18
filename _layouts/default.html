@@ -4,15 +4,13 @@
   {%- include head.html -%}
 
   <body>
-    <div class="no-fouc">
-      {%- include header.html -%}
+    {%- include header.html -%}
 
-      <main class="page-content" aria-label="Content">
-        {{ content }}
-      </main>
+    <main class="page-content" aria-label="Content">
+      {{ content }}
+    </main>
 
-      {%- include footer.html -%}
-    </div>
+    {%- include footer.html -%}
     {%- include loading.html -%}
 
     <script src="{{'/assets/js/libs.js' | prepend: site.baseurl }}"></script>
