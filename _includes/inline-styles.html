@@ -1,12 +1,11 @@
 <style>
 /* fade in on loaded */
-html.js .no-fouc {
-  opacity: 0;
+html.loaded {
+  transition: opacity .5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 
-html.loaded .no-fouc {
+html.loaded {
   opacity: 1;
-  transition: opacity .5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 
 /* loading animation */
