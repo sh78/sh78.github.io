@@ -4,21 +4,7 @@
   <div class="container">
     <div class="row">
       <div class="col m6 s12">
-        {%- if site.author -%}
-        <div class="avatar" data-cycle="sean">
-          <p>
-            <a href="/assets/images/sean.jpg" title="view image">
-              <img data-src="/assets/images/sean.jpg" alt="photo of Sean Henderson">
-            </a>
-            {{ site.author | escape }}
-            {%- else -%}
-            {{ site.title | escape }}
-            {%- endif -%}
-            {%- if site.email -%}
-            <br>
-          </p>
-        </div>
-        {%- endif -%}
+        {% include avatar.html %}
       </div>
       <div class="col m5 offset-m1 s12">
         {%- include social.html -%}
