@@ -227,7 +227,6 @@
       window.addEventListener("orientationchange", lazyLoad);
     }
 
-
     // infinite scrolling on blog index
     const blogScrolling = jQuery.ias({
       container:  '.post-listing',
