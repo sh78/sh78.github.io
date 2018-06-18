@@ -3,6 +3,8 @@
 LIBS=(
   "node_modules/jquery/dist/jquery.js"
   "node_modules/materialize-css/dist/js/materialize.js"
+  "node_modules/jquery-ias/src/callbacks.js"
+  "node_modules/jquery-ias/src/extension/*.js"
   "node_modules/jquery-ias/src/jquery-ias.js"
   "node_modules/anchor-js/anchor.js"
   "node_modules/typed.js/lib/typed.js"
@@ -11,4 +13,4 @@ LIBS=(
 rm assets/js/libs.js
 echo "Cleared out libs.js"
 cat ${LIBS[@]} >> assets/js/libs.js
-echo "Appended "${LIBS[@]}" to libs.js"
+echo "Appended " ${LIBS[@]} " to libs.js"
