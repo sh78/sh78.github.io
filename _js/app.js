@@ -14,22 +14,32 @@
       return themeCurrent;
     },
     set: function(themeName) {
-      // unset loaded state, in case the css takes a long time
-      const page = document.querySelector('html');
-      page.style.opacity = 0;
-
-      // switch the links' `rel` vals
       const allThemes = document.querySelectorAll('.theme-variant');
       const themeCurrent = document.querySelector(`.theme-variant[title="${ theme.get() }"`);
       const themeNext = document.querySelector(`.theme-variant[title="${ themeName }"]`);
-      allThemes.forEach(function(e) {
-        e.setAttribute('rel', 'alternate stylesheet');
-      });
-      themeNext.setAttribute('rel', 'stylesheet');
-      console.info('Theme set to \'' + themeName + '\'');
 
-      // restore loaded state
-      page.style.opacity = 1;
+      if (themeCurrent != themeNext) {  
+        // unset loaded state, in case the css takes a long time
+        const page = document.querySelector('html');
+        page.style.opacity = 0;
+
+        // switch the links' `rel` vals
+        allThemes.forEach(function(e) {
+          e.setAttribute('rel', 'alternate stylesheet');
+        });
+        themeNext.setAttribute('rel', 'stylesheet');
+        // build dom to reload the css
+        allThemes.forEach(function(e) {
+          console.log(e.title, e.rel);
+          // TODO: reload only non-alt stylesheet
+        });
+        
+
+        console.info('Theme set to \'' + themeName + '\'');
+
+        // restore loaded state
+        page.style.opacity = 1;
+      }
     },
     saveTheme: function(themeName) {
       // you set it, we don't fagetit
@@ -62,7 +72,7 @@
       const sessionTheme = sessionStorage.getItem('theme');
       if(sessionTheme) {
         theme.set(sessionTheme);
-      } else if(savedTheme && savedTheme != 'auto') {
+      } else if(savedTheme && savedTheme != 'Auto') {
         theme.set(savedTheme);
       } else {
         theme.autoLoad();
