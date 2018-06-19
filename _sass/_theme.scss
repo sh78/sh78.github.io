@@ -33,32 +33,12 @@ a {
 
 .page-content {
   ul {
-    list-style-type: none;
     padding-left: 2em;
 
     li {
+      list-style-type: disc;
       position: relative;
 
-      &:before {
-        content: '\f140';
-        font-family: 'Font Awesome 5 Free';
-        font-weight: bold;
-        position: absolute;
-        left: -1.5rem;
-      }
-
-      li {
-        &:before {
-          content: '\f192';
-          font-weight: normal;
-        }
-
-        li {
-          &:before {
-            font-weight: bold;
-          }
-        }
-      }
     }
   }
 
