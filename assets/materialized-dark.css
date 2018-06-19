@@ -4396,8 +4396,8 @@ pre.highlight pre {
 }
 
 .internal:before {
-  font-family: "Font Awesome 5 Free";
-  content: "\f292";
+  font-family: 'Font Awesome 5 Free';
+  content: '\f292';
   font-weight: 900;
   font-size: 0.7rem;
   position: absolute;
@@ -4593,6 +4593,37 @@ img {
 
 .post-meta .anchorjs-link {
   display: none;
+}
+
+.typed-cursor {
+  animation: blink .7s infinite;
+  background: #FFFFFF;
+  font-weight: 100;
+  opacity: 1;
+  position: relative;
+}
+
+h1 .typed-cursor {
+  left: -.6em;
+}
+
+p .typed-cursor {
+  left: -.2em;
+  width: 2em;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 
 /* Solarized Dark 
@@ -4934,7 +4965,7 @@ a:hover {
 
 .page-content ul li:before {
   content: '\f140';
-  font-family: "Font Awesome 5 Free";
+  font-family: 'Font Awesome 5 Free';
   font-weight: bold;
   position: absolute;
   left: -1.5rem;

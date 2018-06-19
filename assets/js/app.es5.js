@@ -303,6 +303,55 @@
       tocContainer.innerHTML = tocContainer.innerHTML + tocTemplate;
     }
     // / automatic ToC
+
+    // live typing with typed.js
+    var typedElement = document.getElementById('home-title');
+    var sawTyped = sessionStorage.getItem('sawTypedHome');
+    if (typedElement && !sessionStorage.getItem('sawTypedHome')) {
+      $('.await-typedjs').hide();
+      var typedTitle = new Typed("#home-title", {
+        strings: ["Hello Human^2000", "Hello There^500\, ^1000 Friend^1500\!"],
+        startDelay: 1000,
+        typeSpeed: 30,
+        backSpeed: 40,
+        onComplete: function onComplete(typed) {
+          setTimeout(function () {
+            typed.cursor.style.display = 'none';
+          }, 1000);
+        }
+      });
+      var typedIntro = new Typed("#home-intro", {
+        strings: ["I’m Sean.^1000 I like to arrange bits of text in my mind^250", "I’m Sean. I like to arrange bits of text on screens.^1000 I'm a front^200-^200end^250", "I’m Sean. I like to arrange bits of text on screens. I'm a medium^200-^200end^250", "I’m Sean. I like to arrange bits of text on screens. I'm an imposter^200", "I’m Sean. I like to arrange bits of text on screens. I'm a full^200-^200end^250", "I’m Sean. I like to arrange bits of text on screens. I'm a full-stack^500 web developer^250\,^500",
+        // "I’m Sean. I like to arrange bits of text on screens. I'm a medium-end developer\, of sorts. I'm not hyper^250-^250specialized in any one area of software development^250\,^500 because I have severe AD",
+        "I’m Sean. I like to arrange bits of text on screens. I'm a full-stack web developer\, currently working at LiveNation^200", "I’m Sean. I like to arrange bits of text on screens. I'm a full-stack web developer\, currently working at Ticketma", "I’m Sean. I like to arrange bits of text on screens. I'm a full-stack web developer\, currently working at a startup in Nepal^500", "I’m Sean. I like to arrange bits of text on screens. I'm a full-stack web developer\, currently working for myself^250", "I’m Sean. I like to arrange bits of text on screens. I'm a full-stack web developer\, currently working at Clorox Digital L", "I’m Sean. I like to arrange bits of text on screens. I'm a full-stack web developer\, currently working at Electro Creative Workshop^500 in Oakland^250\,^250 California^250."],
+        startDelay: 9000,
+        typeSpeed: 30,
+        backSpeed: 40,
+        onComplete: function onComplete(typed) {
+          setTimeout(function () {
+            typed.cursor.style.display = 'none';
+            $('.await-typedjs').fadeIn();
+            sessionStorage.setItem('sawTypedHome', true);
+          }, 1000);
+        }
+      });
+    } else {
+      document.getElementById('home-title').innerText = "Hello There, Friend!";
+      document.getElementById('home-intro').innerText = "I’m Sean. I like to arrange bits of text on screens. I'm a full-stack web developer\, currently working at Electro Creative Workshop in Oakland\, California.";
+    }
+
+    // / live typing
+
+    // random post
+    var randomPost = allPosts[Math.floor(Math.random() * Math.floor(allPosts.length))];
+    var luckies = document.querySelectorAll('.lucky');
+    luckies.forEach(function (e) {
+      e.addEventListener('click', function (event) {
+        event.preventDefault();
+        window.location.href = randomPost;
+      });
+    });
+    // / random post
   });
 })();
 
