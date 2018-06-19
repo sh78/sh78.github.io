@@ -359,7 +359,7 @@
           }, 1000);
         },
       });
-    } else {
+    } else if(typedElement) {
       document.getElementById('home-title').innerText = "Hello There, Friend!";
       document.getElementById('home-intro').innerText = "I’m Sean. I like to arrange bits of text on screens. I'm a full-stack web developer\, currently working at Electro Creative Workshop in Oakland\, California.";
 
