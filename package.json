@@ -9,7 +9,7 @@
   "private": false,
   "scripts": {
     "dev": "concurrently \"npm run watch-js\" \"jekyll serve\"",
-    "build": "npm run libs && npm run es5 && jekyll build",
+    "build": "npm run libs && npm run es5 && jekyll build && bin/purify",
     "deploy": "npm run build && cd _site && git pull && echo 'www.sean.sh' > CNAME && git add --all && git commit -m 'build for GitHub Pages' && git push origin master && cfcli purge https://www.sean.sh",
     "es5": "npx babel --presets env _js/app.js --source-maps --out-file assets/js/app.es5.js",
     "uglify-js": "cat assets/js/app.es5.js | npx uglifyjs > _site/assets/js/app.es5.js",
@@ -17,7 +17,7 @@
     "libs": "npm run modernizr && bin/libs",
     "watch-js": "npm run es5 -- --watch",
     "modernizr": "npx modernizr --config modernizr.json --uglify --dest assets/js/modernizr.min.js",
-    "purify-css": "npx purifycss -im _site/assets/themes/*.css ./_site/assets/js/*.js _site/**/*.html -i -o _site/assets/dist.css",
+    "purify-css": "bin/purify",
     "css-libs": "echo TODO"
   },
   "devDependencies": {
