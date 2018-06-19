@@ -93,5 +93,34 @@
     display: none;
   }
 }
-
 // / anchorjs permalinks
+
+// typed.js
+
+.typed-cursor {
+  animation: blink .7s infinite;
+  background: $headline-color;
+  font-weight: 100;
+  opacity: 1;
+  position: relative;
+}
+
+h1 {
+  .typed-cursor {
+    left: -.6em;
+  }
+}
+
+p {
+  .typed-cursor {
+    left: -.2em;
+    width: 2em;
+  }
+}
+
+@keyframes blink {
+  0%   { opacity: 1; }
+  50%  { opacity: 0; }
+  100% { opacity: 1; }
+}
+// / typed.js
