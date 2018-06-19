@@ -6266,7 +6266,8 @@ code, kbd, samp {
 main p code,
 main li code {
   background-color: #fdf6e3;
-  padding: 0 .3em; }
+  padding: 0 .3em;
+  word-wrap: break-word; }
 
 .nav-main ul {
   margin: 0; }
