@@ -315,7 +315,8 @@
 
     // live typing with typed.js
     const typedElement = document.getElementById('home-title');
-    if(typedElement) {
+    const sawTyped = sessionStorage.getItem('sawTypedHome');
+    if(typedElement && !sessionStorage.getItem('sawTypedHome')) {
       $('.await-typedjs').hide();
       const typedTitle = new Typed("#home-title", {
         strings: [
@@ -354,9 +355,14 @@
           setTimeout(function() {
             typed.cursor.style.display = 'none';
             $('.await-typedjs').fadeIn();
+            sessionStorage.setItem('sawTypedHome', true);
           }, 1000);
         },
       });
+    } else {
+      document.getElementById('home-title').innerText = "Hello There, Friend!";
+      document.getElementById('home-intro').innerText = "I’m Sean. I like to arrange bits of text on screens. I'm a full-stack web developer\, currently working at Electro Creative Workshop in Oakland\, California.";
+
     }
 
     // / live typing
