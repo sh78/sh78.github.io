@@ -318,7 +318,7 @@
     };
 
     if (typedElement && !sawTyped) {
-      $('.await-typedjs').hide();
+      $('.typed-await').hide();
       typedTitle = new Typed("#home-title", {
         strings: ["Hello Human^2000", "Hello There^500\, ^1000 Friend^1500\!"],
         startDelay: 1000,
@@ -345,7 +345,7 @@
         onComplete: function onComplete(self) {
           setTimeout(function () {
             self.cursor.style.display = 'none';
-            $('.await-typedjs').fadeIn();
+            $('.typed-await').fadeIn();
             sessionStorage.setItem('sawTypedHome', true);
           }, 1000);
         },
@@ -366,8 +366,8 @@
           typedTitle.destroy();
           typedIntro.destroy();
           $('.typed-skip').hide();
-          $('.await-typedjs').fadeIn();
-          // sessionStorage.setItem('sawTypedHome', true);
+          $('.typed-await').fadeIn();
+          sessionStorage.setItem('sawTypedHome', true);
         });
       });
     }
