@@ -4,28 +4,41 @@
 
   // set theme per local storage
   const theme = {
-    availableThemes: {},
-    dayTheme: 'materialized-light',
-    nightTheme: 'materialized-dark',
+    dayTheme: 'Materialized Light',
+    nightTheme: 'Materialized Dark',
     get: function() {
-      const themeElement = document.querySelector('.theme-variant');
-      const themeCurrent = themeElement.href.split('/').pop().split('.')[0];
+      // order of attribute values matters, for now
+      const themeElement = document.querySelector('.theme-variant[rel^=stylesheet]');
+      const themeCurrent = themeElement.title;
       return themeCurrent;
     },
     set: function(themeName) {
-      // unset loaded state, in case the css takes a long time
-      const page = document.querySelector('html');
-      page.style.opacity = 0;
+      const allThemes = document.querySelectorAll('.theme-variant');
+      const themeCurrent = document.querySelector(`.theme-variant[title="${ theme.get() }"`);
+      const themeNext = document.querySelector(`.theme-variant[title="${ themeName }"]`);
 
-      // switch the link's href
-      const themeElement = document.querySelector('.theme-variant');
-      const themeCurrent = themeElement.href.split('/').pop();
-      const themePath = themeElement.href.split('/').slice(0, -1).join('/') + '/';
-      themeElement.href = themePath + themeName + ".css";
-      console.info('Theme set to \'' + themeName + '\'');
+      if (themeCurrent != themeNext) {
+        // unset loaded state, in case the css takes a long time
+        const page = document.querySelector('html');
+        page.style.opacity = 0;
+        // TODO: fix FOUC due to the order in whichh `disabled` in set/unset
+        // the opacity effect works on debugger pause, but not on a normal load
 
-      // restore loaded state
-      page.style.opacity = 1;
+        // hot swap the links' `rel` and `disabled` vals
+        // `disabled being toggled is what triggers repaint in the browser
+        allThemes.forEach(function(e) {
+          e.setAttribute('rel', 'alternate stylesheet');
+          e.setAttribute('disabled', 'true');
+          if (e.title === themeNext.title) {
+            themeNext.setAttribute('rel', 'stylesheet');
+            themeNext.removeAttribute('disabled');
+          }
+        });
+        console.info('Theme set to \'' + themeName + '\'');
+
+        // restore loaded state
+        page.style.opacity = 1;
+      }
     },
     saveTheme: function(themeName) {
       // you set it, we don't fagetit
@@ -58,7 +71,7 @@
       const sessionTheme = sessionStorage.getItem('theme');
       if(sessionTheme) {
         theme.set(sessionTheme);
-      } else if(savedTheme && savedTheme != 'auto') {
+      } else if(savedTheme && savedTheme != 'Auto') {
         theme.set(savedTheme);
       } else {
         theme.autoLoad();
@@ -85,7 +98,6 @@
       let result;
       if (session) {
         result = session;
-        console.log(sessionStorage);
       } else {
         if(hour > 5 && hour < 19) {
           result = theme.dayTheme;
