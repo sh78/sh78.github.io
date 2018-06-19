@@ -117,17 +117,19 @@
       });
 
       // bind any other theme pickers
-      const themePickers = document.querySelector('.theme-select');
-      themePickers.addEventListener('click', function(e) {
-        e.preventDefault();
-        const desiredTheme = e.target.dataset.theme;
-        if(theme.get === theme) {
-          return;
-        } else {
-          theme.set(desiredTheme);
-          theme.saveTheme(desiredTheme);
-          theme.updateUI();
-        }
+      const themePickers = document.querySelectorAll('.theme-select');
+      themePickers.forEach(function(picker) {
+        picker.addEventListener('click', function(e) {
+          e.preventDefault();
+          const desiredTheme = e.target.dataset.theme;
+          if(theme.get === theme) {
+            return;
+          } else {
+            theme.set(desiredTheme);
+            theme.saveTheme(desiredTheme);
+            theme.updateUI();
+          }
+        });
       });
 
       // handle auto mode

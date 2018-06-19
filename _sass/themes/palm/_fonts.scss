@@ -1,0 +1,23 @@
+@font-face {
+  font-family: 'Palm OS';
+  font-style: normal;
+  font-weight: bold;
+  src: url('/assets/fonts/palm_os_bold-webfont.woff2') format('woff2'),
+  url('/assets/fonts/palm_os_bold-webfont.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Palm OS Large';
+  font-style: normal;
+  font-weight: normal;
+  src: url('/assets/fonts/palm_os_large-webfont.woff2') format('woff2'),
+  url('/assets/fonts/palm_os_large-webfont.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Palm OS';
+  font-style: normal;
+  font-weight: normal;
+  src: url('/assets/fonts/palm_os-webfont.woff2') format('woff2'),
+  url('/assets/fonts/palm_os-webfont.woff') format('woff');
+}

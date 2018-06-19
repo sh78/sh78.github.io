@@ -1,0 +1,47 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+.btn,
+.btn-large {
+  word-spacing: .2rem;
+  letter-spacing: .2rem;
+}
+
+.nav-main, .nav-main ul, .card, footer {
+  a {
+    color: color("shades", "white");
+  }
+}
+
+.dropdown-content li > a, .dropdown-content li > span {
+  color: color("shades", "white");
+}
+
+.post-meta {
+  font-family: $pre-font;
+  font-style: italic;
+  font-size: .7em;
+  letter-spacing: .2rem;
+}
+
+
+code, kbd, samp {
+  letter-spacing: .2rem;
+}
+
+strong {
+  color: $text-color;
+}
+
+main {
+  line-height: 1;
+  p,
+  li {
+    code {
+      color: color("shades", "white");
+      font-size: 2rem;
+    }
+  }
+}
