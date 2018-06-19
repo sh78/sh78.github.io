@@ -314,11 +314,20 @@
     // / automatic ToC
 
     // live typing with typed.js
+    // well this got bigger than anticpiated. should be made into a class-like object
+    // and scope functionality only to pages that have to elements to work on
     const typedElement = document.getElementById('home-title');
+    let typedTitle, typedIntro;
     const sawTyped = sessionStorage.getItem('sawTypedHome');
-    if(typedElement && !sessionStorage.getItem('sawTypedHome')) {
+
+    const typedFinish = () => {
+      document.getElementById('home-title').innerText = "Hello There, Friend!";
+      document.getElementById('home-intro').innerText = "I’m Sean. I like to arrange bits of text on screens. I'm a full-stack web developer\, currently working at Electro Creative Workshop in Oakland\, California.";
+    };
+
+    if (typedElement && !sawTyped) {
       $('.await-typedjs').hide();
-      const typedTitle = new Typed("#home-title", {
+      typedTitle = new Typed("#home-title", {
         strings: [
           "Hello Human^2000",
           "Hello There^500\, ^1000 Friend^1500\!",
@@ -326,13 +335,17 @@
         startDelay: 1000,
         typeSpeed: 30,
         backSpeed: 40,
-        onComplete: (typed) => {
-          setTimeout(function() {
-            typed.cursor.style.display = 'none';
+        backDelay: 200,
+        onComplete: (self) => {
+          setTimeout(() => {
+            self.cursor.style.display = 'none';
           }, 1000);
         },
+        onDestroy: (self) => {
+          $(`[data-id=${self.el.id}`).text("Hello There, Friend!");
+        }
       });
-      const typedIntro = new Typed("#home-intro", {
+      typedIntro = new Typed("#home-intro", {
         strings: [
           "I’m Sean.^1000 I like to arrange bits of text in my mind^250",
           "I’m Sean. I like to arrange bits of text on screens.^1000 I'm a front^200-^200end^250",
@@ -351,18 +364,35 @@
         startDelay: 9000,
         typeSpeed: 30,
         backSpeed: 40,
-        onComplete: (typed) => {
-          setTimeout(function() {
-            typed.cursor.style.display = 'none';
+        backDelay: 200,
+        onComplete: (self) => {
+          setTimeout(() => {
+            self.cursor.style.display = 'none';
             $('.await-typedjs').fadeIn();
             sessionStorage.setItem('sawTypedHome', true);
           }, 1000);
         },
+        onDestroy: (self) => {
+          $(`[data-id=${self.el.id}`).text("I’m Sean. I like to arrange bits of text on screens. I'm a full-stack web developer\, currently working at Electro Creative Workshop in Oakland\, California.");
+        }
       });
     } else if(typedElement) {
-      document.getElementById('home-title').innerText = "Hello There, Friend!";
-      document.getElementById('home-intro').innerText = "I’m Sean. I like to arrange bits of text on screens. I'm a full-stack web developer\, currently working at Electro Creative Workshop in Oakland\, California.";
+      $('.typed-skip').hide();
+      typedFinish();
+    }
 
+    const skippers = document.getElementsByClassName('typed-skip');
+    if (skippers) {
+      Array.from(skippers).forEach(function(element) {
+        element.addEventListener('click', function(e) {
+          e.preventDefault();
+          typedTitle.destroy();
+          typedIntro.destroy();
+          $('.typed-skip').hide();
+          $('.await-typedjs').fadeIn();
+          // sessionStorage.setItem('sawTypedHome', true);
+        });
+      });
     }
 
     // / live typing
