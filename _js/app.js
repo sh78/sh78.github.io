@@ -45,7 +45,7 @@
       console.info(`Saved ${themeName} as your preferred theme.`);
       localStorage.setItem('theme', themeName);
       // clear any session theme
-      sessionStorage.clear();
+      sessionStorage.removeItem('theme');
     },
     saveTimed: function(themeName) {
       // you set it, we don't fagetit
