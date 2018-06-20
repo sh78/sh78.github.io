@@ -19,6 +19,25 @@ h5,
   }
 }
 
+.nav-main {
+  background-color: $background-color;
+  box-shadow: none;
+
+  .nav-wrapper {
+    border-bottom: 4px solid $text-color;
+  }
+}
+
+.page-footer {
+  background-color: $primary-color;
+  padding-top: 3px;
+
+  .footer-contact {
+    border: 2px solid $text-color;
+    border-radius: 10px;
+  }
+}
+
 .post-meta {
   font-family: $pre-font;
   font-size: .7em;
