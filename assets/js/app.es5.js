@@ -16,7 +16,7 @@
     },
     set: function set(themeName) {
       var allThemes = document.querySelectorAll('.theme-variant');
-      var themeCurrent = document.querySelector('.theme-variant[title="' + theme.get() + '"');
+      var themeCurrent = document.querySelector('.theme-variant[title="' + theme.get() + '"]');
       var themeNext = document.querySelector('.theme-variant[title="' + themeName + '"]');
 
       if (themeCurrent != themeNext) {
