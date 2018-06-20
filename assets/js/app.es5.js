@@ -224,6 +224,8 @@
       });
     } else {
       var lazyLoad = function lazyLoad() {
+        var active = false;
+
         if (active === false) {
           active = true;
 
@@ -345,7 +347,7 @@
           }, 1000);
         },
         onDestroy: function onDestroy(self) {
-          $('[data-id=' + self.el.id).text("Hello There, Friend!");
+          $('[data-id="' + self.el.id + '"]').text("Hello There, Friend!");
         }
       });
       typedIntro = new Typed("#home-intro", {
@@ -364,7 +366,7 @@
           }, 1000);
         },
         onDestroy: function onDestroy(self) {
-          $('[data-id=' + self.el.id).text("I’m Sean. I like to arrange bits of text on screens. I'm a full-stack web developer\, currently working at Electro Creative Workshop in Oakland\, California.");
+          $('[data-id="' + self.el.id + '"]').text("I’m Sean. I like to arrange bits of text on screens. I'm a full-stack web developer\, currently working at Electro Creative Workshop in Oakland\, California.");
         }
       });
     } else if (typedElement) {
