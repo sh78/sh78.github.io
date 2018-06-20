@@ -9,7 +9,7 @@
   "private": false,
   "scripts": {
     "dev": "concurrently \"npm run watch-js\" \"jekyll serve\"",
-    "build": "npm run libs && npm run es5 && jekyll build && bin/purify",
+    "build": "npm run libs && npm run es5 && JEKYLL_ENV=production jekyll build && bin/purify",
     "deploy": "npm run build && cd _site && git pull && echo 'www.sean.sh' > CNAME && git add --all && git commit -m 'build for GitHub Pages' && git push origin master && cfcli purge https://www.sean.sh",
     "es5": "npx babel --presets env _js/app.js --source-maps --out-file assets/js/app.es5.js",
     "uglify-js": "cat assets/js/app.es5.js | npx uglifyjs > _site/assets/js/app.es5.js",
