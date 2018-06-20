@@ -4281,7 +4281,7 @@ h1,h2,h3,h4,h5,.btn,.btn-large {
 
 .post-meta {
   font-family: "Palm OS Large", sans-serif;
-  font-size: .7em;
+  font-size: 1.7rem;
   font-style: italic;
   letter-spacing: .2rem;
 }
@@ -4351,4 +4351,27 @@ main p code,main li code {
 .post-toc a {
   color: #000300;
   font-weight: normal;
+}
+
+.typed-cursor {
+  background: #7a8a5a;
+  font-weight: bold;
+}
+
+h1 .typed-cursor {
+  left: 0;
+}
+
+.btn-large {
+  background-color: transparent;
+  border: 2px solid #000300;
+  border-radius: 10px;
+  box-shadow: none;
+  font-size: 2rem;
+}
+
+.btn-large:hover {
+  background-color: #000300;
+  color: #7a8a5a;
+  box-shadow: 0, 0, 0;
 }
