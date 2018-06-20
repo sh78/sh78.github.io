@@ -27,19 +27,20 @@
         // hot swap the links' `rel` and `disabled` vals
         // `disabled` being toggled is what triggers repaint in the browser
         allThemes.forEach(function(e) {
-          console.log(e);
           e.setAttribute('rel', 'alternate stylesheet');
           e.removeAttribute('disabled');
           e.setAttribute('disabled', 'true');
         });
-        console.log('theme next: ', themeNext);
         themeNext.setAttribute('rel', 'stylesheet');
         themeNext.removeAttribute('disabled');
+        // TODO: this should not be needed, but materialize-dark.css creeps in
+        // while other theme is active
+        // why doesn't the browser update styles if setTimeout is removed?
+        // Array.forEach() is not async
         setTimeout(function() {
           themeCurrent.removeAttribute('disabled');
           themeCurrent.setAttribute('disabled', 'true');
-        }, 1000);
-        console.log(themeCurrent);
+        }, 250);
         console.info('Theme set to \'' + themeName + '\'');
 
         // restore loaded state
