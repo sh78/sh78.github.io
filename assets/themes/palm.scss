@@ -12,14 +12,57 @@
 @import 'themes/palm/variables';
 
 // Materialize CSS
-@import 'materialize/index';
+// this theme uses less of the materialize boilerplate
+
+// Color
+@import 'materialize/components/color-variables';
+@import 'materialize/components/color-classes';
+
+// Variables;
+// @import 'materialize/components/variables';
+@import 'materialize/custom/variables';
+
+// Reset
+@import 'materialize/components/normalize';
+
+// materialize/components
+@import 'materialize/components/global';
+// @import 'materialize/components/badges';
+// @import 'materialize/components/icons-material-design';
+@import 'materialize/components/grid';
+// @import 'materialize/components/navbar';
+@import 'materialize/custom/navbar';
+@import 'materialize/components/typography';
+// @import 'materialize/components/transitions';
+// @import 'materialize/components/cards';
+@import 'materialize/components/toast';
+// @import 'materialize/components/tabs';
+// @import 'materialize/components/tooltip';
+@import 'materialize/components/buttons';
+@import 'materialize/components/dropdown';
+@import 'materialize/components/waves';
+@import 'materialize/components/modal';
+@import 'materialize/components/collapsible';
+@import 'materialize/components/chips';
+@import 'materialize/components/materialbox';
+@import 'materialize/components/forms/forms';
+@import 'materialize/components/table_of_contents';
+@import 'materialize/components/sidenav';
+// @import 'materialize/components/preloader';
+// @import 'materialize/components/slider';
+// @import 'materialize/components/carousel';
+@import 'materialize/components/tapTarget';
+@import 'materialize/components/pulse';
+// @import 'materialize/components/datepicker';
+// @import 'materialize/components/timepicker';
 
 // global styles
 @import 'atoms'; // bite-sized helper classes for global elements
 @import 'layout'; // aptly-named
-@import 'modules'; // speicifc components
+@import 'modules'; // speicifc materialize/components
 @import 'gist'; // gist embeds (global)
 @import 'themes/syntax/pygments-default'; // code
+@import 'themes/palm/pygments-palm'; // code
 
 // theme - mostly colors and typography
 @import 'theme';

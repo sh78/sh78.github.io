@@ -5,29 +5,32 @@ h4,
 h5,
 .btn,
 .btn-large {
-  word-spacing: .2rem;
+  color: $secondary-color;
   letter-spacing: .2rem;
+  word-spacing: .2rem;
 }
 
-.nav-main, .nav-main ul, .card, footer {
+.nav-main,
+.nav-main ul,
+.card, footer {
   a {
-    color: color("shades", "white");
+    color: color('palm', 'black');
+    border-bottom: 0;
   }
-}
-
-.dropdown-content li > a, .dropdown-content li > span {
-  color: color("shades", "white");
 }
 
 .post-meta {
   font-family: $pre-font;
-  font-style: italic;
   font-size: .7em;
+  font-style: italic;
   letter-spacing: .2rem;
 }
 
 
-code, kbd, samp {
+code,
+kbd,
+samp {
+  font-size: .7em;
   letter-spacing: .2rem;
 }
 
@@ -35,13 +38,41 @@ strong {
   color: $text-color;
 }
 
+a {
+  border-bottom: 2px solid $link-color;
+  font-family: $body-font;
+  font-weight: bold;
+}
+
 main {
   line-height: 1;
+
   p,
   li {
     code {
-      color: color("shades", "white");
+      color: $text-color;
       font-size: 2rem;
     }
+  }
+}
+
+.cta-full-width {
+  a {
+    border-bottom: 0;
+  }
+}
+
+.card-content {
+  // make the cards Palmy
+  border: 2px solid $link-color;
+  border-radius: 10px;
+  padding: 1rem;
+
+  .btn-floating {
+    display: none;
+  }
+
+  a {
+    border-bottom: 2px solid $link-color;
   }
 }
