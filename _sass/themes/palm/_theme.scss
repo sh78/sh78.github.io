@@ -92,3 +92,10 @@ main {
     background-size: contain;
   }
 }
+
+.post-toc {
+  a {
+    color: $text-color;
+    font-weight: normal;
+  }
+}

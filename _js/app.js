@@ -25,15 +25,21 @@
         // the opacity effect works on debugger pause, but not on a normal load
 
         // hot swap the links' `rel` and `disabled` vals
-        // `disabled being toggled is what triggers repaint in the browser
+        // `disabled` being toggled is what triggers repaint in the browser
         allThemes.forEach(function(e) {
+          console.log(e);
           e.setAttribute('rel', 'alternate stylesheet');
+          e.removeAttribute('disabled');
           e.setAttribute('disabled', 'true');
-          if (e.title === themeNext.title) {
-            themeNext.setAttribute('rel', 'stylesheet');
-            themeNext.removeAttribute('disabled');
-          }
         });
+        console.log('theme next: ', themeNext);
+        themeNext.setAttribute('rel', 'stylesheet');
+        themeNext.removeAttribute('disabled');
+        setTimeout(function() {
+          themeCurrent.removeAttribute('disabled');
+          themeCurrent.setAttribute('disabled', 'true');
+        }, 1000);
+        console.log(themeCurrent);
         console.info('Theme set to \'' + themeName + '\'');
 
         // restore loaded state
@@ -93,19 +99,22 @@
       }
     },
     autoLoad: function() {
-      const session = sessionStorage.getItem('theme');
-      const hour = new Date().getHours();
-      let result;
-      if (session) {
-        result = session;
-      } else {
-        if(hour > 5 && hour < 19) {
-          result = theme.dayTheme;
+      const local = localStorage.getItem('theme');
+      if (!local || local === 'Auto') {
+        const session = sessionStorage.getItem('theme');
+        const hour = new Date().getHours();
+        let result;
+        if (session) {
+          result = session;
         } else {
-          result = theme.nightTheme;
+          if(hour > 5 && hour < 19) {
+            result = theme.dayTheme;
+          } else {
+            result = theme.nightTheme;
+          }
         }
+        theme.set(result);
       }
-      theme.set(result);
     },
     init: function() {
       theme.updateUI();
