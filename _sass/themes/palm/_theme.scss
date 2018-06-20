@@ -57,6 +57,10 @@ main {
 }
 
 .cta-full-width {
+  background: transparent;
+  border-top: 4px solid $text-color;
+  border-bottom: 4px solid $text-color;
+
   a {
     border-bottom: 0;
   }
@@ -74,5 +78,17 @@ main {
 
   a {
     border-bottom: 2px solid $link-color;
+  }
+}
+
+.avatar {
+  img {
+    display: block;
+    box-sizing: border-box;
+    background: url('/assets/images/sean-posterize.jpg') no-repeat;
+    width: 120px;
+    height: 120px;
+    padding-left: 120px;
+    background-size: contain;
   }
 }
