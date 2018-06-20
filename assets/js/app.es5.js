@@ -27,15 +27,24 @@
         // the opacity effect works on debugger pause, but not on a normal load
 
         // hot swap the links' `rel` and `disabled` vals
-        // `disabled being toggled is what triggers repaint in the browser
+        // `disabled` being toggled is what triggers repaint in the browser
         allThemes.forEach(function (e) {
           e.setAttribute('rel', 'alternate stylesheet');
+          e.removeAttribute('disabled');
           e.setAttribute('disabled', 'true');
-          if (e.title === themeNext.title) {
-            themeNext.setAttribute('rel', 'stylesheet');
-            themeNext.removeAttribute('disabled');
-          }
         });
+        themeNext.setAttribute('rel', 'stylesheet');
+        themeNext.removeAttribute('disabled');
+        themeCurrent.removeAttribute('disabled');
+        themeCurrent.setAttribute('disabled', 'true');
+        // TODO: this should not be needed, but materialize-dark.css creeps in
+        // while other theme is active
+        // why doesn't the browser update styles if setTimeout is removed?
+        // Array.forEach() is not async
+        // setTimeout(function() {
+        //   themeCurrent.removeAttribute('disabled');
+        //   themeCurrent.setAttribute('disabled', 'true');
+        // }, 250);
         console.info('Theme set to \'' + themeName + '\'');
 
         // restore loaded state
@@ -95,19 +104,22 @@
       }
     },
     autoLoad: function autoLoad() {
-      var session = sessionStorage.getItem('theme');
-      var hour = new Date().getHours();
-      var result = void 0;
-      if (session) {
-        result = session;
-      } else {
-        if (hour > 5 && hour < 19) {
-          result = theme.dayTheme;
+      var local = localStorage.getItem('theme');
+      if (!local || local === 'Auto') {
+        var session = sessionStorage.getItem('theme');
+        var hour = new Date().getHours();
+        var result = void 0;
+        if (session) {
+          result = session;
         } else {
-          result = theme.nightTheme;
+          if (hour > 5 && hour < 19) {
+            result = theme.dayTheme;
+          } else {
+            result = theme.nightTheme;
+          }
         }
+        theme.set(result);
       }
-      theme.set(result);
     },
     init: function init() {
       theme.updateUI();
@@ -119,17 +131,19 @@
       });
 
       // bind any other theme pickers
-      var themePickers = document.querySelector('.theme-select');
-      themePickers.addEventListener('click', function (e) {
-        e.preventDefault();
-        var desiredTheme = e.target.dataset.theme;
-        if (theme.get === theme) {
-          return;
-        } else {
-          theme.set(desiredTheme);
-          theme.saveTheme(desiredTheme);
-          theme.updateUI();
-        }
+      var themePickers = document.querySelectorAll('.theme-select');
+      themePickers.forEach(function (picker) {
+        picker.addEventListener('click', function (e) {
+          e.preventDefault();
+          var desiredTheme = e.target.dataset.theme;
+          if (theme.get === theme) {
+            return;
+          } else {
+            theme.set(desiredTheme);
+            theme.saveTheme(desiredTheme);
+            theme.updateUI();
+          }
+        });
       });
 
       // handle auto mode

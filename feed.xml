@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2018-06-19T14:50:07-07:00</updated><id>/</id><title type="html">sean henderson</title><subtitle>Sean's website/weblog/web development happy place. Come on inside, hang your hat friend.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.3">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2018-06-19T21:18:16-07:00</updated><id>/</id><title type="html">sean henderson</title><subtitle>Sean's website/weblog/web development happy place. Come on inside, hang your hat friend.
 </subtitle><author><name>Sean Henderson</name></author><entry><title type="html">When An Alias Should Actually Be An Abbr</title><link href="/log/when-an-alias-should-actually-be-an-abbr/" rel="alternate" type="text/html" title="When An Alias Should Actually Be An Abbr" /><published>2018-06-17T07:15:00-07:00</published><updated>2018-06-17T07:15:00-07:00</updated><id>/log/when-an-alias-should-actually-be-an-abbr</id><content type="html" xml:base="/log/when-an-alias-should-actually-be-an-abbr/">&lt;p&gt;The short answer is: &lt;strong&gt;always&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p&gt;I really appreciate how &lt;code class=&quot;highlighter-rouge&quot;&gt;tmuxinator&lt;/code&gt; handles completion and aliasing from a fish
@@ -204,7 +204,7 @@ I decided to cut my losses and stick with the default.&lt;/p&gt;
 &lt;p&gt;Someday I’ll learn to leave well enough alone. That will be a really boring day.
 The next day, I’ll start bothering well enough again.&lt;/p&gt;
 
-&lt;h2 id=&quot;what-have-we-leaned&quot;&gt;What have we leaned?&lt;/h2&gt;
+&lt;h2 id=&quot;what-have-we-learned&quot;&gt;What have we learned?&lt;/h2&gt;
 
 &lt;ol&gt;
   &lt;li&gt;Use &lt;code class=&quot;highlighter-rouge&quot;&gt;abbr&lt;/code&gt; instead of &lt;code class=&quot;highlighter-rouge&quot;&gt;alias&lt;/code&gt;.&lt;/li&gt;
