@@ -33,14 +33,16 @@
         });
         themeNext.setAttribute('rel', 'stylesheet');
         themeNext.removeAttribute('disabled');
+        themeCurrent.removeAttribute('disabled');
+        themeCurrent.setAttribute('disabled', 'true');
         // TODO: this should not be needed, but materialize-dark.css creeps in
         // while other theme is active
         // why doesn't the browser update styles if setTimeout is removed?
         // Array.forEach() is not async
-        setTimeout(function() {
-          themeCurrent.removeAttribute('disabled');
-          themeCurrent.setAttribute('disabled', 'true');
-        }, 250);
+        // setTimeout(function() {
+        //   themeCurrent.removeAttribute('disabled');
+        //   themeCurrent.setAttribute('disabled', 'true');
+        // }, 250);
         console.info('Theme set to \'' + themeName + '\'');
 
         // restore loaded state

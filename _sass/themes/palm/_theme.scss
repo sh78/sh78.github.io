@@ -66,18 +66,32 @@ main {
   }
 }
 
-.card-content {
-  // make the cards Palmy
-  border: 2px solid $link-color;
-  border-radius: 10px;
-  padding: 1rem;
+// make the cards Palmy
+.card {
+  position: static;
+  margin: 0 0 0 0;
+  background-color: transparent;
+  box-shadow: none;
+  border-radius: 0;
 
-  .btn-floating {
-    display: none;
+  .card-title {
+    font-size: $h3-fontsize;
+    font-weight: bold;
   }
 
-  a {
-    border-bottom: 2px solid $link-color;
+  .card-content {
+    border: 2px solid $link-color;
+    border-radius: 10px 10px 10px 10px;
+    padding: 1rem;
+    padding: 1rem;
+
+    .btn-floating {
+      display: none;
+    }
+
+    a {
+      border-bottom: 2px solid $link-color;
+    }
   }
 }
 
