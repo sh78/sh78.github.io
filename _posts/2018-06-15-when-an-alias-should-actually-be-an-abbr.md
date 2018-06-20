@@ -213,7 +213,7 @@ I decided to cut my losses and stick with the default.
 Someday I'll learn to leave well enough alone. That will be a really boring day.
 The next day, I'll start bothering well enough again.
 
-## What have we leaned?
+## What have we learned?
 
 1. Use `abbr` instead of `alias`. 
 2. Use `function` even more.
