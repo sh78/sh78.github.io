@@ -13,9 +13,11 @@
       return themeCurrent;
     },
     set: function(themeName) {
+      console.log(themeName);
       const allThemes = document.querySelectorAll('.theme-variant');
-      const themeCurrent = document.querySelector(`.theme-variant[title="${ theme.get() }"`);
+      const themeCurrent = document.querySelector(`.theme-variant[title="${ theme.get() }"]`);
       const themeNext = document.querySelector(`.theme-variant[title="${ themeName }"]`);
+      console.log(themeNext);
 
       if (themeCurrent != themeNext) {
         // unset loaded state, in case the css takes a long time
@@ -222,6 +224,8 @@
       });
     } else {
       const lazyLoad = function() {
+        let active = false;
+
         if (active === false) {
           active = true;
 
@@ -356,7 +360,7 @@
           }, 1000);
         },
         onDestroy: (self) => {
-          $(`[data-id=${self.el.id}`).text("Hello There, Friend!");
+          $(`[data-id="${self.el.id}"]`).text("Hello There, Friend!");
         }
       });
       typedIntro = new Typed("#home-intro", {
@@ -387,7 +391,7 @@
           }, 1000);
         },
         onDestroy: (self) => {
-          $(`[data-id=${self.el.id}`).text("I’m Sean. I like to arrange bits of text on screens. I'm a full-stack web developer\, currently working at Electro Creative Workshop in Oakland\, California.");
+          $(`[data-id="${self.el.id}"]`).text("I’m Sean. I like to arrange bits of text on screens. I'm a full-stack web developer\, currently working at Electro Creative Workshop in Oakland\, California.");
         }
       });
     } else if(typedElement) {
