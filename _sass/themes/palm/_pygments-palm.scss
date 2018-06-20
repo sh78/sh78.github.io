@@ -2,11 +2,11 @@
  * Syntax highlighting styles
  */
 .highlight {
-  background: $primary-color;
   color: $text-color;
+  background: $primary-color;
 
   .highlighter-rouge & {
-    background: #eef;
+    background: $primary-color;
   }
 
   .c     { color: #586e75; font-style: italic } // Comment

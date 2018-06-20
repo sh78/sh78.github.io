@@ -130,7 +130,7 @@ img {
   h3,
   h4,
   h5,
-  p {
+  section > p {
     margin-top: -70px; // magic: negative fixed navbar height + 6px
     padding-top: 70px; // magic: fixed navbar height + 6px
   }
@@ -141,5 +141,11 @@ img {
   h4,
   h5 {
     margin-top: -2.053333rem; // magic: negative fixed navbar height - eyeballed it into rem
+  }
+
+  blockquote p {
+    .anchorjs-link {
+      display: none;
+    }
   }
 }
