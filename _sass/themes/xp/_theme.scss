@@ -1,0 +1,134 @@
+body {
+  background: color('shades', 'white') url('/assets/images/xp.jpg') no-repeat;
+  background-attachment: fixed;
+}
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+.btn,
+.btn-large {
+  color: $secondary-color;
+  letter-spacing: .2rem;
+  word-spacing: .2rem;
+}
+
+.nav-main,
+.nav-main ul,
+.card, footer {
+  a {
+    color: color('palm', 'black');
+    border-bottom: 0;
+  }
+}
+
+.post-meta {
+  font-family: $pre-font;
+  font-size: 1.7rem;
+  font-style: italic;
+  letter-spacing: .2rem;
+}
+
+
+code,
+kbd,
+samp {
+  font-size: .7em;
+  letter-spacing: .2rem;
+}
+
+strong {
+  color: $text-color;
+}
+
+a {
+  border-bottom: 2px solid $link-color;
+  font-family: $body-font;
+  font-weight: bold;
+}
+
+main {
+  line-height: 1;
+
+  p,
+  li {
+    code {
+      color: $text-color;
+      font-size: 2rem;
+    }
+  }
+}
+
+.cta-full-width {
+  background: transparent;
+  border-top: 4px solid $text-color;
+  border-bottom: 4px solid $text-color;
+
+  a {
+    border-bottom: 0;
+  }
+}
+
+// make the cards Palmy
+.card {
+  position: static;
+  margin: 0 0 0 0;
+  background-color: transparent;
+  box-shadow: none;
+  border-radius: 0;
+
+  .card-title {
+    font-size: $h3-fontsize;
+    font-weight: bold;
+  }
+
+  .card-content {
+    border: 2px solid $link-color;
+    border-radius: 10px 10px 10px 10px;
+    padding: 1rem;
+    padding: 1rem;
+
+    .btn-floating {
+      display: none;
+    }
+
+    a {
+      border-bottom: 2px solid $link-color;
+    }
+  }
+}
+
+.post-toc {
+  a {
+    color: $text-color;
+    font-weight: normal;
+  }
+}
+
+.typed-cursor {
+  background: $background-color;
+  font-weight: bold;
+}
+
+h1 {
+  .typed-cursor {
+    left: 0;
+  }
+}
+
+.btn-large {
+  background-color: transparent;
+  border: 2px solid $text-color;
+  border-radius: 10px;
+  box-shadow: none;
+  font-size: 2rem;
+
+  &:hover {
+    background-color: $text-color;
+    color: $background-color;
+    box-shadow: 0, 0, 0;
+  }
+}

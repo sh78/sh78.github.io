@@ -2,9 +2,9 @@
 // ==========================================================================
 // https://materializecss.com/color.html
 
-$primary-color: color('shades', 'black');
-$primary-color-light: lighten($primary-color, 15%);
-$primary-color-dark: darken($primary-color, 15%);
+$primary-color: color('xp', 'blue');
+$primary-color-light: color('xp', 'blue-light');
+$primary-color-dark: color('xp', 'blue-dark');
 $secondary-color: color('grey', 'darken-1');
 
 $background-color: color('shades', 'white');
@@ -12,10 +12,10 @@ $text-color: $secondary-color;
 $link-color: $primary-color;
 $headline-color: $primary-color;
 
-$success-color: color('green', 'base');
-$error-color: color('red', 'base');
+$success-color: color('xp', 'green');
+$error-color: color('xp', 'red');
 $supplement-color: color('blue', 'base');
-$special-color: color('pink', 'base');
+$special-color: color('xp', 'yellow');
 
 
 // 3. Buttons

@@ -27,6 +27,18 @@ $palm: (
   'black': #000300,
 );
 
+// xp color palette
+$xp: (
+  'green': #91c200,
+  'green-light': #4fb04c,
+  'green-dark': #2a802e,
+  'blue': #00b4f0,
+  'blue-light': #1393e8,
+  'blue-dark': #225bd6,
+  'red': #f7662d,
+  'yellow': #ffbf00,
+);
+
 // google color palette http://www.google.com/design/spec/style/color.html
 $materialize-red: (
   'base':       #e51c23,
@@ -361,6 +373,7 @@ $shades: (
 $colors: (
   'solarized': $solarized,
   'palm': $palm,
+  'xp': $xp,
   'materialize-red': $materialize-red,
   'red': $red,
   'pink': $pink,
