@@ -5,16 +5,16 @@
 $primary-color: color('xp', 'blue');
 $primary-color-light: color('xp', 'blue-light');
 $primary-color-dark: color('xp', 'blue-dark');
-$secondary-color: color('grey', 'darken-1');
+$secondary-color: color('xp', 'green');
 
 $background-color: color('shades', 'white');
-$text-color: $secondary-color;
-$link-color: $primary-color;
-$headline-color: $primary-color;
+$text-color: color('xp', 'white');
+$link-color: color('xp', 'blue-light');
+$headline-color: $text-color;
 
 $success-color: color('xp', 'green');
 $error-color: color('xp', 'red');
-$supplement-color: color('blue', 'base');
+$supplement-color: color('xp', 'beige');
 $special-color: color('xp', 'yellow');
 
 
@@ -37,13 +37,13 @@ $card-link-color-light: lighten($card-link-color, 20%);
 // 20. Typography
 // ==========================================================================
 
-$body-font: 'Work Sans', 'Segoe UI', Tahoma, sans-serif;
-$headline-font: 'Space Mono', 'Fira Code', 'Source Code Pro', monospace;
+$body-font: 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Geneva, Verdana, sans-serif;
+$headline-font: 'Lucida Console', monaco, monospace;
 $pre-font: $headline-font;
 
 $font-size: 1.3rem;
 
-$off-black: rgba(0, 0, 0, 0.87);
+$off-black: rgba(0, 0, 0, .87);
 
 
 // 21. Footer
