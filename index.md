@@ -12,7 +12,7 @@ image: /assets/images/sean.jpg
   <span id="home-intro"></span>
 </p>
 <p>
-  <a class="typed-skip grey-text" href="#"><i class="fas fa-stopwatch"></i> Finish typing</a>
+  <a class="typed-skip" href="#"><i class="fas fa-stopwatch"></i> Finish typing</a>
 </p>
 <noscript>
 # Hello Human

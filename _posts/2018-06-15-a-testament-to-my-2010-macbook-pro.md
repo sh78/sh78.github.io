@@ -1,7 +1,7 @@
 ---
 title: A Testament To My 2010 MacBook Pro
 date: 2018-06-15 16:21:00
-tags: [apple, backup, hardware, sentiments, frugality]
+tags: [Apple, backup, hardware, sentiments, frugality]
 ---
 
 I spilled water on my main computer. It's currently sitting in a plastic drawer

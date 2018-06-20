@@ -132,3 +132,28 @@ main {
     font-weight: normal;
   }
 }
+
+.typed-cursor {
+  background: $background-color;
+  font-weight: bold;
+}
+
+h1 {
+  .typed-cursor {
+    left: 0;
+  }
+}
+
+.btn-large {
+  background-color: transparent;
+  border: 2px solid $text-color;
+  border-radius: 10px;
+  box-shadow: none;
+  font-size: 2rem;
+
+  &:hover {
+    background-color: $text-color;
+    color: $background-color;
+    box-shadow: 0, 0, 0;
+  }
+}
