@@ -386,6 +386,7 @@
         onComplete: (self) => {
           setTimeout(() => {
             self.cursor.style.display = 'none';
+            $('.typed-skip').hide();
             $('.typed-await').fadeIn();
             sessionStorage.setItem('sawTypedHome', true);
           }, 1000);
