@@ -2,6 +2,3 @@
 	path = _site
 	url = git@github.com:sh78/sh78.github.io.git
 	branch = master
-[submodule "import/themes/blank"]
-	path = import/themes/blank
-	url = https://github.com/vimux/blank
