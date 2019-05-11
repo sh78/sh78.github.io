@@ -1,0 +1,4 @@
+baseURL = "https://sean.sh/"
+languageCode = "en-us"
+title = "sean.sh"
+theme = "blank"

@@ -1,7 +1,13 @@
 ---
+date: "2018-06-13T17:35:00Z"
+tags:
+- Linux
+- nix
+- shell
+- vim
+- workflow
+- dotfiles
 title: Finally, A Vim Global Find/Replace That Doesn't Hurt
-date: 2018-06-13 17:35:00
-tags: [Linux, nix, shell, vim, workflow, dotfiles]
 ---
 
 I'm a recent vim convert. 100% in it now. There has been literally one

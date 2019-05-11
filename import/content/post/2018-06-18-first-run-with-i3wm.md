@@ -1,8 +1,13 @@
 ---
-title: First Run With i3wm
-date: 2018-06-17 20:40:00
-tags: [Linux, nix, i3wm, dotfiles, workflow]
+date: "2018-06-18T20:40:00Z"
 published: false
+tags:
+- Linux
+- nix
+- i3wm
+- dotfiles
+- workflow
+title: First Run With i3wm
 ---
 
 <!--
