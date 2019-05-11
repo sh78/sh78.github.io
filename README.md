@@ -1,7 +1,4 @@
-# ./log
-
-This is my personal website/blog. It started as a [jekyll](https://jekyllrb.com/) site using the
-[minimaterialize](https://github.com/sh78/minimaterialize/) theme.
+This is my personal website/blog. It uses a static site generator [Hugo](https://gohugo.io/).
 
 ## License
 

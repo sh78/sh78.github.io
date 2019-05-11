@@ -1,8 +1,7 @@
 {
   "name": "sh78.github.io",
-  "version": "1.0.0",
-  "description": "Personal website/weblog/webtoy",
-  "main": "index.js",
+  "version": "2.0.0",
+  "description": "Personal website/weblog/webtoy/widget",
   "repository": "git@github.com:sh78/sh78.github.io.git",
   "author": "Sean Henderson <mail@sean.sh>",
   "license": "MIT",
@@ -21,17 +20,16 @@
     "css-libs": "echo TODO"
   },
   "devDependencies": {
-    "anchor-js": "^4.1.0",
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
     "concurrently": "^3.5.1",
     "jquery": "^3.3.1",
     "jquery-ias": "^2.3.1",
     "materialize-css": "^1.0.0-rc.1",
-    "modernizr": "^3.6.0",
     "purify-css": "^1.2.5",
-    "typed.js": "^2.0.8",
-    "uglify-js": "^3.4.0"
+    "typed.js": "^2.0.8"
   },
-  "dependencies": {}
+  "dependencies": {
+    "anchor-js": "^4.1.0",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0"
+  }
 }

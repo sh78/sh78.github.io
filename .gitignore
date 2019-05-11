@@ -1,7 +1,5 @@
 .sass-cache
-.jekyll-metadata
 node_modules
-Gemfile.lock
 assets/js/*
 *.map
 _drafts
