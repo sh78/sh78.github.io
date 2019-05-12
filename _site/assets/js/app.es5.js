@@ -197,7 +197,7 @@
     theme.load();
     // add class confirming dom is loaded
     document.querySelector('html').style.opacity = 1;
-    document.querySelector('html.js').classList.add('loaded');
+    document.querySelector('html').classList.add('loaded');
 
     // initialize theme movers and shakers
     theme.init();

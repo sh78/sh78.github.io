@@ -21,13 +21,4 @@
 	{{ .Hugo.Generator }}
 </head>
 <body>
-	<header>
-		<a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a>
-		<nav>
-			<ul>
-				{{ range .Site.Menus.main }}
-				<li><a href="{{ .URL | relURL }}">{{ .Name }}</a></li>
-				{{ end }}
-			</ul>
-		</nav>
-	</header>
+  {{ partial "header.html" }}

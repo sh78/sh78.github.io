@@ -13,7 +13,7 @@
       <div class="nav-wrapper container">
         <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="fas fa-bars"><span class="sr-only">menu</span></i></a>
         <div class="brand-logo center">
-          <a href="/">./sean</a>
+          <a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a>
           <span class="hide-on-small-only">
             {{/* TODO: refactor this to go. Based on the current page type, append to the main site headline
             {% if page.header_title %}
@@ -30,7 +30,7 @@
           </span>
         </div>
         <ul class="left hide-on-large-and-down" id="nav-large">
-          {%- include nav-links.html -%}
+          {{ partial "nav-links.html" }}
         </ul>
         <ul class="right">
           <li>
@@ -43,6 +43,6 @@
     </nav>
   </div>
   <ul class="sidenav" id="nav-mobile">
-    {% partial "navlinks.html" %}
+    {{ partial "nav-links.html" }}
   </ul>
 </header>

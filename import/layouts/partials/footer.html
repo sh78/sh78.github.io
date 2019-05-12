@@ -1,21 +1,32 @@
-<footer class="page-footer">
-  <data class="u-url" href="{{ .Site.BaseURL }}"></data>
+  <footer class="page-footer">
+    <data class="u-url" href="{{ .Site.BaseURL }}"></data>
 
-  <div class="container">
-    <div class="footer-contact row">
-      <div class="col m6 s12">
-        {{ partial "avatar.html" . }}
+    <div class="container">
+      <div class="footer-contact row">
+        <div class="col m6 s12">
+          {{ partial "avatar.html" . }}
+        </div>
+        <div class="col m5 offset-m1 s12">
+          {{ partial "social.html" . }}
+        </div>
       </div>
-      <div class="col m5 offset-m1 s12">
-        {{ partial "social.html" . }}
+      <div class="foooter-copyright row">
+        <div class="col s12">
+          <p class="left">&copy; <code>nil</code></p>
+          <p class="right">Made In California with <i class="fab fa-linux"><span class="sr-only">Linux</span></i> &amp; <i class="fas fa-beer"><span class="sr-only">beer</span></i></p>
+        </div>
       </div>
     </div>
-    <div class="foooter-copyright row">
-      <div class="col s12">
-        <p class="left">&copy; <code>nil</code></p>
-        <p class="right">Made In California with <i class="fab fa-linux"><span class="sr-only">Linux</span></i> &amp; <i class="fas fa-beer"><span class="sr-only">beer</span></i></p>
-      </div>
-    </div>
-  </div>
+  </footer>
 
-</footer>
+  {{ partial "loading.html" . }}
+
+  <script>
+      var allPosts = [
+          {{ range where .Pages "Type" "log" }} {{.Permalink}}, {{ end }}
+      ]
+  </script>
+  <script src="{{ .Site.BaseURL }}/assets/js/libs.js"></script>
+  <script src="{{ .Site.BaseURL }}/assets/js/app.es5.js"></script>
+</body>
+</html>

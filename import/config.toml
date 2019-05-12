@@ -1,6 +1,6 @@
 baseURL = "https://sean.sh/"
 languageCode = "en-us"
-title = "sean.sh"
+title = "./sean"
 
 [params]
     name = "Sean Henderson"
