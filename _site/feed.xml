@@ -1,0 +1,1098 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2019-05-11T19:49:38-07:00</updated><id>/feed.xml</id><title type="html">sean henderson</title><subtitle>Sean's website/weblog/web development happy place. Come on inside, hang your hat friend.
+</subtitle><author><name>Sean Henderson</name></author><entry><title type="html">When An Alias Should Actually Be An Abbr</title><link href="/log/when-an-alias-should-actually-be-an-abbr/" rel="alternate" type="text/html" title="When An Alias Should Actually Be An Abbr" /><published>2018-06-17T07:15:00-07:00</published><updated>2018-06-17T07:15:00-07:00</updated><id>/log/when-an-alias-should-actually-be-an-abbr</id><content type="html" xml:base="/log/when-an-alias-should-actually-be-an-abbr/">&lt;p&gt;The short answer is: &lt;strong&gt;always&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;I really appreciate how &lt;code class=&quot;highlighter-rouge&quot;&gt;tmuxinator&lt;/code&gt; handles completion and aliasing from a fish
+shell. You type &lt;code class=&quot;highlighter-rouge&quot;&gt;mux&lt;/code&gt;, and when you hit space it expands into &lt;code class=&quot;highlighter-rouge&quot;&gt;tmuxintor&lt;/code&gt;. From
+there you can hit tab to see the options at each step of the way.&lt;/p&gt;
+
+&lt;div class=&quot;frame-responsive&quot;&gt;
+  &lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/IWIlZir97l0?modestbranding=1&amp;amp;showinfo=0&amp;amp;rel=0&amp;amp;color=white&quot; frameborder=&quot;0&quot; allow=&quot;autoplay; encrypted-media&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;p&gt;I like it so much that I poked around in &lt;a href=&quot;https://github.com/tmuxinator/tmuxinator/blob/master/completion/tmuxinator.fish&quot;&gt;their
+completion&lt;/a&gt;
+script hoping to crib some gnarly methods and do the same thing with tmux
+itself. Well, there are some custom methods therein, however the main feature I
+want turns out to be &lt;a href=&quot;https://fishshell.com/docs/current/commands.html&quot;&gt;built in to fish
+already&lt;/a&gt;. It’s called &lt;code class=&quot;highlighter-rouge&quot;&gt;abbr&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;why--alias&quot;&gt;Why &lt;code class=&quot;highlighter-rouge&quot;&gt;!&lt;/code&gt; alias?&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/fish-shell/fish-shell/issues/828&quot;&gt;Increased performance&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;This becomes
+noticeable after a couple hundred or so in my testing.&lt;/li&gt;
+  &lt;li&gt;Clean history. Using &lt;code class=&quot;highlighter-rouge&quot;&gt;abbr&lt;/code&gt; means other developers can understand your
+terminal history. So posting an issue to GitHub doesn’t require manual
+substitution of your aliases, and another developer won’t have trouble
+deciphering history on a remote that you worked on with your dotfiles in place.&lt;/li&gt;
+  &lt;li&gt;Easy to use a shortcut that’s close to what you want and edit it.&lt;/li&gt;
+  &lt;li&gt;If your shortcut conflicts with another executable that you want to run, you
+can use the arrow keys to edit the expanded text, before fixing
+it in your dotfiles.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/fish-shell/fish-shell/issues/731&quot;&gt;Here’s a four month long GitHub issue about how &lt;code class=&quot;highlighter-rouge&quot;&gt;abbr&lt;/code&gt; came to
+be.&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;a-logical-separation-of-concerns&quot;&gt;A Logical Separation of concerns&lt;/h2&gt;
+
+&lt;p&gt;With the addition of &lt;code class=&quot;highlighter-rouge&quot;&gt;abbr&lt;/code&gt;, we now have three distinct types of functions to
+choose from while programming our programming shortcuts–what? Why, yes, I do like
+programming - where did you hear this?&lt;/p&gt;
+
+&lt;h3 id=&quot;the-three-types&quot;&gt;The three types&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;alias&lt;/code&gt;: Make a &lt;code class=&quot;highlighter-rouge&quot;&gt;something&lt;/code&gt; functionally equivalent to &lt;code class=&quot;highlighter-rouge&quot;&gt;something else&lt;/code&gt;. This
+holds true if you press return, chain things together, pipe, redirect, and
+such. In recent versions of fish, context aware tab completion will work here
+too.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;abbr&lt;/code&gt;: Type &lt;code class=&quot;highlighter-rouge&quot;&gt;something&lt;/code&gt; and have it expanded into &lt;code class=&quot;highlighter-rouge&quot;&gt;something else&lt;/code&gt; after
+pressing space or semicolon (but not return). The new hotness.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;function&lt;/code&gt;: Make &lt;code class=&quot;highlighter-rouge&quot;&gt;something&lt;/code&gt; functionally equivalent to one or more &lt;code class=&quot;highlighter-rouge&quot;&gt;something
+else&lt;/code&gt;s, and optionally permute data that are being worked on with (&lt;code class=&quot;highlighter-rouge&quot;&gt;argv&lt;/code&gt;).&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Strictly speaking, &lt;code class=&quot;highlighter-rouge&quot;&gt;alias&lt;/code&gt; is itself just an alias for a &lt;code class=&quot;highlighter-rouge&quot;&gt;function&lt;/code&gt; that blindly
+accepts &lt;code class=&quot;highlighter-rouge&quot;&gt;argv&lt;/code&gt; and tacks them to the end of its &lt;code class=&quot;highlighter-rouge&quot;&gt;something else&lt;/code&gt;. But this
+pattern is so prolific that it got its own name, so we will consider it unique
+for today.&lt;/p&gt;
+
+&lt;h3 id=&quot;choosing-the-right-one&quot;&gt;Choosing the right one&lt;/h3&gt;
+
+&lt;p&gt;Here is how I picture the use cases:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;alias&lt;/code&gt; &lt;strong&gt;will not be used&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;abbr&lt;/code&gt; will be employed as the new &lt;code class=&quot;highlighter-rouge&quot;&gt;alias&lt;/code&gt;; it will shorten phrases where we
+don’t need to do anything special with &lt;code class=&quot;highlighter-rouge&quot;&gt;argv&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;function&lt;/code&gt; is for everything else; for when an &lt;code class=&quot;highlighter-rouge&quot;&gt;abbr&lt;/code&gt; permutes &lt;code class=&quot;highlighter-rouge&quot;&gt;argv&lt;/code&gt;
+and/or is complex/abstract enough to warrant a &lt;code class=&quot;highlighter-rouge&quot;&gt;--description&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;performance-notes&quot;&gt;performance notes&lt;/h4&gt;
+
+&lt;p&gt;Fish has a mechanism in place for
+&lt;a href=&quot;http://fishshell.com/docs/current/tutorial.html#tut_autoload&quot;&gt;lazily autoloading&lt;/a&gt;
+custom function definitions. This can have a noticeable performance impact over
+just defining them in your config.fish or init.fish or wherever. So it’s a good
+idea to keep each function in its own, self-title file in
+&lt;code class=&quot;highlighter-rouge&quot;&gt;~/.config/fish/functions/&lt;/code&gt; like so:&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# in ~/.config/fish/functions/ll.fish&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;ll
+    &lt;span class=&quot;nb&quot;&gt;ls&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-lh&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$argv&lt;/span&gt;
+end
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In case I’m missing something and there is still a use case for &lt;code class=&quot;highlighter-rouge&quot;&gt;alias&lt;/code&gt;,
+here’s a fun fact. &lt;a href=&quot;https://github.com/fish-shell/fish-shell/issues/828#issuecomment-18584856&quot;&gt;I heard on the
+net&lt;/a&gt;
+(yes, a pun) that using the fish-style &lt;code class=&quot;highlighter-rouge&quot;&gt;alias&lt;/code&gt; syntax is more performant than
+using the &lt;code class=&quot;highlighter-rouge&quot;&gt;=&lt;/code&gt; assignment operator due to an extra &lt;code class=&quot;highlighter-rouge&quot;&gt;sed&lt;/code&gt; call; this was, however,
+back in 2013. I didn’t notice much of a difference here, but it’s an easy change
+and using a default syntax is always preferred in my book. (Someday maybe: make
+or find a fish-&amp;gt;bash transpiler.)&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;alias &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'ls'&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# should be:&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;alias &lt;/span&gt;l &lt;span class=&quot;s1&quot;&gt;'ls'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;practical-examples&quot;&gt;Practical Examples&lt;/h3&gt;
+
+&lt;p&gt;Time for the straight dope. First up - simple and obvious choice: &lt;code class=&quot;highlighter-rouge&quot;&gt;git&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;abbr &lt;span class=&quot;nt&quot;&gt;--add&lt;/span&gt; g &lt;span class=&quot;s1&quot;&gt;'git'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Type &lt;code class=&quot;highlighter-rouge&quot;&gt;g&amp;lt;space&amp;gt;&lt;/code&gt; and witness the magic. I mean dope,&lt;/p&gt;
+
+&lt;p&gt;Now, what if you want to replace a program with another program. I recently
+switched to &lt;a href=&quot;https://github.com/neovim/neovim&quot;&gt;neovim&lt;/a&gt;, but for some reason it felt wrong not to type &lt;code class=&quot;highlighter-rouge&quot;&gt;vim&lt;/code&gt;. An
+alias will do well here:&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;abbr &lt;span class=&quot;nt&quot;&gt;--add&lt;/span&gt; vim &lt;span class=&quot;s1&quot;&gt;'nvim'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Note that &lt;strong&gt;abbr-ception will not work&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;abbr &lt;span class=&quot;nt&quot;&gt;--add&lt;/span&gt; v &lt;span class=&quot;s1&quot;&gt;'vim'&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# this will still be regular `vim`&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;What about setting default flags for programs that don’t allow such
+configuration? Let’s say we want to default to the long-form &lt;code class=&quot;highlighter-rouge&quot;&gt;ls&lt;/code&gt;, with
+classification indicators, but hide user and group info:&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;abbr &lt;span class=&quot;nb&quot;&gt;ls&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'ls -Fog'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The astute observer will note that I forgot to add the &lt;code class=&quot;highlighter-rouge&quot;&gt;--add&lt;/code&gt; here. Well, turns
+out &lt;a href=&quot;https://github.com/fish-shell/fish-shell/blob/2443ea92c3c31c26ec1b6c3681a3e3a643250705/share/functions/abbr.fish#L14&quot;&gt;we don’t need
+it&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;And now, on to something more useful. Yes, it’s function time.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://media.giphy.com/media/Jg41tM6Bk71te/giphy.gif&quot; alt=&quot;Four construction workers hitting a pole with sledgehammers in a staggered rhythm&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Normally naming things is the second most difficult part of computer science
+(next to cache invalidation), but this was rather easy to name:&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;take
+  &lt;span class=&quot;nb&quot;&gt;mkdir&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$argv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; 
+  &lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$argv&lt;/span&gt;
+end
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;take&lt;/code&gt; is an amalgamation of &lt;code class=&quot;highlighter-rouge&quot;&gt;touch&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;mk&lt;/code&gt; (make). It creates a directory and
+changes into it. As an added bonus it leverages the &lt;code class=&quot;highlighter-rouge&quot;&gt;-p&lt;/code&gt; flag, which forces the
+computer to create the entire path you pass it if it doesn’t exist.&lt;/p&gt;
+
+&lt;p&gt;The use case for functions basically starts here. There are multiple
+non-sequential calls to &lt;code class=&quot;highlighter-rouge&quot;&gt;argv&lt;/code&gt; from multiple commands.&lt;/p&gt;
+
+&lt;p&gt;Here is a more worthy example:&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;wait&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--description&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Run a command after some time: wait &amp;lt;minutes&amp;gt; &amp;lt;command args&amp;gt;&quot;&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;minutes &lt;span class=&quot;nv&quot;&gt;$argv&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;1]
+  &lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;time_in_seconds &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;math &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$minutes&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;*60&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;sleep&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$time_in_seconds&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; and &lt;span class=&quot;nb&quot;&gt;eval&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$argv&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;[2..-1]&quot;&lt;/span&gt;
+end
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;attempted-dryness-two-counts&quot;&gt;Attempted DRYness, two counts&lt;/h2&gt;
+
+&lt;p&gt;So I at this point, I now have a 261 line file full of &lt;code class=&quot;highlighter-rouge&quot;&gt;abbr --add 'what have
+you'&lt;/code&gt;. My DRY senses be tinglin’. Isn’t there a way to neither type, nor look
+at, a million &lt;code class=&quot;highlighter-rouge&quot;&gt;abbr&lt;/code&gt;s? Let’s find out.&lt;/p&gt;
+
+&lt;p&gt;Well, we can make a &lt;a href=&quot;https://github.com/sh78/dotfiles/blob/b06b1ca2c665b3badc0584d8a021a2e6cdf83394/.config/omf/aliases.load#L1&quot;&gt;temporary helper&lt;/a&gt; function to shorten the abbr –add syntax.&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;a
+  abbr &lt;span class=&quot;nt&quot;&gt;--add&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$argv&lt;/span&gt;
+end
+
+&lt;span class=&quot;c&quot;&gt;# do abbrs...&lt;/span&gt;
+a &lt;span class=&quot;nb&quot;&gt;alias&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'echo &quot;nope&quot;'&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# unset the function&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# unset helper function&lt;/span&gt;
+functions &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; a
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;That’s still repetition though, and it’s confusing for anyone else. What
+about a for loop? Fish doesn’t have hashes/dictionaries that I’m aware of, so I
+tried reading in lines of a file and passing each one to an &lt;code class=&quot;highlighter-rouge&quot;&gt;abbr&lt;/code&gt; call:&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;while &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;read&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-la&lt;/span&gt; line
+  &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$line&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+  abbr &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$line&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+end &amp;lt; &lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/.config/omf/aliases.load
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This way, we can maintain an abbreviations file that purely has:&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;name &lt;span class=&quot;s1&quot;&gt;'command here'&lt;/span&gt;
+another &lt;span class=&quot;s1&quot;&gt;'another command here'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Well, after 10 minutes of fish complaining “&lt;code class=&quot;highlighter-rouge&quot;&gt;abbr: abbreviation cannot have
+spaces in the key&lt;/code&gt;” despite my best efforts to escape and slice/join the string,
+I decided to cut my losses and stick with the default.&lt;/p&gt;
+
+&lt;p&gt;Someday I’ll learn to leave well enough alone. That will be a really boring day.
+The next day, I’ll start bothering well enough again.&lt;/p&gt;
+
+&lt;h2 id=&quot;what-have-we-learned&quot;&gt;What have we learned?&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Use &lt;code class=&quot;highlighter-rouge&quot;&gt;abbr&lt;/code&gt; instead of &lt;code class=&quot;highlighter-rouge&quot;&gt;alias&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;Use &lt;code class=&quot;highlighter-rouge&quot;&gt;function&lt;/code&gt; even more.&lt;/li&gt;
+  &lt;li&gt;Fish really is friendly. Unless you want to program a dictionary.&lt;/li&gt;
+  &lt;li&gt;Don’t stay awake until 1am attempting to bypass built-in functionality of you
+shell, unless someone is paying you.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/sh78/dotfiles/blob/d42cf1b86473e42ae123dffe38750eeaa31add99/.config/omf/aliases.load#L1&quot;&gt;Here are my shiny new
+abbreviations&lt;/a&gt;. And &lt;a href=&quot;https://github.com/sh78/dotfiles/tree/master/.config/fish/functions&quot;&gt;functions&lt;/a&gt;.&lt;/p&gt;</content><author><name>Sean Henderson</name></author><category term="shell" /><category term="fish" /><category term="workflow" /><summary type="html">The short answer is: always.</summary></entry><entry><title type="html">A Testament To My 2010 MacBook Pro</title><link href="/log/a-testament-to-my-2010-macbook-pro/" rel="alternate" type="text/html" title="A Testament To My 2010 MacBook Pro" /><published>2018-06-15T09:21:00-07:00</published><updated>2018-06-15T09:21:00-07:00</updated><id>/log/a-testament-to-my-2010-macbook-pro</id><content type="html" xml:base="/log/a-testament-to-my-2010-macbook-pro/">&lt;p&gt;I spilled water on my main computer. It’s currently sitting in a plastic drawer
+along with about 2 kilograms of Basmati rice. Let’s change the subject.&lt;/p&gt;
+
+&lt;p&gt;Back in 2010, I bought my first Apple computer. Say what you will about the
+Apple ecosystem and its retention policies, but this thing is a beast. I’m
+typing on it right now. It booted macOS High Sierra from a teeny little Samsung
+T5 external SSD that I got recently, and decided to &lt;a href=&quot;https://bombich.com/&quot;&gt;Carbon Copy
+Clone&lt;/a&gt; my main system’s macOS image into as part of my
+regularly scheduled backups. Pics or it didn’t happen, you say?&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;&quot; data-src=&quot;/assets/images/hesap-about.jpg&quot; alt=&quot;The About this Mac window on my 2010 MacBook Pro&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;An aside to the meticulous folks at Bombich&lt;/em&gt;: Nice touch on making Carbon Copy Cloner aware of its own inception!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;&quot; data-src=&quot;/assets/images/hesap-ccc-is-nice.png&quot; alt=&quot;Carbon Copy Cloner alerting the user that it paused the automated task that created it.&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I like to name my computers. Like &lt;code class=&quot;highlighter-rouge&quot;&gt;hostname NAME&lt;/code&gt; name them. I named this
+computer hesap back in 2012, which is Turkish for “calculation” or “bill/check”.
+It has lived up to its name more so than I could possibly imagine at the time.
+If you look at the calculation of how many computational hours, &lt;abbr title=&quot;Also Known As&quot;&gt;AKA&lt;/abbr&gt; money and enjoyment, it’s bestowed upon me,
+then yeah: it’s some good math. Second best purchase I ever made, next to a
+plane ticket.&lt;/p&gt;
+
+&lt;p&gt;“Ok, internet stranger&amp;gt; what’s so special about this?” you might be thinking.
+“You took good care of an expensive laptop and had it sitting around for
+a few years and it works. Great!” I can hear you sarcastically projecting. Here
+are some highlights from the checkered biography of this “laptop”, as you call
+it.&lt;/p&gt;
+&lt;h2 id=&quot;a-brief-history-of-hesap&quot;&gt;A Brief History of Hesap&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;time datetime=&quot;2010&quot;&gt;2010&lt;/time&gt;&lt;/strong&gt; Purchased in the spring. It had a
+faulty M key that Apple fought me on replacing (and lost). Pristine condition
+at this point. I kept it in a case and everything.&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;&lt;time datetime=&quot;2012-07-14&quot;&gt;July, 2012&lt;/time&gt;&lt;/strong&gt; Hesap is purring right
+along as my daily driver (note the aforementioned case).
+&lt;img src=&quot;&quot; data-src=&quot;/assets/images/hesap-guinness-espresso.jpg&quot; alt=&quot;Hesap at a cafe, next to a Guinness and an espresso, with CSS open on screen in Sublime Text.&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;time datetime=&quot;2013-01&quot;&gt;January, 2013&lt;/time&gt;&lt;/strong&gt; For reasons that are
+outside of the scope of this post, hesap was &lt;strong&gt;slammed into a wall at least 4
+or 5 times&lt;/strong&gt; (while open and running) and literally &lt;strong&gt;ripped in half&lt;/strong&gt; with
+someone’s &lt;strong&gt;bare hands&lt;/strong&gt;. She was then discarded to the floor and left to
+bleed out overnight.  For the curious, this incident involved an acutely
+depressed person downing an entire bottle of
+&lt;a href=&quot;https://www.glenmorangie.com/Official-Site&quot;&gt;Glenmorangie&lt;/a&gt;. That’s all you
+get; I’m not here to judge anyone.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;time datetime=&quot;2013-01&quot;&gt;January, 2013&lt;/time&gt;&lt;/strong&gt; The next day, staring at my
+laptops, and holding one of them, I depressed the power button what I thought
+would be one last time. A chord in the key of C Major rang out.  It was
+alive. I plugged it into an external monitor, and it ran without hindrance.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;time datetime=&quot;2013-02&quot;&gt;February, 2013&lt;/time&gt;&lt;/strong&gt; I brought my laptops to
+the local PC repair shop to see what they thought.  Approximately $350 and
+several weeks later, I had a built-in screen again (albeit without the little
+plastic cover that hides the hinge).&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;&lt;time datetime=&quot;2013-04-17&quot;&gt;April, 2013&lt;/time&gt;&lt;/strong&gt; Here’s hesap helping to
+write a site survey and advance for a (fictional) week-long visit by a meat
+industry executive with some unknown enemies (sideways!). No issues 2 and a
+half years in with a shiny new display.&lt;br /&gt;
+&lt;img src=&quot;&quot; data-src=&quot;/assets/images/hesap-bodyguard-school.jpg&quot; alt=&quot;Hesap on a table with scattered papers and a radio, with markdown on the screen.&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;&lt;time datetime=&quot;2014&quot;&gt;2014&lt;/time&gt;&lt;/strong&gt; Throughout most of 2014, I was the
+director of computation for a startup that did video production in Kathmandu,
+Nepal. We had a Mac Mini as our office server, running VPN, AFP, Bit Torrent
+Sync and Dropbox, and network login facilities for a team of 5 editors. 100’s
+of Gigabytes per week had to be transferred between hemispheres. In a country
+with immense load shedding and slow internet, we had to have backups for the
+backups. Hesap acted as a fill-in server when the Mac Mini had a problem or
+when the power was out for so long that the APC died. Even when it wasn’t
+serving, I was working about 27 hours per day at that time, so it &lt;strong&gt;basically
+was not powered down for a little over a year&lt;/strong&gt;.&lt;br /&gt;
+&lt;img src=&quot;&quot; data-src=&quot;/assets/images/hesap-goes-to-kathmandu.jpg&quot; alt=&quot;Hesap (left) at the office next to it's minions (other MacBooks).&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;time datetime=&quot;2014&quot;&gt;Summer, 2014&lt;/time&gt;&lt;/strong&gt; - First water damage I remember
+it like it was yesterday. I was at a cafe near Kupondole in Lalitpur taking a
+break from the office to write an enormous bash script to automate
+initialization of WordPress instances on a CentOS &lt;abbr title=&quot;Virtual Private Server&quot;&gt;VPS&lt;/abbr&gt;. In my caffeination, I knocked over a one litre
+bottle of water, sending its contents &lt;strong&gt;straight into the trackpad&lt;/strong&gt;. The
+cursor started rapidly jumping in every direction, and I did a hard shutdown
+by holding the button down and took a few hours off. It came right back to
+life later that day. Maybe I should have named it Eliot Ness.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;time datetime=&quot;2015-02&quot;&gt;February, 2015&lt;/time&gt;&lt;/strong&gt; Return from a brief hiatus
+Late in 2014 I acquired a MacBook Air, named hava, and gave old hesap a much
+needed vacation. But that vacation would be short-lived. My housemate spilled
+a delicious curry all over hava and fried the logic board. To add to the
+hilarity, hesap had recently developed a new problem. The left side of the
+track pad had popped out during a rough taxi ride through a contraction zone.
+The physical click mechanism didn’t work, so without a mouse I had to line up
+the pointer with the System Preference to enable tap to click, and stand on
+the trackpad on my right big toe to get a click. After that it wasn’t much of
+an issue.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;time datetime=&quot;2015-03&quot;&gt;March, 2015&lt;/time&gt;&lt;/strong&gt; For reasons again outside of
+the scope of this post, I got stuck in Turkey for months longer than
+expected, and all of my worldly possessions were reduced to those which I
+brought in my suitcase.  I ended up having to trade my entire (moldy) MacBook
+Air to an Apple Abi for a new battery for hesap, whose battery had exploded.
+Then, to force the new battery in past the frame damage caused by Glen in
+2013, I quite litrally &lt;strong&gt;took a hammer to it&lt;/strong&gt; on the floor in my friend’s
+living room. It worked. It was at this point that punishing hesap became
+something of a hobby.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;time datetime=&quot;2015&quot;&gt;Spring(ish), 2015&lt;/time&gt;&lt;/strong&gt; I was on the Blue &amp;amp;
+Gold Ferry heading into Marin to visit a client, and had to do a bit of work
+on the way. It was a beautiful day, so I sat at the stern and fired up hesap.
+Incidentally, the back of the boat is where gallons of water are spewed unto
+once the vessel has reached cruising speed. A minute later Hesap was coated
+in a fine yet pervasive mist of splashback; she didn’t so much as flinch.
+It’s almost as if the water damage back in Lalitpur had been a catalyst for
+an immunity to liquid.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;time datetime=&quot;2015-06&quot;&gt;June, 2015&lt;/time&gt;&lt;/strong&gt; Hesap was starting to act
+funny from time to time; mainly it was rebooting suddenly when under heavier
+loads, such as running a &lt;abbr title=&quot;Virtual Machine&quot;&gt;VM&lt;/abbr&gt;. In
+hindsight I think this was software induced, but I had just started a new
+role that required serious uptime on my part, so it was time to buy a fancy
+new box that was unlikely to break&amp;gt; a 2015 with Retina&lt;span class=&quot;jk&quot;&gt;h&lt;/span&gt; Display. Hesap was relegated to a partial retirement,
+occasionally handling some grunt work like large file transfers or acting as
+a home VPN/file server. As the cloud grew, it became less and less relevant
+to keep a second computer running.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;In addition to the aforementioned, there are numerous other incidents I am
+omitting - drops, spills, working outside in the rain, and such. Twelve list
+items is enough.&lt;/p&gt;
+
+&lt;h2 id=&quot;present-day&quot;&gt;Present Day&lt;/h2&gt;
+
+&lt;p&gt;After almost exactly three years of retirement… It Works! I mean, I certainly
+hope my 2015 wakes up with a sane mind later tonight, but yeah; there are some
+things I actually miss about this old thing.&lt;/p&gt;
+
+&lt;h3 id=&quot;things-i-cant-say-about-my-new-model&quot;&gt;Things I Can’t Say About My New Model&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;The keys actually have travel!&lt;/strong&gt; Not only am I typing slightly faster, but
+it’s also way more satisfying, almost at a mechanical keyboard level.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;It has tons of cheap and fast storage&lt;/strong&gt;. Circa early 2015, I ripped out the
+optical drive and replaced it with a 1 terabyte hybrid &lt;abbr title=&quot;Hard Disk Drive&quot;&gt;HDD&lt;/abbr&gt;/&lt;abbr title=&quot;Solid State Drive&quot;&gt;SSD&lt;/abbr&gt;. The main drive was
+also upgraded to a smaller &lt;abbr title=&quot;Solid State Drive&quot;&gt;SSD&lt;/abbr&gt; for the
+&lt;abbr title=&quot;Operating System&quot;&gt;OS&lt;/abbr&gt; and main applications. The new model ha
+128 gigabytes because at the time even 256 gigabytes was disgustingly expensive.
+The new model can’t be upgraded like this because it doesn’t have an optical
+drive to begin with, and the SSD it came with is soldered on to the motherboard.&lt;/li&gt;
+  &lt;li&gt;It has a CD drive. This one isn’t bold because while technically true, I don’t
+care. Good riddance.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;It has 16 gigabytes of &lt;abbr title=&quot;Random Access Memory&quot;&gt;RAM&lt;/abbr&gt;&lt;/strong&gt;. I
+bought a nifty kit from &lt;a href=&quot;https://www.macsales.com/&quot;&gt;OWC&lt;/a&gt; that the MacBook
+actually recognized and utilized, despite Apple’s claim that 8 is the max. This
+kit isn’t available for my new model, again due to the soldering and such.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;flaws-but-not-dealbreakers&quot;&gt;Flaws But Not Dealbreakers&lt;/h3&gt;
+
+&lt;p&gt;That being said:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;I’ve really become accustomed to the &lt;abbr title=&quot;High Dots Per Inch&quot;&gt;HiDPI&lt;/abbr&gt; displays of late. It’s weird to
+actually see pixels.&lt;/li&gt;
+  &lt;li&gt;It gets really hot. My wrists are sweating after a couple hours.&lt;/li&gt;
+  &lt;li&gt;USB 3 makes everything else feel tortoise-esque.&lt;/li&gt;
+  &lt;li&gt;It’s not much of a &lt;em&gt;lap&lt;/em&gt;top now, because if you’re wearing shorts it will
+electrocute you. But no biggie, I placed a warning label on the bonnet:
+&lt;img src=&quot;&quot; data-src=&quot;/assets/images/hesap-yuksek-gerilim.jpg&quot; alt=&quot;hesap with a sticker saying yüksek gerilim, Turkish for high voltage.&quot; /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;🍻&lt;/h2&gt;
+
+&lt;p&gt;It looks like hesap will continue its copious chronology of computation for
+countless years to come. Here’s to you, old chum. Pay no mind to the naysayers
+who proclaim you to be a superfluous, fancy, expensive thing; they look not far
+into the future.&lt;/p&gt;</content><author><name>Sean Henderson</name></author><category term="Apple" /><category term="backup" /><category term="hardware" /><category term="sentiments" /><category term="frugality" /><summary type="html">I spilled water on my main computer. It’s currently sitting in a plastic drawer along with about 2 kilograms of Basmati rice. Let’s change the subject.</summary></entry><entry><title type="html">Finally, A Vim Global Find/Replace That Doesn’t Hurt</title><link href="/log/finally-a-vim-global-find-replace-that-doesn-t-hurt/" rel="alternate" type="text/html" title="Finally, A Vim Global Find/Replace That Doesn't Hurt" /><published>2018-06-13T10:35:00-07:00</published><updated>2018-06-13T10:35:00-07:00</updated><id>/log/finally-a-vim-global-find-replace-that-doesn-t-hurt</id><content type="html" xml:base="/log/finally-a-vim-global-find-replace-that-doesn-t-hurt/">&lt;p&gt;I’m a recent vim convert. 100% in it now. There has been literally one
+thing, and only one thing, I’ve missed from other editors (namely &lt;a href=&quot;https://sublimetext.com/&quot;&gt;Sublime Text&lt;/a&gt;) &lt;strong&gt;until today&lt;/strong&gt;: Global, or project-wide, find and replace.&lt;/p&gt;
+
+&lt;p&gt;Allow me to illustrate:&lt;/p&gt;
+
+&lt;h2 id=&quot;global-findreplace-in-sublime-text-and-the-like&quot;&gt;Global Find/Replace in Sublime Text and the like&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;&quot; data-src=&quot;/assets/images/sublime-find-replace.png&quot; alt=&quot;The global find/replace drawer in sublime text.&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Use case: you have a massive project with tons partials/includes and so forth.
+You want to jump to a specific markup node to add a new feature/bug. So instead
+of muddling around in the file browser in the sidebar, you slam down
+Cmd+Shift+F, and tell the computer what you’re looking for. Boom, all
+occurrences are listed, and you can open one up and start working.&lt;/p&gt;
+
+&lt;p&gt;Later, you change a class and need to update 17,342 css files to replace the old
+class name with the new one. So:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;&quot; data-src=&quot;/assets/images/sublime-find-replace-class.png&quot; alt=&quot;Replacing a class name in Sublime Text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;So vim must have this built in right?&lt;/p&gt;
+
+&lt;h2 id=&quot;doing-the-same-thing-in-a-stock-build-of-vim&quot;&gt;Doing The Same Thing In A Stock Build Of Vim&lt;/h2&gt;
+
+&lt;p&gt;Well, the short answer is yes, The long answer is it’s not ideal.&lt;/p&gt;
+
+&lt;p&gt;You can run &lt;code class=&quot;highlighter-rouge&quot;&gt;:vimgrep [PATTERN] [PATH]&lt;/code&gt;. Now before you attempt this in a real
+project, be sure to set a &lt;code class=&quot;highlighter-rouge&quot;&gt;wildignore&lt;/code&gt; such as:&lt;/p&gt;
+
+&lt;div class=&quot;language-vim highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;set&lt;/span&gt; wildignore&lt;span class=&quot;p&quot;&gt;+=.&lt;/span&gt;git&lt;span class=&quot;p&quot;&gt;,.&lt;/span&gt;svn&lt;span class=&quot;p&quot;&gt;,.&lt;/span&gt;DS_Store&lt;span class=&quot;p&quot;&gt;,.&lt;/span&gt;npm&lt;span class=&quot;p&quot;&gt;,.&lt;/span&gt;vagrant&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;*&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;zip&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;*&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;tgz&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;*&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;pdf&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;*&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;psd&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;*&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;ai&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;*&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;mp3&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;*&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;mp4&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;*&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;bmp&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;*&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;ico&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;*&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;jpg&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;*&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;png&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;*&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;gif&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;*&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;epub&lt;span class=&quot;p&quot;&gt;,.&lt;/span&gt;hg&lt;span class=&quot;p&quot;&gt;,.&lt;/span&gt;dropbox&lt;span class=&quot;p&quot;&gt;,.&lt;/span&gt;config&lt;span class=&quot;p&quot;&gt;,.&lt;/span&gt;cache&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;*&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;pyc&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;node_modules&lt;span class=&quot;sr&quot;&gt;/*,bower_components/&lt;/span&gt;*&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;*&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;min&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;*
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This prevents vim from searching through node modules for nine hours. Also, be sure that you’ve started vim from your project directory, like &lt;code class=&quot;highlighter-rouge&quot;&gt;cd myproject &amp;amp;&amp;amp; vim&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;vim ~/myproject&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;So, to replicate the default behavior of something like Sublime, we now do:&lt;/p&gt;
+
+&lt;div class=&quot;language-vim highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;vimgrep&lt;/span&gt; id\&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;\&quot;my\&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;id **/*
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Do note the backslashes; this is vim and we must escape all the things. The &lt;code class=&quot;highlighter-rouge&quot;&gt;**/*&lt;/code&gt; is a standard &lt;a href=&quot;https://git-scm.com/docs/gitignore#_pattern_format&quot;&gt;Unix pattern format&lt;/a&gt; that’s like saying “look at any/all directories and any/all contents”.&lt;/p&gt;
+
+&lt;p&gt;Now hit enter, and get up to make some coffee. Hopefully you’re a hipster and
+you have one of those &lt;a href=&quot;https://www.amazon.com/gp/product/B004QWMAII/&quot;&gt;manual burr
+grinders&lt;/a&gt;, and you grind your
+coffee on a per-cup basis; this is going to take awhile.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;&quot; data-src=&quot;/assets/images/vimgrep-complete.png&quot; alt=&quot;vim's response after running vim grep&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Ah, you’re back. Ok, so now why didn’t we get a list of results? It just showed
+off the first result, told us to press enter, and took us there. Well, you have
+to open the &lt;a href=&quot;http://vimdoc.sourceforge.net/htmldoc/quickfix.html&quot;&gt;quickfix window&lt;/a&gt;, silly!&lt;/p&gt;
+
+&lt;div class=&quot;language-vim highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;copen&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Navigate the quickfix contents with &lt;code class=&quot;highlighter-rouge&quot;&gt;j&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;k&lt;/code&gt;. Depending on you color
+settings, you may or may not be able to see where you are at any given time.
+Just hit enter when it feels right.&lt;/p&gt;
+
+&lt;p&gt;Here’s &lt;a href=&quot;https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/replace-animated-gifs-with-video/&quot;&gt;not a gif&lt;/a&gt; of the whole process so far against a simple static site with 23,262 lines:&lt;/p&gt;
+
+&lt;div class=&quot;frame-responsive&quot;&gt;
+  &lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/2wHfYjj78WY?modestbranding=1&amp;amp;showinfo=0&amp;amp;rel=0&amp;amp;color=white&quot; frameborder=&quot;0&quot; allow=&quot;autoplay; encrypted-media&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;p&gt;This just won’t do. Let’s turn up the complexity!&lt;/p&gt;
+
+&lt;h2 id=&quot;svimgrepdeniteg&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;%s/vimgrep/Denite/g&lt;/code&gt;&lt;/h2&gt;
+
+&lt;p&gt;Today is Long-Winded-Wednesday, so we’re just getting started.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/Shougo/denite.nvim#denitenvim&quot;&gt;Denite&lt;/a&gt; is an apparently
+nefarious yet amazingly performant interface unification engine for vim (and neovim!). What
+is it and isn’t is a bit more complicated, but for our purposes it is a
+lightning fast system for interacting with lists that will the quickfix list
+(&lt;code class=&quot;highlighter-rouge&quot;&gt;:copen&lt;/code&gt;) shown above.&lt;/p&gt;
+
+&lt;p&gt;Denite has both the “asynchronous” and “fuzzy” buzzwords, which covers about 80% of my requirements for
+adopting a new tool. The other 20% is mostly “automagical(ly)”.&lt;/p&gt;
+
+&lt;h3 id=&quot;doing-it-with-denite&quot;&gt;Doing it With Denite&lt;/h3&gt;
+
+&lt;p&gt;So - here’s the same operation with Denite:&lt;/p&gt;
+
+&lt;div class=&quot;frame-responsive&quot;&gt;
+  &lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/JoS_PiSanZU?modestbranding=1&amp;amp;showinfo=0&amp;amp;rel=0&amp;amp;color=white&quot; frameborder=&quot;0&quot; allow=&quot;autoplay; encrypted-media&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Oh, bee tee dub - this was actually against 319,601 lines. Booyakasha. I’ll wait
+while you frantically paw for you credit card and go out to buy Denite.&lt;/p&gt;
+
+&lt;h3 id=&quot;forced-induction&quot;&gt;Forced Induction&lt;/h3&gt;
+
+&lt;p&gt;I’m not one to leave well enough alone, so let’s drop a stage 4 turbo in this
+thing and cut off the mufflers.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/BurntSushi/ripgrep#quick-example-comparing-tools&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;rigrep&lt;/code&gt;&lt;/a&gt; is
+is a grep alternative that is &lt;a href=&quot;https://blog.burntsushi.net/ripgrep/&quot;&gt;fast like a NASCAR&lt;/a&gt;.
+We can plug it into Denite as such, &lt;a href=&quot;https://github.com/Shougo/denite.nvim/blob/ef3ffe7ffff25b0260be1e336dcd55014a6787a7/doc/denite.txt#L198&quot;&gt;per the docs&lt;/a&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-vim highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;call&lt;/span&gt; denite#custom#var&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'grep'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'command'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'rg'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;call&lt;/span&gt; denite#custom#var&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'grep'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'default_opts'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;se&quot;&gt;    \&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'--vimgrep'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'--no-heading'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;call&lt;/span&gt; denite#custom#var&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'grep'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'recursive_opts'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[])&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;call&lt;/span&gt; denite#custom#var&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'grep'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'pattern_opt'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'--regexp'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;call&lt;/span&gt; denite#custom#var&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'grep'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'separator'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'--'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;call&lt;/span&gt; denite#custom#var&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'grep'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'final_opts'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now let’s test it against something a bit heavier: the Linux kernel. &lt;strong&gt;24,797,925
+lines across 56,994 files&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;frame-responsive&quot;&gt;
+  &lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/IG8xst6oM54?modestbranding=1&amp;amp;showinfo=0&amp;amp;rel=0&amp;amp;color=white&quot; frameborder=&quot;0&quot; allow=&quot;autoplay; encrypted-media&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Barely broke a sweat. The fans on my 2015 i3 MacBook Pro did spin up, but I was
+also making a UHD screen recording and uploading files from an external drive to
+Amazon Drive at the time.&lt;/p&gt;
+
+&lt;p&gt;If you like what you see, go ahead and install &lt;code class=&quot;highlighter-rouge&quot;&gt;rg&lt;/code&gt; with your favorite
+package manager. If you also like replacing text from within vim, add
+&lt;a href=&quot;https://github.com/jremmen/vim-ripgrep&quot;&gt;vim-rigrep&lt;/a&gt; to your vim plugins (more
+on that later).&lt;/p&gt;
+
+&lt;h3 id=&quot;moar-denite-key-maps&quot;&gt;Moar Denite, Key Maps&lt;/h3&gt;
+
+&lt;p&gt;Here are some of the things you can do with Denite out of the box, and some
+mappings that don’t conflict with any core vim features (that I use):&lt;/p&gt;
+
+&lt;div class=&quot;language-vim highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;&quot; find pattern in file in working directory&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;&quot; gr is unmapped by default&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;nnoremap &lt;span class=&quot;k&quot;&gt;gr&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;Denite &lt;span class=&quot;k&quot;&gt;grep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:.&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;normal&lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;CR&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt; 
+
+&lt;span class=&quot;c&quot;&gt;&quot; same as above but pre-populate search with current word under the cursor&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;&quot; gK (unmapped by default)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;nnoremap gK &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;DeniteCursorWord &lt;span class=&quot;k&quot;&gt;grep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:.&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;normal&lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;CR&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt; 
+
+&lt;span class=&quot;c&quot;&gt;&quot; find the word under the cursor in ctags&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;&quot; gn visually selects search patterns by default&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;nnoremap gn &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;DeniteCursorWord &lt;span class=&quot;k&quot;&gt;tags&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;normal&lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;CR&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;&quot; fuzzy find against the entire vim :help, including plugins&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;&quot; gh is select mode by default&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;nnoremap gh &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;Denite help&lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;CR&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;&quot; same as above but pre-populate search with current word under the cursor&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;&quot; gH is select line mode by default&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;nnoremap gH &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;DeniteCursorWord help&lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;CR&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;but-what-about-the-replace&quot;&gt;But What About The /Replace?&lt;/h2&gt;
+
+&lt;p&gt;There’s an app for that. As the kind folk at thoughbot &lt;a href=&quot;https://robots.thoughtbot.com/lists-vim-and-you#from-inside-of-vim&quot;&gt;have pointed
+out&lt;/a&gt;:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;With the release of Vim 7.4.858 we got two new commands: :cdo and :cfdo. They work similarly to :argdo, but they operate over the quickfix list instead of the arguments list.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Let’s try this out. Going back to the CSS class example, we have:&lt;/p&gt;
+
+&lt;div class=&quot;language-vim highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;&quot; first use rigrep to populate the quickfix list&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;Rg \\&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;old&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;and&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;busted
+&lt;span class=&quot;c&quot;&gt;&quot; For reasons I do not care to explore, escaping the `.` requires two backslashes. &lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;&quot; then run cfdo and pass in a substitute command just like we use in a file&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;cfdo&lt;/span&gt; %s&lt;span class=&quot;sr&quot;&gt;/\.old\-and\-busted/&lt;/span&gt;\&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt;\&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;hotness/&lt;span class=&quot;k&quot;&gt;g&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;update&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Splendid, it works well. And it requires a bunch of really awkward typing. We
+can fix that with some vim script in our &lt;code class=&quot;highlighter-rouge&quot;&gt;.vimrc&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-vim highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;&quot; global find/replace inside working directory&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;!&lt;/span&gt; FindReplace&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;c&quot;&gt;&quot; figure out which directory we're in&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;dir&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; expand&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'%:h'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;c&quot;&gt;&quot; ask for patterns&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;call&lt;/span&gt; inputsave&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; find &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; input&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Pattern: '&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;call&lt;/span&gt; inputrestore&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; replace &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; input&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Replacement: '&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;call&lt;/span&gt; inputrestore&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;c&quot;&gt;&quot; are you sure?&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;confirm&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; input&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'WARNING: About to replace '&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; find &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;' with '&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; replace &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;' in '&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;dir&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'/**/* (y/n):'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;c&quot;&gt;&quot; clear echoed message&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;redraw&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;confirm&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'y'&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;&quot; find with rigrep (populate quickfix )&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;silent&lt;/span&gt; exe &lt;span class=&quot;s1&quot;&gt;'Rg '&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; find
+    &lt;span class=&quot;c&quot;&gt;&quot; use cfdo to substitute on all quickfix files&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;silent&lt;/span&gt; exe &lt;span class=&quot;s1&quot;&gt;'cfdo %s/'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; find &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'/'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; replace &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'/g | update'&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;&quot; close quickfix window&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;silent&lt;/span&gt; exe &lt;span class=&quot;s1&quot;&gt;'cclose'&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;echom&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Replaced '&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; find &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;' with '&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; replace &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;' in all files in '&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;dir&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;echom&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Find/Replace Aborted :('&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;endif&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;endfunction&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;nnoremap &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;Leader&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;fr &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;call&lt;/span&gt; FindReplace&lt;span class=&quot;p&quot;&gt;()&amp;lt;&lt;/span&gt;CR&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;WARNING&lt;/strong&gt;: There’s a lot of variation in results here
+depending on your individual configuration. A few points:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;It will respect you &lt;code class=&quot;highlighter-rouge&quot;&gt;wildignore&lt;/code&gt; settings.&lt;br /&gt;
+You may want to do a quick &lt;code class=&quot;highlighter-rouge&quot;&gt;:set wildignore=foo,bar&lt;/code&gt; from the command prompt before running this&lt;/li&gt;
+  &lt;li&gt;It will use your current &lt;code class=&quot;highlighter-rouge&quot;&gt;ignorecase&lt;/code&gt; setting.&lt;br /&gt;
+I keep &lt;code class=&quot;highlighter-rouge&quot;&gt;ignorecase&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;smartcase&lt;/code&gt; set to make quick searches easier. You
+probably want to &lt;code class=&quot;highlighter-rouge&quot;&gt;:set noignorecase&lt;/code&gt; prior to running this, to avoid replacing
+a capitalized instance with a non-capitalized instance.&lt;/li&gt;
+  &lt;li&gt;Take caution to note which directory vim is working from.&lt;br /&gt;
+Doing this from, say, your home directory, could obliterate your machine. Do it from a path that’s under version control.&lt;/li&gt;
+  &lt;li&gt;The static messages and warnings in the function only print the current
+directory if you run vim like &lt;code class=&quot;highlighter-rouge&quot;&gt;vim ./myproj&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;vim .&lt;/code&gt;. I’m employing the
+Pareto principle here and am not worried about getting the path printed if it
+take another 30 minutes.&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Sean Henderson</name></author><category term="Linux" /><category term="shell" /><category term="vim" /><category term="workflow" /><category term="dotfiles" /><summary type="html">I’m a recent vim convert. 100% in it now. There has been literally one thing, and only one thing, I’ve missed from other editors (namely Sublime Text) until today: Global, or project-wide, find and replace.</summary></entry><entry><title type="html">The Free Mega-Weight Dropbox Alternative</title><link href="/log/the-free-mega-weight-dropbox-alternative/" rel="alternate" type="text/html" title="The Free Mega-Weight Dropbox Alternative" /><published>2014-07-11T07:26:00-07:00</published><updated>2014-07-11T07:26:00-07:00</updated><id>/log/the-free-mega-weight-dropbox-alternative</id><content type="html" xml:base="/log/the-free-mega-weight-dropbox-alternative/">&lt;p&gt;&lt;strong&gt;UPDATE 2018-06-14&lt;/strong&gt;: This is quite out dated. I ended up having a lot of
+trouble with Mega, and have long since moved on to better things, among the
+likes of Dropbox and Google Drive. Perhaps a new post regarding the state of Cloud Storage is in order.&lt;/p&gt;
+
+&lt;p&gt;About a year back, Dropbox decided to delete all the mp3s and miscellaneous parts of the project files inside my music production folder. Didn’t notice until it was too late to restore. That caused me to (1) rethink a mostly cloud-based backup strategy and (2) cancel the 100GB Dropbox plan in favor of the free plan. Fortunately I had completed all the bonus space missions for my account, like referring a bunch of workstations in my college computer lab with bogus email addresses. My free account has 13.2GB instead of 2.&lt;/p&gt;
+
+&lt;p&gt;Now days all dev work is mirrored on a couple git servers and I have multiple physical backups combined with Amazon Glacier for everything else; Dropbox only serves as a temporary stash/collaboration/app sync tool.&lt;/p&gt;
+
+&lt;p&gt;After watching &lt;a href=&quot;http://www.vice.com/vice-news/kim-dotcom-the-man-behind-mega&quot;&gt;the saga of Kim Dotcom and Mega&lt;/a&gt; I decided to check out what they have to offer - a lot. 50GB of space for free, with all the key bells and whistles of Dropbox - slick web interface, collaboration, native sync apps. The web interface, selective sync, and dealing with proxies are much nicer in my opinion.&lt;/p&gt;
+
+&lt;p&gt;The &lt;a href=&quot;http://lifehacker.com/5154698/sync-files-and-folders-outside-your-my-dropbox-folder&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ln -s&lt;/code&gt; trick&lt;/a&gt; works, but there’s actually no need for it - users can add a “Sync” (directory) straight from the desktop client to put any folder on the machine into any folder on Mega, even with a different name. It’s just easy. And super fast.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/mega-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/mega-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;So now, all of the less-recent but non-ancient stuff that doesn’t fit in my Dropbox is going to Mega, such as the year’s raw dump of photos/videos and a massive legal case directory that I occasionally need to share or call up rapidly.&lt;/p&gt;
+
+&lt;p&gt;Oh, and the paid plans are Mega-huge, yo.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;500GB - $9.99/mo&lt;/li&gt;
+  &lt;li&gt;2TB - $19.99/mo&lt;/li&gt;
+  &lt;li&gt;4TB - $29.99/mo&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Compared to Dropbox:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;100GB - $9.99/mo&lt;/li&gt;
+  &lt;li&gt;200GB - $19.99/mo&lt;/li&gt;
+  &lt;li&gt;500GB - $49.99/mo&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://mega.co.nz/&quot;&gt;https://mega.co.nz&lt;/a&gt;&lt;/p&gt;</content><author><name>Sean Henderson</name></author><category term="the cloud" /><category term="backup" /><summary type="html">UPDATE 2018-06-14: This is quite out dated. I ended up having a lot of trouble with Mega, and have long since moved on to better things, among the likes of Dropbox and Google Drive. Perhaps a new post regarding the state of Cloud Storage is in order.</summary></entry><entry><title type="html">Automating Tasks With launchd In OS X</title><link href="/log/automating-tasks-with-launchd-in-osx/" rel="alternate" type="text/html" title="Automating Tasks With launchd In OS X" /><published>2014-07-03T08:38:00-07:00</published><updated>2014-07-03T08:38:00-07:00</updated><id>/log/automating-tasks-with-launchd-in-osx</id><content type="html" xml:base="/log/automating-tasks-with-launchd-in-osx/">&lt;p&gt;Just got into some &lt;code class=&quot;highlighter-rouge&quot;&gt;lanchd&lt;/code&gt; automation with OS X. I wanted an automatic &lt;code class=&quot;highlighter-rouge&quot;&gt;rsync&lt;/code&gt; of my &lt;a href=&quot;http://help.agilebits.com/1Password3/1passwordanywhere.html&quot;&gt;1Password Anywhere&lt;/a&gt; files to a remote web server, as a DIY public web service for 1Password.&lt;/p&gt;
+
+&lt;p&gt;First step: make a shell script with whatever you want to do, and save it in your &lt;code class=&quot;highlighter-rouge&quot;&gt;$PATH&lt;/code&gt;. For my 1Password sync, a simple &lt;code class=&quot;highlighter-rouge&quot;&gt;rsync&lt;/code&gt; one-liner:&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/sh&lt;/span&gt;
+rsync &lt;span class=&quot;nt&quot;&gt;-az&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--force&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--delete&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;ssh -p7890&quot;&lt;/span&gt; /Users/me/Dropbox/Apps/1Password.agilekeychain/. root@yourmama.com:/var/www/vhosts/etc/et.all/public_html/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then: make a .plist file in XML format so &lt;code class=&quot;highlighter-rouge&quot;&gt;launchd&lt;/code&gt; can understand what must be done. Set the &lt;code class=&quot;highlighter-rouge&quot;&gt;StartInterval&lt;/code&gt; in seconds (300 means every 5 minutes).&lt;/p&gt;
+
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;cp&quot;&gt;&amp;lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;plist&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;version=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;1.0&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;dict&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;key&amp;gt;&lt;/span&gt;Label&lt;span class=&quot;nt&quot;&gt;&amp;lt;/key&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;string&amp;gt;&lt;/span&gt;com.YOURUSERNAME.NAMEOFTASK.backup&lt;span class=&quot;nt&quot;&gt;&amp;lt;/string&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;key&amp;gt;&lt;/span&gt;ProgramArguments&lt;span class=&quot;nt&quot;&gt;&amp;lt;/key&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;array&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;string&amp;gt;&lt;/span&gt;YOURSCRIPT.sh&lt;span class=&quot;nt&quot;&gt;&amp;lt;/string&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/array&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;key&amp;gt;&lt;/span&gt;StartInterval&lt;span class=&quot;nt&quot;&gt;&amp;lt;/key&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;integer&amp;gt;&lt;/span&gt;300&lt;span class=&quot;nt&quot;&gt;&amp;lt;/integer&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/dict&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/plist&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Save it as &lt;code class=&quot;highlighter-rouge&quot;&gt;com.YOURUSERNAME.NAMEOFTASK.backup.plist&lt;/code&gt; in &lt;code class=&quot;highlighter-rouge&quot;&gt;~/Library/LaunchAgents/&lt;/code&gt;. Be sure the file name matches the &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;string&amp;gt;&lt;/code&gt; for &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;key&amp;gt;label&amp;lt;/key&amp;gt;&lt;/code&gt; in the XML. Also make sure the ownership and permissions are proper.&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo chown &lt;/span&gt;root com.YOURUSERNAME.NAMEOFTASK.backup.plist
+&lt;span class=&quot;nb&quot;&gt;sudo chmod &lt;/span&gt;644 com.YOURUSERNAME.NAMEOFTASK.backup.plist
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now to tell OSX about our screenplay. Fire up a terminal and&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;launchctl &lt;span class=&quot;nt&quot;&gt;-w&lt;/span&gt; load ~/Library/LaunchAgents/com.YOURUSERNAME.NAMEOFTASK.backup.plist
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;-w&lt;/code&gt; flag tells &lt;code class=&quot;highlighter-rouge&quot;&gt;launchctl&lt;/code&gt; to load without waiting for a system reboot.&lt;/p&gt;
+
+&lt;p&gt;BAM. Now your shell script will run in the background every 300 seconds.&lt;/p&gt;
+
+&lt;p&gt;For the 1Password setup, they use a file called &lt;code class=&quot;highlighter-rouge&quot;&gt;1Password.html&lt;/code&gt;, meaning you have to add that to the URL. To streamline the process, I touched an &lt;code class=&quot;highlighter-rouge&quot;&gt;index.html&lt;/code&gt; file on the server that redirects to the 1Password html.&lt;/p&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;head&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;meta&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;http-equiv=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;refresh&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;content=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;0; url=/1Password.html&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/head&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/html&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;So yes - my super top secret passwords are technically public on the Internet; however, they’re well encrypted and I’m usually a pretty nice dude… so nobody would hack me right? For the paranoid, you could add some redundancy with an apache &lt;code class=&quot;highlighter-rouge&quot;&gt;.htpasswd&lt;/code&gt; file on the server. 2Passwords is better than one.&lt;/p&gt;</content><author><name>Sean Henderson</name></author><category term="hacks" /><category term="security" /><category term="shell" /><category term="macOS" /><summary type="html">Just got into some lanchd automation with OS X. I wanted an automatic rsync of my 1Password Anywhere files to a remote web server, as a DIY public web service for 1Password.</summary></entry><entry><title type="html">HTTP gzip compression on a MediaTemple (dv)</title><link href="/log/http-gzip-compression-on-a-mediatemple-(dv)/" rel="alternate" type="text/html" title="HTTP gzip compression on a MediaTemple (dv)" /><published>2014-06-16T20:23:00-07:00</published><updated>2014-06-16T20:23:00-07:00</updated><id>/log/http-gzip-compression-on-a-mediatemple-(dv)</id><content type="html" xml:base="/log/http-gzip-compression-on-a-mediatemple-(dv)/">&lt;p&gt;I’ve had this (mt) DV box for quite some time, mostly use it for staging, small WordPress gigs and running a qmail server that forwards mail elsewhere. It’s reliable, has lots of client-friendly features like Plesk, and can host a zillion websites. But it was always kinda slow, especially from the eastern hemisphere, and executing otherwise simple server admin stuff (like adding ssh keys) was always a bit perverted by the finicky complexities that come with Plesk. So, it wasn’t really my go-to for builds with serious production needs.&lt;/p&gt;
+
+&lt;p&gt;Recently I’ve embarked on a mission: give out 100 free websites, to raise awareness about the benefits of quality web development in Nepal. The allure of having them all live in one central community, flexible enough to provide features like email and separate client hosting logins when needed, along with he infamous &lt;a href=&quot;http://download1.parallels.com/Plesk/PP11/11.0/Doc/en-US/online/plesk-unix-cli/&quot;&gt;Plesk Command Line Utilities&lt;/a&gt; provided sufficient temptation to get toolin’. First stop: HTTP compression.&lt;/p&gt;
+
+&lt;p&gt;Well, two hours later, blatantly violating my 20 minute commit rule, there is fruit at the end of the tunnel. At first it seemed as simple as finding some good Apache &lt;code class=&quot;highlighter-rouge&quot;&gt;mod_deflate&lt;/code&gt; rules, appending to &lt;code class=&quot;highlighter-rouge&quot;&gt;httpd.conf&lt;/code&gt; and watching the PageSpeed rank soar. I followed &lt;a href=&quot;http://kb.mediatemple.net/questions/1567/Compressing+web+pages+with+mod_deflate#dv&quot;&gt;(mt)’s knowledge base article on compressing web pages with mod_deflate&lt;/a&gt; to the letter, no luck - &lt;code class=&quot;highlighter-rouge&quot;&gt;Content-Encoding:gzip&lt;/code&gt; was no where to be found in my response headers.&lt;/p&gt;
+
+&lt;p&gt;Here’s the QA session that ensued:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Is &lt;code class=&quot;highlighter-rouge&quot;&gt;.htaccess&lt;/code&gt; negating whatever I just did?&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;No, even after removing the boilerplate compression rules, still nothing.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;What about removing (mt)’s content type rules and sticking with the &lt;code class=&quot;highlighter-rouge&quot;&gt;.htaccess&lt;/code&gt;?&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Nada.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;I remembered to restart apache, right?&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Once more for good measure… nope.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Are there separate apache configs for the Plesk vhosts overwriting &lt;code class=&quot;highlighter-rouge&quot;&gt;httpd.conf&lt;/code&gt;?&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Negative.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Google: “mediatemple dv mod_deflate not working”&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Aha, &lt;a href=&quot;https://forum.mediatemple.net/topic/6979-mod-deflate-only-working-on-files-1kb-anyone-help-locate-the-issue/#entry37335&quot;&gt;someone in the (mt) community forums&lt;/a&gt; mentioned “I’m willing to bet you’re running Nginx as a reverse proxy on your (dv) box.”&lt;/p&gt;
+
+&lt;p&gt;A quick peek into &lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/nginx/nginx.conf&lt;/code&gt; shows that not only are there ready-made gzip switches in place, they’ve been commented out.&lt;/p&gt;
+
+&lt;div class=&quot;language-nginx highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;#gzip on;
+#gzip_disable &quot;MSIE [1-6]\.(?!.*SV1)&quot;;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;After uncommenting and &lt;code class=&quot;highlighter-rouge&quot;&gt;service nginx restart&lt;/code&gt;ing, gzip compression was working… for &lt;em&gt;only for&lt;/em&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;index.html&lt;/code&gt;! js, css, etc were still missing the elusive &lt;code class=&quot;highlighter-rouge&quot;&gt;Content-Encoding:gzip&lt;/code&gt; header. Time to crack a second litre of whiskey.&lt;/p&gt;
+
+&lt;p&gt;My &lt;code class=&quot;highlighter-rouge&quot;&gt;mod_deflate&lt;/code&gt; rules included all the correct content types. I even added redundant declarations in both &lt;code class=&quot;highlighter-rouge&quot;&gt;httpd.conf&lt;/code&gt; and the indigenous &lt;code class=&quot;highlighter-rouge&quot;&gt;.htaccess&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-apache highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;nc&quot;&gt;AddOutputFilterByType&lt;/span&gt; DEFLATE application/atom+xml \
+                                  application/javascript \
+                                  application/json \
+                                  application/ld+json \
+                                  application/rss+xml \
+                                  application/vnd.ms-fontobject \
+                                  application/x-font-ttf \
+                                  application/x-web-app-manifest+json \
+                                  application/xhtml+xml \
+                                  application/xml \
+                                  font/opentype \
+                                  image/svg+xml \
+                                  image/x-icon \
+                                  text/css \
+                                  text/html \
+                                  text/plain \
+                                  text/x-component \
+                                  text/xml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;So, back to Google, wherein lies a &lt;a href=&quot;http://kickassability.com/apache-nginx-mod_deflate-gzip-compression-woes/&quot;&gt;kick ass post&lt;/a&gt; about the woes of compression on a Mediatemple DV, along with a more iterative solution:&lt;/p&gt;
+
+&lt;div class=&quot;language-nginx highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;k&quot;&gt;gzip&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;gzip_http_version&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;.1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;gzip_types&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;text/plain&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;text/html&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;text/css&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;text/javascript&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;application/x-javascript&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;text/xml&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;application/xml&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;application/xml&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;+rss&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;gzip&lt;/code&gt; was on, but nginx also controls which file types will be compressed. Ok, so just &lt;code class=&quot;highlighter-rouge&quot;&gt;service nginx restart&lt;/code&gt; right quick, pop back to dev tools, refresh… Huh? CSS is gzipped, and JS isn’t. So did I misspell &lt;code class=&quot;highlighter-rouge&quot;&gt;javacsritp&lt;/code&gt; in &lt;code class=&quot;highlighter-rouge&quot;&gt;nginx.conf&lt;/code&gt;? No, but as it turns out, if you check the response header of a .js file in any browser since the dark ages, the term is &lt;code class=&quot;highlighter-rouge&quot;&gt;Content-Type:text/javascript;&lt;/code&gt;, not &lt;code class=&quot;highlighter-rouge&quot;&gt;text/javascript&lt;/code&gt;. One more round of restart/refresh, and gzip goodness was fully functional.&lt;/p&gt;
+
+&lt;p&gt;So all those neglected sites on my DV are running pretty fast now, even despite the heinously slow internet speeds in Nepal, on par with a dial up modem that’s having a really good day.&lt;/p&gt;
+
+&lt;p&gt;If you’re thinking about hopping aboard the HTTP compression love boat, be sure to keep your packages safe from uncool browsers with &lt;code class=&quot;highlighter-rouge&quot;&gt;Vary: Accept-Encoding&lt;/code&gt;. MaxCDN has a &lt;a href=&quot;http://blog.maxcdn.com/accept-encoding-its-vary-important/&quot;&gt;nice write up&lt;/a&gt; on why it’s vary important.&lt;/p&gt;</content><author><name>Sean Henderson</name></author><category term="devops" /><category term="server" /><category term="web performance" /><category term="hosting" /><summary type="html">I’ve had this (mt) DV box for quite some time, mostly use it for staging, small WordPress gigs and running a qmail server that forwards mail elsewhere. It’s reliable, has lots of client-friendly features like Plesk, and can host a zillion websites. But it was always kinda slow, especially from the eastern hemisphere, and executing otherwise simple server admin stuff (like adding ssh keys) was always a bit perverted by the finicky complexities that come with Plesk. So, it wasn’t really my go-to for builds with serious production needs.</summary></entry><entry><title type="html">Compass One-Liner For Automating CSS Transitions</title><link href="/log/compass-one-liner-for-animating-responsive-transitions/" rel="alternate" type="text/html" title="Compass One-Liner For Automating CSS Transitions" /><published>2013-06-12T09:55:23-07:00</published><updated>2013-06-12T09:55:23-07:00</updated><id>/log/compass-one-liner-for-animating-responsive-transitions</id><content type="html" xml:base="/log/compass-one-liner-for-animating-responsive-transitions/">&lt;p&gt;Here’s a magnificently eloquent compass mixin that will work CSS3 transition magic on all elements in one fell swoop:&lt;/p&gt;
+
+&lt;div class=&quot;language-scss highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;@include&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;single-transition&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;all&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ease-out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;how-it-works&quot;&gt;How It Works&lt;/h2&gt;
+
+&lt;p&gt;If you’re not familiar, &lt;a href=&quot;http://compass-style.org/&quot;&gt;read all about the compass sass framework here&lt;/a&gt;. Also make sure you &lt;code class=&quot;highlighter-rouge&quot;&gt;@import 'compass/css3/transition'&lt;/code&gt; once sass/compass are up and running.&lt;/p&gt;
+
+&lt;p&gt;The code above actually outputs 5 lines when all is said and done, but this is CSS, so let’s not &lt;a href=&quot;http://coding.smashingmagazine.com/2011/11/11/our-pointless-pursuit-of-semantic-value/&quot;&gt;argue&lt;/a&gt; &lt;a href=&quot;http://alistapart.com/article/semanticsinhtml5&quot;&gt;semantics&lt;/a&gt;, ).&lt;/p&gt;
+
+&lt;div class=&quot;language-scss highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;-webkit-transition&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;all&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;.3s&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ease-in-out&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;.1s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;-moz-transition&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;all&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;.3s&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ease-in-out&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;.1s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;nl&quot;&gt;transition&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;all&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;.3s&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ease-in-out&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;.1s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This code says “Apply a transition to all CSS properties of elements &lt;code class=&quot;highlighter-rouge&quot;&gt;*&lt;/code&gt; (all of them) for a duration of .3 seconds, and wait .1 seconds to start the party.” That’s all there is to it! Now your other developer friends will get a nice flashy surprise when they resize your site right and left to spy on your responsive design skills; plus, the casual visitor who happens to resize just because they need the screen real estate might be impressed as well. They’ll probably even think you spent time writing out all the vendor, and if they’re more observant than most they might not help but imagine how you painstakingly matched up all the timings. Victory is yours.&lt;/p&gt;
+
+&lt;h2 id=&quot;but-wait-theres-more&quot;&gt;But Wait, There’s More!&lt;/h2&gt;
+
+&lt;p&gt;First off, I personally prefer the &lt;a href=&quot;http://sass-lang.com/docs/yardoc/file.INDENTED_SYNTAX.html&quot;&gt;sass indented syntax&lt;/a&gt;, which ends up being 2 lines. Typing less is worth the vertical bloat, in my opinion. So here’s the same code, properly indented in in .sass format:&lt;/p&gt;
+
+&lt;div class=&quot;language-sass highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;
+  &lt;span class=&quot;nd&quot;&gt;+single-transition&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;all&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ease-out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now that you’re hip to the indention, let’s take things a step further with &lt;code class=&quot;highlighter-rouge&quot;&gt;:hover&lt;/code&gt; effects, in 2 lines:&lt;/p&gt;
+
+&lt;div class=&quot;language-sass highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;*,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;:hover&lt;/span&gt;
+  &lt;span class=&quot;nd&quot;&gt;+single-transition&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;all&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;.3s&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ease-in-out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;.1s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Here we keep the original global transition, but add the &lt;code class=&quot;highlighter-rouge&quot;&gt;:hover&lt;/code&gt; pseudo class as an adjacent group selector. Now hover effects of all elements receive matching transition animation. On first glance it may look like you painstakingly matched up dozens of lines of CSS animation to get all the timing and effects to match up. Probably even on second glance. Woot.&lt;/p&gt;</content><author><name>Sean Henderson</name></author><category term="sass" /><category term="design" /><category term="css" /><summary type="html">Here’s a magnificently eloquent compass mixin that will work CSS3 transition magic on all elements in one fell swoop:</summary></entry><entry><title type="html">iPhone 5 Home Screen</title><link href="/log/iphone-5-home-screen/" rel="alternate" type="text/html" title="iPhone 5 Home Screen" /><published>2013-06-06T18:13:00-07:00</published><updated>2013-06-06T18:13:00-07:00</updated><id>/log/iphone-5-home-screen</id><content type="html" xml:base="/log/iphone-5-home-screen/">&lt;p&gt;Picked up the 5 recently. Here’s what I did with the extra row of apps:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;&quot; data-src=&quot;/assets/images/2013-06-07-01.11.32.png&quot; alt=&quot;an iphone's home screen full of apps&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The re-arrange game is great entertainment when you have 1 bar and a weak public wifi signal.&lt;/p&gt;</content><author><name>Sean Henderson</name></author><category term="iOS" /><category term="Apple" /><category term="mobile" /><category term="home screens" /><summary type="html">Picked up the 5 recently. Here’s what I did with the extra row of apps:</summary></entry><entry><title type="html">The Desktop Text Editor You’ve Been Missing</title><link href="/log/paper-the-desktop-text-edit-you've-been-missing/" rel="alternate" type="text/html" title="The Desktop Text Editor You've Been Missing" /><published>2013-05-22T15:44:09-07:00</published><updated>2013-05-22T15:44:09-07:00</updated><id>/log/paper---the-desktop-text-edit-you've-been-missing</id><content type="html" xml:base="/log/paper-the-desktop-text-edit-you've-been-missing/">&lt;p&gt;Paper.&lt;/p&gt;
+
+&lt;p&gt;I occasionally have this idealistic daydream where my workspace is a single computer on an large empty desk, in a white room with no other furniture or discernible features. Just empty space.&lt;/p&gt;
+
+&lt;p&gt;One key aspect of this dream is the 100% lack of paper and writing paraphernalia.&lt;/p&gt;
+
+&lt;p&gt;In almost every context of life I avoid paper like the plague (except cash and books).&lt;/p&gt;
+
+&lt;p&gt;The amount of web available to browse is &lt;a href=&quot;http://en.wikipedia.org/wiki/Metric_expansion_of_space&quot;&gt;constantly expanding&lt;/a&gt;.  The initial benefit of rapid access to organized information often spirals into an infinite loop of researching without implementation, without decision. All that researching may end up draining the creative juices that originally caused you to initiate the project, and result in procrastination. Procrastination is one of the leading causes for premature death of revolutionary web applications.&lt;/p&gt;
+
+&lt;p&gt;But can’t you just type stuff into a text editor instead?&lt;/p&gt;
+
+&lt;p&gt;Yeah, sure. Here’s the steps involved, since you’re asking:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Pick a text editor (you probably have more than one, and use them all for different things.&lt;/li&gt;
+  &lt;li&gt;If you don’t have it open, start the application; otherwise, switch to it.&lt;/li&gt;
+  &lt;li&gt;Create new tab/window&lt;/li&gt;
+  &lt;li&gt;Save as, select a location for the file and type out a name.&lt;/li&gt;
+  &lt;li&gt;Type your notes. Pick a method of headline identification, add formatting like indented lists and asterisks for emphasized text, and brackets for links.&lt;/li&gt;
+  &lt;li&gt;Start writing. Maybe you’re a pro and have a nice shiny markdown editor app installed with super productive keyboard shortcuts. Ok what was ordered list again? Cmd+L? No that’s unordered, it’s Cmd+Alt+L. Cool now bold the headline with Cmd+B - oh wait, just use a headline indication that will bold it automatically (Cmd+Z, Cmd+1). I wonder what other themes there are on this app, the new version just came out - don’t worry there’s a shortcut for prefs: Cmd+, that will take us there in no time. Etc, etc.&lt;/li&gt;
+  &lt;li&gt;Keep the text editor window with your note handy somewhere in your GUI. Make sure to keep the Alt+Tab sequence in your working memory, or maybe assign a hot key. There are some great articles on Google about using the services menu to assign your own custom keyboard shortcuts to any application.&lt;/li&gt;
+  &lt;li&gt;Now eventually you’ve got to close the window, but don’t worry. Next time you need to info just open it up from the file browser. What did you name it again? Hmm… Maybe check that recent document list in your OS… Or the recent list in the text editor… Cool there it is.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Yes, this is a gross dramatization, and technically none of this is a problem if you’re perfectly focused. But for most of us ADHD folks who build the web without the aid of performance enhancing prescription drugs, these distractions happen. A lot. Computers perform textual operations quickly with virtually no effort, meaning each micro formatting change or interlude or visit to the preferences pane doesn’t seem to take much time - so why not do it? Unfortunately, these micro actions add up fast, and constantly break our concentration. Paper, on the other hand, doesn’t have a settings pane, or copy/paste/delete. It doesn’t even have &lt;a href=&quot;http://smilesoftware.com/TextExpander/index.html&quot;&gt;Text Expander&lt;/a&gt; or syntax highlighting. And it requires more work to write. So make it count - clear and concise, efficient.&lt;/p&gt;
+
+&lt;p&gt;Now, if you’re interested in working a new text editor into your development stack, here’s a potential workflow for paper note taking:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Keep a pen and notebook open at your desk, next to your keyboard.&lt;/li&gt;
+  &lt;li&gt;Write stuff down, from time to time. Examples:
+    &lt;ul&gt;
+      &lt;li&gt;Something to do soon&lt;/li&gt;
+      &lt;li&gt;An outline of something you’re working on.&lt;/li&gt;
+      &lt;li&gt;Pro’s VS. Con’s of something important.&lt;/li&gt;
+      &lt;li&gt;Ideas that pop into your head while you’re doing something that needs to be finished.&lt;/li&gt;
+      &lt;li&gt;Fun doodles and drawings, maybe whilst waiting for thine loading bar.&lt;/li&gt;
+      &lt;li&gt;Etc.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;If you’ve been out of high school long enough and mostly use a keyboard, this will feel very award at first. No pain no gain.&lt;/p&gt;</content><author><name>Sean Henderson</name></author><category term="workflow" /><category term="productivity" /><category term="opinion" /><summary type="html">Paper.</summary></entry><entry><title type="html">Getting Started With The Plesk CLI - A Crash Course</title><link href="/log/Plesk-CLI/" rel="alternate" type="text/html" title="Getting Started With The Plesk CLI - A Crash Course" /><published>2012-05-16T09:24:45-07:00</published><updated>2012-05-16T09:24:45-07:00</updated><id>/log/Plesk-CLI</id><content type="html" xml:base="/log/Plesk-CLI/">&lt;p&gt;My main reference for this article is the &lt;a href=&quot;http://download1.parallels.com/Plesk/PP10/10.4/Doc/en-US/online/plesk-unix-cli/&quot; title=&quot;Plesk Command Line Reference (Linux)&quot;&gt;Plesk Command Line Reference (Linux)&lt;/a&gt; direct from the &lt;a href=&quot;http://www.parallels.com/products/plesk/documentation/&quot; title=&quot;Parallels Plesk Documentation&quot;&gt;Parallels Plesk Documentation Page&lt;/a&gt;. Much thanks to the folks at &lt;a href=&quot;http://mediatemple.net&quot; title=&quot;Media Temple Hosting Services&quot;&gt;Media Temple&lt;/a&gt; for passing on these links!&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Before diving in, make sure you have your affairs in order:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;You have a web server, right?&lt;/li&gt;
+  &lt;li&gt;Root access to your server via SSH (&lt;a href=&quot;http://en.wikipedia.org/wiki/Superuser&quot; title=&quot;Wikipedia: The Unix Superuser&quot;&gt;Learn More&lt;/a&gt;)&lt;/li&gt;
+  &lt;li&gt;You are using &lt;a href=&quot;http://www.parallels.com/products/plesk/&quot; title=&quot;Plesk on the Parallels Website&quot;&gt;Parallels Plesk Panel&lt;/a&gt; 10.4 (not &lt;a href=&quot;http://www.cpanel.net/&quot; title=&quot;Cpanel Home Page&quot;&gt;Cpanel&lt;/a&gt; or anything else).&lt;/li&gt;
+  &lt;li&gt;A general understanding of &lt;a href=&quot;http://freeengineer.org/learnUNIXin10minutes.html&quot; title=&quot;Learn Unix In 10 Minutes&quot;&gt;Unix Bash commands&lt;/a&gt; and working giant screens full of text.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If this sounds like you, keep reading. Now some bullets about the author:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;My Setup:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Media Temple (dv) Dedicated-Virtual 4.0&lt;/li&gt;
+  &lt;li&gt;Parallels Plesk Panel v10.4.4_build1013111102.18&lt;/li&gt;
+  &lt;li&gt;CentOS 5 on Linux 2.6.18-028stab099.3&lt;/li&gt;
+  &lt;li&gt;&lt;abbr title=&quot;Secure Shell&quot;&gt;SSH&lt;/abbr&gt;, iTerm.app on OSX&lt;/li&gt;
+  &lt;li&gt;A big comfy arm chair in a quiet room.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;If you are using a different version of Plesk&lt;/strong&gt;, the official documentation should have extensive notes about the difference between versions. I imagine much of it is about the same though, if you’re anywhere near version 10.4.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;For Windows users&lt;/strong&gt;, the commands should be the same so long as you are piped in via &lt;abbr title=&quot;Secure Shell&quot;&gt;SSH&lt;/abbr&gt; using a Unix Bash emulator of some sort. I hear the names &lt;a href=&quot;http://www.cygwin.com/&quot; title=&quot;Cygwin Project Home Page&quot;&gt;Cygwin&lt;/a&gt; and &lt;a href=&quot;http://www.putty.org/&quot; title=&quot;PuTTY Project Home Page&quot;&gt;PuTTY&lt;/a&gt; quite often….&lt;/p&gt;
+
+&lt;h2 id=&quot;getting-started&quot;&gt;Getting Started&lt;/h2&gt;
+
+&lt;p&gt;Enough with the formalities. Let’s bash it up.&lt;/p&gt;
+
+&lt;p&gt;All Plesk utilities are located in the &lt;code class=&quot;highlighter-rouge&quot;&gt;psa&lt;/code&gt; directory on your machine. For me, that’s&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/usr/local/psa/bin/&amp;lt;UTILITY&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;To get a quick snapshot of what’s available, take a peek at the directory contents.&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;ls&lt;/span&gt; /usr/local/psa/bin/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;To execute any command, simply navigate to it and enter the instructions. It looks something like this:&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/usr/local/psa/bin/&amp;lt;UTILITY&amp;gt; &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt;&amp;lt;COMMAND&amp;gt; -&amp;lt;OPTION1&amp;gt; &amp;lt;PARAM&amp;gt; -&amp;lt;COMMAND2&amp;gt; &amp;lt;PARAM&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;For all the utilities I’ve bothered to investigate, these are the most common commands.&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;--create&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;--add&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;--update&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;--info&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;--help&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;--delete&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;--remove&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;These functions have corresponding short forms for those of you with lazy fingers and/or tiny screens:&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt;    &lt;span class=&quot;c&quot;&gt;# same as --create&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-a&lt;/span&gt;    &lt;span class=&quot;c&quot;&gt;# same as --add&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-u&lt;/span&gt;    &lt;span class=&quot;c&quot;&gt;# same as --update&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt;    &lt;span class=&quot;c&quot;&gt;# same as --info&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-h&lt;/span&gt;    &lt;span class=&quot;c&quot;&gt;# same as --help&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt;    &lt;span class=&quot;c&quot;&gt;# same as --delete&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt;    &lt;span class=&quot;c&quot;&gt;# same as --remove&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;So if you’re into the whole brevity thing, just &lt;code class=&quot;highlighter-rouge&quot;&gt;cd&lt;/code&gt; into &lt;code class=&quot;highlighter-rouge&quot;&gt;/usr/local/psa/bin/&lt;/code&gt; and start with &lt;code class=&quot;highlighter-rouge&quot;&gt;./&lt;/code&gt; followed by the utility name, then the short form of the command, and enter your instructions. Here’s what it looks like:&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /usr/local/psa/bin/
+./UtilityName &lt;span class=&quot;nt&quot;&gt;-x&lt;/span&gt; -&amp;lt;OPTION1&amp;gt; &amp;lt;PARAM&amp;gt; -&amp;lt;COMMAND2&amp;gt; &amp;lt;PARAM&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;It would be great if there was a consistent convention for &lt;code class=&quot;highlighter-rouge&quot;&gt;--create&lt;/code&gt; vs &lt;code class=&quot;highlighter-rouge&quot;&gt;--add&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;--delete&lt;/code&gt; vs &lt;code class=&quot;highlighter-rouge&quot;&gt;--remove&lt;/code&gt;, so be sure to scope the &lt;a href=&quot;http://download1.parallels.com/Plesk/PP10/10.4/Doc/en-US/online/plesk-unix-cli/index.htm?fileName=40984.htm&quot; title=&quot;Plesk Command Line Reference: Using Command Line Utilities&quot;&gt;Using Command Line Utilities&lt;/a&gt; section of the Parallels documentation and figure out exactly what command goes with a given utility. Looking at the big picture, though, I’m just stoked break away from using a browser-based &lt;abbr title=&quot;Graphical User Interface&quot;&gt;GUI&lt;/abbr&gt; for trivial server admin tasks. There are also plenty of utility-specific commands, so if you’re unsure or feel like something’s missing, you know where to look.&lt;/p&gt;
+
+&lt;h2 id=&quot;examples&quot;&gt;Examples&lt;/h2&gt;
+
+&lt;p&gt;We have arrived at the moment of truth. This is the part of the article where, in exchange for your hard work and dedication, you are rewarded with some plug &amp;amp; play examples to start things off nice and proper. I’ll assume you’ve &lt;code class=&quot;highlighter-rouge&quot;&gt;cd&lt;/code&gt;-ed into the appropriate directory by now. Let’s go:&lt;/p&gt;
+
+&lt;h3 id=&quot;admin-info&quot;&gt;Admin Info&lt;/h3&gt;
+
+&lt;p&gt;We’ll start off nice and easy. Type this to get info about the admin (you).&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./admin &lt;span class=&quot;nt&quot;&gt;--info&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Hey look, it’s like your Facebook profile, minus that embarrassing photo you were tagged in at that party. Neat!&lt;/p&gt;
+
+&lt;h3 id=&quot;php-settings&quot;&gt;PHP Settings&lt;/h3&gt;
+
+&lt;p&gt;Ok, now another easy one to get warmed up. To view PHP settings for a certain domain, type:&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./site &lt;span class=&quot;nt&quot;&gt;--show-php-settings&lt;/span&gt; example.com
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Zzzzzzz … OK, moving on….&lt;/p&gt;
+
+&lt;h3 id=&quot;managing-email-accounts&quot;&gt;Managing Email Accounts&lt;/h3&gt;
+
+&lt;p&gt;Here’s a hot topic: email boxes. Let’s make one:&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./mail &lt;span class=&quot;nt&quot;&gt;--create&lt;/span&gt; JDoe@example.com &lt;span class=&quot;nt&quot;&gt;-passwd&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'user pass'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-mbox_quota&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-1&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-mailbox&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This creates the account JDoe@example.com with password ‘user pass’ and sets the mailbox quota to whatever is the default. There is a “gotcha” with the create function: don’t forget to enter &lt;code class=&quot;highlighter-rouge&quot;&gt;-mailbox true&lt;/code&gt; or the account won’t be functional!&lt;/p&gt;
+
+&lt;p&gt;Now let’s say we want to change the password on the box we just created to something more secure…&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./mail &lt;span class=&quot;nt&quot;&gt;--update&lt;/span&gt; JDoe@example.com &lt;span class=&quot;nt&quot;&gt;-passwd&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'som3thingm0res3cure'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Or change the email address to John’s full name…&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./mail &lt;span class=&quot;nt&quot;&gt;--rename&lt;/span&gt; JDoe@example.com &lt;span class=&quot;nt&quot;&gt;-new&lt;/span&gt; JohnDoe
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Just in case of any confusion, let’s cover our bases with some aliases!&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./mail &lt;span class=&quot;nt&quot;&gt;--update&lt;/span&gt; JohnDoe@example.com &lt;span class=&quot;nt&quot;&gt;-aliases&lt;/span&gt; add:JohnathanDoe,JDoe,JDizzle
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Logging in to webmail and setting up imap can be a pain, so let’s forward John’s email to his gmail account.&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./mail &lt;span class=&quot;nt&quot;&gt;--update&lt;/span&gt; JohnDoe@example.com &lt;span class=&quot;nt&quot;&gt;-forwarding&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-forwarding-addresses&lt;/span&gt; add:jdiesel123zle@gmail.com
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If John is on vacation, just set up an auto-responder with the &lt;code class=&quot;highlighter-rouge&quot;&gt;autoresponder&lt;/code&gt; utility.&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./autoresponder &lt;span class=&quot;nt&quot;&gt;--update&lt;/span&gt; bbvacation &lt;span class=&quot;nt&quot;&gt;-mail&lt;/span&gt; JohnDoe@example.com &lt;span class=&quot;nt&quot;&gt;-subject&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;I'm in Bora Bora!&quot;&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;```&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-text&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;I won't be checking email until January 1. For urgent matters, please call at 555-555-5555 and leave a message.&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-status&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;When John gets back, update the &lt;code class=&quot;highlighter-rouge&quot;&gt;-status&lt;/code&gt; parameter to turn off the “bbvacation” auto-responder.&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./autoresponder &lt;span class=&quot;nt&quot;&gt;--update&lt;/span&gt; bbvacation &lt;span class=&quot;nt&quot;&gt;-mail&lt;/span&gt; JohnDoe@example.com &lt;span class=&quot;nt&quot;&gt;-status&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;ftp-users&quot;&gt;FTP Users&lt;/h3&gt;
+
+&lt;p&gt;Another must-have. To make an additional FTP account, use the &lt;code class=&quot;highlighter-rouge&quot;&gt;ftpsubaccount&lt;/code&gt; utility like so:&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./ftpsubaccount &lt;span class=&quot;nt&quot;&gt;--create&lt;/span&gt; JohnDoe &lt;span class=&quot;nt&quot;&gt;-passwd&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'userpass'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-domain&lt;/span&gt; example.com
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now user JohnDoe can login via FTP and access the main site directory for example.com (but nothing higher up or adjacent). To lock the JDow down to a specific directory within, run &lt;code class=&quot;highlighter-rouge&quot;&gt;--update&lt;/code&gt; and pass the &lt;code class=&quot;highlighter-rouge&quot;&gt;-home&lt;/code&gt; option and a directory path relative to the site root (not your server root):&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./ftpsubaccount &lt;span class=&quot;nt&quot;&gt;--update&lt;/span&gt; JohnDoe &lt;span class=&quot;nt&quot;&gt;-home&lt;/span&gt; directory/path/here
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;databases&quot;&gt;Databases&lt;/h3&gt;
+
+&lt;p&gt;Here’s one of my personal favorites. When I need to create a database, that usually means I’m building out a new CMS-based site, and don’t want to be distracted. Stopping everything to open Plesk, log in, navigate to the “Database” section, and fill out the forms required to create the a db and add users is not conducive to development eudæmonia. Plus there’s just something stereotypically satisfying about creating a database from a command prompt. Let’s make a MySQL database called “example_db” on example.com and print its ID upon completion.&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./database &lt;span class=&quot;nt&quot;&gt;--create&lt;/span&gt; example_db &lt;span class=&quot;nt&quot;&gt;-type&lt;/span&gt; mysql &lt;span class=&quot;nt&quot;&gt;-domain&lt;/span&gt; example.com &lt;span class=&quot;nt&quot;&gt;-print-id&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Warning: Make sure the &lt;code class=&quot;highlighter-rouge&quot;&gt;-domain&lt;/code&gt; is a primary domain for one of your subscriptions. You can’t use just any domain from your account.&lt;/p&gt;
+
+&lt;p&gt;Now, what good is a database without a user? Let’s give JDoe access.&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./database &lt;span class=&quot;nt&quot;&gt;--update&lt;/span&gt; example_db &lt;span class=&quot;nt&quot;&gt;-add_user&lt;/span&gt; JDoe &lt;span class=&quot;nt&quot;&gt;-passwd&lt;/span&gt; samplepass
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And don’t forget Jane, the out-of-office developer on 219.11.43.178.&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./database &lt;span class=&quot;nt&quot;&gt;--update&lt;/span&gt; example_db &lt;span class=&quot;nt&quot;&gt;-add_user&lt;/span&gt; Jane &lt;span class=&quot;nt&quot;&gt;-passwd&lt;/span&gt; samplepass
+./database &lt;span class=&quot;nt&quot;&gt;--update&lt;/span&gt; example_db &lt;span class=&quot;nt&quot;&gt;-update_user&lt;/span&gt; Jane &lt;span class=&quot;nt&quot;&gt;-passwd&lt;/span&gt; samplepass &lt;span class=&quot;nt&quot;&gt;-add-access&lt;/span&gt; 219.11.43.178
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Uh-oh - Jane went rogue. Let’s revoke that remote access ASAP, then remove her user account.&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./database &lt;span class=&quot;nt&quot;&gt;--update&lt;/span&gt; example_db &lt;span class=&quot;nt&quot;&gt;-update_user&lt;/span&gt; Jane &lt;span class=&quot;nt&quot;&gt;-passwd&lt;/span&gt; samplepass &lt;span class=&quot;nt&quot;&gt;-remove-access&lt;/span&gt; 192.0.2.78
+./database &lt;span class=&quot;nt&quot;&gt;--update&lt;/span&gt; example_db &lt;span class=&quot;nt&quot;&gt;-remove_user&lt;/span&gt; Jane
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;subscriptions-users--sites&quot;&gt;Subscriptions, Users, &amp;amp; Sites&lt;/h3&gt;
+
+&lt;p&gt;In Plesk, “subscription” refers to and individual “power panel” (admin panel, control panel, et al) that is granted only enough access to administer certain domains and related tasks. Subscriptions come with a separate user and login credentials, and are owned by another user (usually you, the main server admin).&lt;/p&gt;
+
+&lt;p&gt;For a benevolent serving of data on Plesk subscriptions, check out this &lt;a href=&quot;http://kb.mediatemple.net/questions/1901/Plesk+users+explained#all/subscription&quot; title=&quot;Media Temple: Plesk Users Explained&quot;&gt;Media Temple Knowledge Base article.&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;To start a new subscription based on the domain example.com with the service plan “Unlimited” with a login of “subadmin_name”, run this command:&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./subscription &lt;span class=&quot;nt&quot;&gt;--create&lt;/span&gt; example.com &lt;span class=&quot;nt&quot;&gt;-owner&lt;/span&gt; admin &lt;span class=&quot;nt&quot;&gt;-service-plan&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Unlimited&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-ip&lt;/span&gt; 216.70.84.196 &lt;span class=&quot;nt&quot;&gt;-login&lt;/span&gt; subadmin_name &lt;span class=&quot;nt&quot;&gt;-passwd&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'userpass'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;To add another domain to the example.com subscription, use the &lt;code class=&quot;highlighter-rouge&quot;&gt;site&lt;/code&gt; utility.&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./site &lt;span class=&quot;nt&quot;&gt;--create&lt;/span&gt; anotherdomain.com &lt;span class=&quot;nt&quot;&gt;-webspace-name&lt;/span&gt; example.com &lt;span class=&quot;nt&quot;&gt;-hosting&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;To add example.net with the “standard forwarding” hosting type, redirecting all traffic to example.com, pass the &lt;code class=&quot;highlighter-rouge&quot;&gt;-hst_type&lt;/code&gt; option when you create the site.&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./site &lt;span class=&quot;nt&quot;&gt;--create&lt;/span&gt; example.net &lt;span class=&quot;nt&quot;&gt;-webspace-name&lt;/span&gt; example.com &lt;span class=&quot;nt&quot;&gt;-hosting&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-hst_type&lt;/span&gt; std &lt;span class=&quot;nt&quot;&gt;-target_url&lt;/span&gt; example.com
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;To create a user account for webmaster Mary, who will manage websites of JDoe:&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./user &lt;span class=&quot;nt&quot;&gt;--create&lt;/span&gt; mary@example.com &lt;span class=&quot;nt&quot;&gt;-owner&lt;/span&gt; JDoe &lt;span class=&quot;nt&quot;&gt;-passwd&lt;/span&gt; sample &lt;span class=&quot;nt&quot;&gt;-cname&lt;/span&gt; Mary &lt;span class=&quot;nt&quot;&gt;-role&lt;/span&gt; webmaster
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;other-utilities&quot;&gt;Other Utilities&lt;/h2&gt;
+
+&lt;p&gt;With your newfound expertise in Linux server administration, I’ll leave you with some other choice utilities to get the administrative juices flowing.&lt;/p&gt;
+
+&lt;h3 id=&quot;subdomains&quot;&gt;Subdomains&lt;/h3&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/usr/local/psa/bin/subdomain
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Add Subdomain&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;--create&lt;/span&gt; NAME &lt;span class=&quot;nt&quot;&gt;-domain&lt;/span&gt; example.com &lt;span class=&quot;nt&quot;&gt;-hard_quota&lt;/span&gt; 1G &lt;span class=&quot;nt&quot;&gt;-ssi&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-php&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-ssl&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-cgi&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-fastcgi&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-perl&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-asp&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-python&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-coldfusion&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Update Subdomain&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;--update&lt;/span&gt; NAME &lt;span class=&quot;nt&quot;&gt;-domain&lt;/span&gt; example.com &lt;span class=&quot;nt&quot;&gt;-hard_quota&lt;/span&gt; 1G &lt;span class=&quot;nt&quot;&gt;-ssi&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-php&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-ssl&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-cgi&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-fastcgi&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-perl&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-asp&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-python&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-coldfusion&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Rename Subdomain&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;--update&lt;/span&gt; NAME &lt;span class=&quot;nt&quot;&gt;-domain&lt;/span&gt; example.com &lt;span class=&quot;nt&quot;&gt;-new_name&lt;/span&gt; forum
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Remove Subdomain(s)&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;--remove&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-subdomains&lt;/span&gt; NAME1,NAME2 &lt;span class=&quot;nt&quot;&gt;-domain&lt;/span&gt; example.com
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;domain-aliases&quot;&gt;Domain Aliases&lt;/h3&gt;
+
+&lt;p&gt;This nifty little utility allows you redirect both web and mail service from the alias domain to the hosted domain.&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./domalias &lt;span class=&quot;nt&quot;&gt;--create&lt;/span&gt; examplealias.net &lt;span class=&quot;nt&quot;&gt;-domain&lt;/span&gt; example.com &lt;span class=&quot;nt&quot;&gt;-status&lt;/span&gt; enabled &lt;span class=&quot;nt&quot;&gt;-mail&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;With this configuration, any visitors to examplealias.net will be redirected to example.com, and any mail sent to mailbox@examplealias.net will be forwarded to mailbox@example.com, if it exists on the hosted domain.&lt;/p&gt;
+
+&lt;h3 id=&quot;directory-protection&quot;&gt;Directory Protection&lt;/h3&gt;
+
+&lt;p&gt;Here’s another utility that seems made for the command line. Need to protect a directory real quick? Use the &lt;code class=&quot;highlighter-rouge&quot;&gt;protdir&lt;/code&gt; utility.&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./protdir &lt;span class=&quot;nt&quot;&gt;--create&lt;/span&gt; Protected_Dir &lt;span class=&quot;nt&quot;&gt;-domain&lt;/span&gt; example.com &lt;span class=&quot;nt&quot;&gt;-add_user&lt;/span&gt; JDoe &lt;span class=&quot;nt&quot;&gt;-passwd&lt;/span&gt; userpass &lt;span class=&quot;nt&quot;&gt;-type&lt;/span&gt; cgi
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Use a &lt;code class=&quot;highlighter-rouge&quot;&gt;-type&lt;/code&gt; parameter of ‘nonssl’, or ‘ssl’ for site-level security, or a use ‘cgi’ for root-level security.&lt;/p&gt;
+
+&lt;p&gt;There are also a bunch of utilities I haven’t listed, including a lot related to the business/reselling tools included in Plesk. If that’s your alley, be sure to read through the &lt;a href=&quot;http://download1.parallels.com/Plesk/PP10/10.4/Doc/en-US/online/plesk-unix-cli/index.htm?fileName=40984.htm&quot; title=&quot;Plesk Command Line Reference: Using Command Line Utilities&quot;&gt;Using Command Line Utilities&lt;/a&gt; section of the Plesk CLI docs and see what you can do.&lt;/p&gt;</content><author><name>Sean Henderson</name></author><category term="devops" /><category term="servers" /><category term="shell" /><category term="hosting" /><summary type="html">My main reference for this article is the Plesk Command Line Reference (Linux) direct from the Parallels Plesk Documentation Page. Much thanks to the folks at Media Temple for passing on these links!</summary></entry></feed>
