@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode | default "en-us" }}">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>{{ .Title }}</title>
+	{{ with .Site.Params.description }}<meta name="description" content="{{ . }}">{{ end }}
+	{{ with .Site.Params.author }}<meta name="author" content="{{ . }}">{{ end }}
+  <script>
+    // this is reversed in app.js. transition in inline styles
+    //document.querySelector('html').style.opacity = 0;
+  </script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  <link class="theme-variant" rel="stylesheet" title="Materialized Dark" href="{{ .Site.BaseURL }}assets/themes/materialized-dark.css" type="text/css">
+  <link class="theme-variant" rel="alternate stylesheet" title="Materialized Light" href="{{ .Site.BaseURL }}assets/themes/materialized-light.css" type="text/css">
+  <link class="theme-variant" rel="alternate stylesheet" title="High Contrast" href="{{ .Site.BaseURL }}assets/themes/high-contrast.css" type="text/css">
+  <link class="theme-variant" rel="alternate stylesheet" title="Palm" href="{{ .Site.BaseURL }}assets/themes/palm.css" type="text/css">
+	<link rel="stylesheet" href="{{ .Site.BaseURL }}css/style.css">
+	{{ if .RSSLink -}}<link href="{{ .RSSLink }}" rel="feed" type="application/rss+xml" title="{{ .Site.Title }}">{{- end }}
+	{{ .Hugo.Generator }}
+</head>
+<body>
+	<header>
+		<a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a>
+		<nav>
+			<ul>
+				{{ range .Site.Menus.main }}
+				<li><a href="{{ .URL | relURL }}">{{ .Name }}</a></li>
+				{{ end }}
+			</ul>
+		</nav>
+	</header>

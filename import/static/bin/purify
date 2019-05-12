@@ -1,7 +1,0 @@
-#!/bin/sh
-
-for path in _site/assets/themes/*.css; do
-  file=$(basename "$path")
-  echo "$file"
-  npx purifycss -i "$path" _site/assets/js/*.js _site/**/*.html -o _site/assets/"$file"
-done

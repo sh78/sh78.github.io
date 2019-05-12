@@ -1,3 +1,13 @@
 baseURL = "https://sean.sh/"
 languageCode = "en-us"
 title = "sean.sh"
+
+[params]
+    name = "Sean Henderson"
+    description = "Sean's website/weblog/web development happy place. Come on inside, hang your hat friend."
+    googleanalytics = "UA-33069541-1"
+    github = "sh78"
+    gitlab = "sh78"
+    stackoverflow = "users/2537500/sh78"
+    twitter = "seanmh78"
+    linkedin = "seanmhenderson"

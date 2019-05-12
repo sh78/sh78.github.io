@@ -1,10 +1,24 @@
-{{ partial "header.html" . }}
-	<main>
-		{{ $paginator := .Paginate (where .Data.Pages "Type" "post") }}
-		{{ range $paginator.Pages }}
-			{{ partial "summary.html" . }}
-		{{ end }}
-		{{ partial "pagination.html" . }}
-	</main>
-{{ partial "sidebar.html" . }}
-{{ partial "footer.html" . }}
+{{ define "main" }}
+<div class="blog container">
+  <div class="post-listing">
+    <h2 class="post-list-heading">{{ .Title }}</h2>
+    <div class="row fill-height">
+      {{ $paginator := .Paginate (where .Site.Pages "Type" "log") }}
+      {{ range $paginator.Pages }}
+        {{ partial "post-card.html" . }}
+          {{/* TODO: new row if even loop index
+          {%- assign the_index_even = forloop.index | modulo: 2 -%}
+          {%- if the_index_even == 0 -%}
+        </div>
+        <div class="row fill-height">
+          {%- endif -%}
+          */}}
+      {{ end }}
+    </div>
+  </div>
+
+  <div class="pagination">
+    {{ partial "pagination.html" . }}
+  </div>
+</div>
+{{ end }}

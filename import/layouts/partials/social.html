@@ -1,0 +1,56 @@
+<ul class="social-media-list">
+  {{ if isset .Site.Params "email" }}
+    <li>
+      <a href="mailto:{{ $.Site.Params.email }}">
+        <i class="fas fa-envelope fa-fw"><span class="sr-only">Email</span></i>
+        <span class="u-email">{{ $.Site.Params.email }}</span>
+      </a>
+    </li>
+  {{ end }}
+  <li>
+  {{ if isset .Site.Params "github" }}
+    <a href="https://github.com/{{ $.Site.Params.github }}">
+      <i class="fab fa-github fa-fw"><span class="sr-only">GitHub</span></i>
+      <span class="username">{{ $.Site.Params.github }}</span>
+    </a>
+  {{ end }}
+  {{ if isset .Site.Params "gitlab" }}
+    <a href="https://gitlab.com/{{ $.Site.Params.gitlab }}">
+      <i class="fab fa-gitlab fa-fw"><span class="sr-only">GitLab</span></i>
+      <span class="username">{{ $.Site.Params.gitlab }}</span>
+    </a>
+  {{ end }}
+  </li>
+  {{ if isset .Site.Params "stackoverflow" }}
+    <li>
+      <a href="https://stackoverflow.com/{{ $.Site.Params.stackoverflow }}">
+        <i class="fab fa-stack-overflow fa-fw"><span class="sr-only">StackOverflow</span></i>
+        <span class="username">sh78</span>
+      </a>
+    </li>
+  {{ end }}
+  {{ if isset .Site.Params "twitter" }}
+    <li>
+      <a href="https://twitter.com/{{ $.Site.Params.twitter }}">
+        <i class="fab fa-twitter fa-fw"><span class="sr-only">Twitter</span></i>
+        <span class="username">{{ $.Site.Params.twitter }}</span>
+      </a>
+    </li>
+  {{ end }}
+  {{ if isset .Site.Params "linkedin" }}
+    <li>
+      <a href="https://www.linkedin.com/in/{{ $.Site.Params.linkedin }}">
+        <i class="fab fa-linkedin fa-fw"><span class="sr-only">linkedin</span></i>
+        <span class="username">{{ $.Site.Params.linkedin }}</span>
+      </a>
+    </li>
+  {{ end }}
+
+	{{ if .RSSLink -}}
+    <li>
+      <a href="{{ .RSSLink }}">
+        <i class="fas fa-rss fa-fw"><span class="sr-only">rss</span></i>
+      </a>
+    </li>
+  {{- end }}
+</ul>
