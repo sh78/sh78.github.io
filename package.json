@@ -25,7 +25,7 @@
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "concurrently": "^3.5.1",
-    "jquery": "^3.3.1",
+    "jquery": "^3.5.0",
     "jquery-ias": "^2.3.1",
     "materialize-css": "^1.0.0-rc.1",
     "modernizr": "^3.6.0",
